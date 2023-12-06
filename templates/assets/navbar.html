@@ -1,0 +1,45 @@
+ <header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center">
+
+      <h1 class="logo me-auto"><a href="{% url 'home' %}">Comunique-se bem</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+          <li><a class="nav-link scrollto" href="#services">Serviços</a></li>
+          <li><a class="nav-link scrollto" href="#doctors">Dotor</a></li>
+	      <li><a class="nav-link scrollto" href="">Histórico médico</a></li>
+          <li><a class="nav-link scrollto" href="#contact">Contato</a></li>
+	      {% if user.is_authenticated %}
+		      <li class="dropdown"><a href="#"><span>Administração</span> <i class="bi bi-chevron-down"></i></a>
+	            <ul>
+		          <li><a href="#">Minha Conta</a></li>
+	              <li class="dropdown"><a href="#"><span>Gerenciamento</span> <i class="bi bi-chevron-right"></i></a>
+	                <ul>
+	                  <li><a href="#">Funcionários</a></li>
+	                  <li><a href="#">Clientes</a></li>
+	                </ul>
+	              </li>
+	              <li><a href="#">Ver agenda</a></li>
+	            </ul>
+	          </li>
+		      <li class="dropdown"><a href="#"><span>Conta</span> <i class="bi bi-chevron-down"></i></a>
+	            <ul>
+	              <li><a class="dropdown-item" href="{% url 'minha_conta' %}">{{ user.username }}</a></li>
+		          <li><a href="#">Mudar senha</a></li>
+		          <li><a class="dropdown-item" href="{% url 'logout' %}">Sair</a></li>
+	            </ul>
+	          </li>
+	        </ul>
+	    {% else %}
+		      <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+	    {% endif %}
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+      <a href="{% url 'marcar_consulta_cliente' %}" class="appointment-btn scrollto"><span class="d-none d-md-inline">Marcar</span> Consulta</a>
+
+    </div>
+  </header><!-- End Header -->

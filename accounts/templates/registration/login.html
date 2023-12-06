@@ -1,0 +1,61 @@
+{% extends 'assets/base.html' %}
+{% block content %}
+{% load bootstrap5 %}
+{% load static %}
+
+<div id="intro" class="bg-image shadow-2-strong overlay">
+
+  <div class="mask d-flex align-items-center h-100">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-xl-5 col-md-8">
+          <form class="bg-white rounded shadow-5-strong p-5" method="POST">
+            <h4 class="text-center mb-4">Login</h4>
+            {% if messages %}
+              <ul class="messages text-black">
+                {% for message in messages %}
+                  <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <input type="hidden" name="next" value="{{ next }}">
+            <div class="row mb-4">
+              <div class="col text-center">
+                {# <a href="{% url 'password_reset' %}">Esqueceu sua senha?</a> #}
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+            <a href="{% url 'register' %}" class="btn btn-link d-block mt-2">Faça seu registro</a>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  body {
+    background-color: #b7d4ff;
+  }
+
+  /* Adicionando estilos para tornar o formulário responsivo */
+
+
+  .btn-link {
+    text-decoration: none;
+    color: #007bff;
+  }
+
+  @media (max-width: 768px) {
+    .col-xl-5 {
+      max-width: 100%;
+    }
+  }
+</style>
+
+{% endblock %}

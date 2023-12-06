@@ -1,0 +1,41 @@
+{% extends 'assets/base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+{% block content %}
+<div class="mask d-flex align-items-center h-100">
+	<div class="col-md-6 col-lg-4 mx-auto">
+		<div class="col-12">
+
+		    <div class="text-center mb-4 titulo">
+			   <h4>Criar uma conta</h4>
+		    </div>
+
+		    {% if messages %}
+		        <ul class="messages">
+		            {% for message in messages %}
+		            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+		            {% endfor %}
+		        </ul>
+		    {% endif %}
+
+		    <form class="bg-white rounded-3 shadow p-5 form-teste" method="post">
+		        {% csrf_token %}
+		        {% bootstrap_form form %}
+
+		        <button type="submit" class="btn btn-primary btn-block mt-4">Registrar</button>
+		    </form>
+		</div>
+	</div>
+</div>
+
+<style>
+
+  body{
+	  background-color: #b7d4ff;
+  }
+  .mask{
+	  margin-bottom: 50px;
+	  margin-top: 150px;
+  }
+</style>
+{% endblock %}

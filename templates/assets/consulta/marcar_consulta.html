@@ -1,0 +1,103 @@
+{% extends 'assets/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <h1 class="mt-5 mb-4">Escolha o profissional com a área desejada</h1>
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card" onclick="selectProfessional('fonoaudiologia', this)">
+                <img src="{% static '/img/doctors/doctors-1.jpg' %}" class="card-img-top" alt="Fonoaudiologia 1">
+                <div class="card-body">
+                    <h5 class="card-title">Fonoaudiologia</h5>
+	                <p class="card-text">Dra. Sávio Santos</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card" onclick="selectProfessional('psicologia', this)">
+                <img src="{% static '/img/doctors/doctors-2.jpg' %}" class="card-img-top" alt="Psicologia 1">
+                <div class="card-body">
+                    <h5 class="card-title">Psicologia</h5>
+	                <p class="card-text">Dra. Maria Santos</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card" onclick="selectProfessional('fonoaudiologia', this)">
+                <img src="{% static '/img/doctors/doctors-3.jpg' %}" class="card-img-top" alt="Fonoaudiologia 2">
+                <div class="card-body">
+                    <h5 class="card-title">Fonoaudiologia</h5>
+	                <p class="card-text">Dra. Fernado Santos</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card" onclick="selectProfessional('psicologia', this)">
+                <img src="{% static '/img/doctors/doctors-4.jpg' %}" class="card-img-top" alt="Psicologia 2">
+                <div class="card-body">
+                    <h5 class="card-title">Psicologia</h5>
+	                <p class="card-text">Dra. Carol Santos</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between">
+        <a class="btn btn-secondary" id="voltar" href="{% url 'home' %}">Voltar</a>
+        <a class="btn btn-primary" id="nextButton" href="{% url 'home' %}" style="display: none;">Próximo</a>
+    </div>
+</div>
+
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+
+    h1 {
+        color: #333;
+        padding-top: 100px;
+	    padding-bottom: 50px;
+	    text-align: center;
+    }
+
+    .card {
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+    }
+
+    .btn {
+        margin-top: 10px;
+	    margin-bottom: 20px;
+    }
+
+    .selected {
+        border: 2px solid #007bff;
+    }
+</style>
+
+<script>
+    function selectProfessional(professionalType, element) {
+        var cards = document.querySelectorAll('.card');
+        cards.forEach(function (card) {
+            card.classList.remove('selected');
+        });
+
+        element.classList.add('selected');
+
+        document.getElementById('nextButton').style.display = 'block';
+    }
+</script>
+
+{% endblock %}
