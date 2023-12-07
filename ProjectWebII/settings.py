@@ -27,7 +27,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'agenda'
+    'agenda',
+    'bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -113,7 +114,7 @@ LOGIN_REDIRECT_URL = '/'  # Substitua 'home' pela URL desejada após o login
 LOGOUT_REDIRECT_URL = '/accounts/login'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'SpeakEase/static/')
+    os.path.join(BASE_DIR, 'ProjectWebII/static/')
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'templates/assets/')

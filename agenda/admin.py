@@ -1,5 +1,4 @@
 from django.contrib import admin
-from .models import Agenda, Horario
-# Register your models here.
-admin.site.register(Agenda)
+from .models import Horario
+
 admin.site.register(Horario)
