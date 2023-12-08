@@ -1,12 +1,13 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.forms import ModelForm
+
 class UserRegistrationForm(forms.ModelForm):
     password = forms.CharField(label='Senha', widget=forms.PasswordInput)
     confirm_password = forms.CharField(label='Confirmar Senha', widget=forms.PasswordInput)
     user_type = forms.ChoiceField(
         label='Você é:',
-        choices=[('paciente', 'Paciente'), ('profissional', 'Profissional')],
+        choices=[('cliente', 'Cliente'), ('profissional', 'Profissional')],
         widget=forms.RadioSelect
     )
 

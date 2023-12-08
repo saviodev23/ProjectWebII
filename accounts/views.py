@@ -10,7 +10,7 @@ def register(request):
         if form.is_valid():
             user = form.save()  # Salva o novo usuário
             user_type = form.cleaned_data.get('user_type')  # Supondo que você tenha um campo user_type no formulário
-            group_name = 'Profissional' if user_type == 'profissional' else 'Paciente'
+            group_name = 'Profissional' if user_type == 'profissional' else 'Cliente'
             group = Group.objects.get(name=group_name)  # Obtém o grupo correspondente
             user.groups.add(group)  # Adiciona o usuário ao grupo correspondente
             return redirect('login')  # Redireciona para a página de login após o registro bem-sucedido
