@@ -40,11 +40,14 @@ class Agenda(models.Model):
     servico = models.ManyToManyField(Servico, related_name='agendas')
     dia = models.DateField(help_text="Insira uma data para agenda", validators=[validar_dia])
     horario = models.CharField(max_length=1, choices=HORARIOS)
-    status = models.BooleanField()
+    status_agendamento = models.BooleanField()
 
     def __str__(self):
         return f'Agenda para {self.cliente.username} com {self.profissional.username}'
 
-class HistoricoAgenda(models.Model):
+class HistoricoAgendamento(models.Model):
     cliente = models.ForeignKey(User, on_delete=models.CASCADE)
-    data_agendamento = models.DateTimeField(auto_now_add=True)
+    data_agendamento = models.DateTimeField()
+
+    def __str__(self):
+        return f"{self.cliente.username} - {self.data_agendamento}"

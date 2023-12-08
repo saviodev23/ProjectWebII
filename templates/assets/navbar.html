@@ -1,45 +1,119 @@
- <header id="header" class="fixed-top">
-    <div class="container d-flex align-items-center">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="{% url 'home' %}">RentCars</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-      <h1 class="logo me-auto"><a href="{% url 'home' %}">Comunique-se bem</a></h1>
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      {% if user.is_authenticated %}
+	  <li class="nav-item">
+        <a class="nav-link" href="">Reservas</a>
+      </li>
+	  <li class="nav-item">
+        <a class="nav-link" href="">Fazer Reserva</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="">Lista de Reservas</a>
+      </li>
+      {% endif %}
+      <li class="nav-item active">
+        <a class="nav-link" href="">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="">Sobre</a>
+      </li>
+    </ul>
 
-      <nav id="navbar" class="navbar order-last order-lg-0">
-        <ul>
-          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-          <li><a class="nav-link scrollto" href="#services">Serviços</a></li>
-          <li><a class="nav-link scrollto" href="#doctors">Dotor</a></li>
-	      <li><a class="nav-link scrollto" href="">Histórico médico</a></li>
-          <li><a class="nav-link scrollto" href="#contact">Contato</a></li>
-	      {% if user.is_authenticated %}
-		      <li class="dropdown"><a href="#"><span>Administração</span> <i class="bi bi-chevron-down"></i></a>
-	            <ul>
-		          <li><a href="#">Minha Conta</a></li>
-	              <li class="dropdown"><a href="#"><span>Gerenciamento</span> <i class="bi bi-chevron-right"></i></a>
-	                <ul>
-	                  <li><a href="#">Funcionários</a></li>
-	                  <li><a href="#">Clientes</a></li>
-	                </ul>
-	              </li>
-	              <li><a href="#">Ver agenda</a></li>
-	            </ul>
-	          </li>
-		      <li class="dropdown"><a href="#"><span>Conta</span> <i class="bi bi-chevron-down"></i></a>
-	            <ul>
-	              <li><a class="dropdown-item" href="{% url 'minha_conta' %}">{{ user.username }}</a></li>
-		          <li><a href="#">Mudar senha</a></li>
-		          <li><a class="dropdown-item" href="{% url 'logout' %}">Sair</a></li>
-	            </ul>
-	          </li>
-	        </ul>
-	    {% else %}
-		      <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
-	    {% endif %}
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
+    {% if user.is_authenticated %}
+    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+          <li><a class="dropdown-item" href="">{{ user.username }}</a></li>
+          <li><hr class="dropdown-divider" /></li>
+          <li><a class="dropdown-item" href="">Adicionar Automóvel</a></li>
+          <li><a class="dropdown-item" href="">Adicionar Marca</a></li>
+          <li><a class="dropdown-item" href="">Adicionar Modelo</a></li>
+	      <li><a class="dropdown-item" href="{% url 'logout' %}">Sair</a></li>
+	{% else %}
+	      <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
 
-{#      <a href="{% url 'marcar_consulta_cliente' %}" class="appointment-btn scrollto"><span class="d-none d-md-inline">Marcar</span> Consulta</a>#}
+        </ul>
+      </li>
+    </ul>
+    {% endif %}
+  </div>
+</nav>
 
-    </div>
-  </header><!-- End Header -->
+<style>
+  .navbar {
+    background-color: #333;
+    padding: 10px 20px;
+  }
+
+  .navbar-brand {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .navbar-nav .nav-link {
+    font-size: 16px;
+    padding: 10px 15px;
+  }
+
+  .navbar-toggler {
+    border: none;
+    background: transparent;
+  }
+
+  .navbar-toggler-icon {
+    color: #fff;
+  }
+
+  .navbar-nav .dropdown-menu {
+    background-color: #333;
+    border: none;
+  }
+
+  .dropdown-item {
+    color: #fff;
+  }
+
+  .dropdown-item:hover {
+    background-color: #444;
+  }
+
+  .dropdown-divider {
+    background-color: #444;
+  }
+
+  .navbar-nav .dropdown-menu a {
+    padding: 10px 20px;
+  }
+
+  .navbar-nav .dropdown-menu a:hover {
+    background-color: #444;
+  }
+
+  .navbar-nav .dropdown-menu-end {
+    right: 0;
+    left: auto;
+  }
+
+
+  .navbar-nav.ms-auto {
+    align-items: center;
+  }
+
+  .fas.fa-user.fa-fw {
+    font-size: 24px;
+  }
+
+  /* Media query para ajustar tamanho da fonte nos ícones para telas menores */
+  @media (max-width: 767.98px) {
+    .fas.fa-user.fa-fw {
+      font-size: 20px;
+    }
+  }
+</style>

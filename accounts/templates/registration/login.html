@@ -14,22 +14,22 @@
             {% if messages %}
               <ul class="messages text-black">
                 {% for message in messages %}
-                  <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
                 {% endfor %}
               </ul>
             {% endif %}
 
             {% csrf_token %}
             {% bootstrap_form form %}
-            <input type="hidden" name="next" value="{{ next }}">
+	          <input type="hidden" name="next" value="{{ next }}">
             <div class="row mb-4">
               <div class="col text-center">
-                {# <a href="{% url 'password_reset' %}">Esqueceu sua senha?</a> #}
+{#                <a href="{% url 'password_reset' %}">Esqueceu sua senha?</a>#}
               </div>
             </div>
 
             <button type="submit" class="btn btn-primary btn-block">Entrar</button>
-            <a href="{% url 'register' %}" class="btn btn-link d-block mt-2">Faça seu registro</a>
+            <a href="{% url 'register' %}">Faça seu registro</a>
 
           </form>
         </div>
@@ -37,25 +37,10 @@
     </div>
   </div>
 </div>
+    <style>
+	  body {
+		background-color: #b7d4ff;
+	  }
 
-<style>
-  body {
-    background-color: #b7d4ff;
-  }
-
-  /* Adicionando estilos para tornar o formulário responsivo */
-
-
-  .btn-link {
-    text-decoration: none;
-    color: #007bff;
-  }
-
-  @media (max-width: 768px) {
-    .col-xl-5 {
-      max-width: 100%;
-    }
-  }
-</style>
-
+    </style>
 {% endblock %}
