@@ -29,4 +29,4 @@ Este é um projeto de sistema web desenvolvido em Django para gerenciar o agenda
 ### Funcionalidades Principais
 - Agendamento de horários pelo cliente.
 - Integração com o WhatsApp via chatbot para agendamento de horário.
-- Programa de fidelidade com descontos baseados no histórico de agendamentos do cliente.
+- Programa de fidelidade com descontos baseados no histórico de agendamentos.
