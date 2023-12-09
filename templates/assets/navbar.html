@@ -1,119 +1,55 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="{% url 'home' %}">RentCars</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-      {% if user.is_authenticated %}
-	  <li class="nav-item">
-        <a class="nav-link" href="">Reservas</a>
-      </li>
-	  <li class="nav-item">
-        <a class="nav-link" href="">Fazer Reserva</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="">Lista de Reservas</a>
-      </li>
-      {% endif %}
-      <li class="nav-item active">
-        <a class="nav-link" href="">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="">Sobre</a>
-      </li>
-    </ul>
-
-    {% if user.is_authenticated %}
-    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-          <li><a class="dropdown-item" href="">{{ user.username }}</a></li>
-          <li><hr class="dropdown-divider" /></li>
-          <li><a class="dropdown-item" href="">Adicionar Automóvel</a></li>
-          <li><a class="dropdown-item" href="">Adicionar Marca</a></li>
-          <li><a class="dropdown-item" href="">Adicionar Modelo</a></li>
-	      <li><a class="dropdown-item" href="{% url 'logout' %}">Sair</a></li>
-	{% else %}
-	      <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
-
-        </ul>
-      </li>
-    </ul>
-    {% endif %}
-  </div>
-</nav>
-
-<style>
-  .navbar {
-    background-color: #333;
-    padding: 10px 20px;
-  }
-
-  .navbar-brand {
-    font-size: 24px;
-    font-weight: bold;
-  }
-
-  .navbar-nav .nav-link {
-    font-size: 16px;
-    padding: 10px 15px;
-  }
-
-  .navbar-toggler {
-    border: none;
-    background: transparent;
-  }
-
-  .navbar-toggler-icon {
-    color: #fff;
-  }
-
-  .navbar-nav .dropdown-menu {
-    background-color: #333;
-    border: none;
-  }
-
-  .dropdown-item {
-    color: #fff;
-  }
-
-  .dropdown-item:hover {
-    background-color: #444;
-  }
-
-  .dropdown-divider {
-    background-color: #444;
-  }
-
-  .navbar-nav .dropdown-menu a {
-    padding: 10px 20px;
-  }
-
-  .navbar-nav .dropdown-menu a:hover {
-    background-color: #444;
-  }
-
-  .navbar-nav .dropdown-menu-end {
-    right: 0;
-    left: auto;
-  }
-
-
-  .navbar-nav.ms-auto {
-    align-items: center;
-  }
-
-  .fas.fa-user.fa-fw {
-    font-size: 24px;
-  }
-
-  /* Media query para ajustar tamanho da fonte nos ícones para telas menores */
-  @media (max-width: 767.98px) {
-    .fas.fa-user.fa-fw {
-      font-size: 20px;
-    }
-  }
-</style>
+{% load static %}
+<!-- header -->
+  <header>
+     <!-- header inner -->
+     <div class="header">
+        <div class="container">
+           <div class="row">
+              <div class="col-xl-5 col-lg-5 col-md-9 col-sm-9">
+                 <nav class="navigation navbar navbar-expand-md navbar-dark ">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarsExample04">
+                       <ul class="navbar-nav mr-auto">
+                          <li class="nav-item active">
+                             <a class="nav-link" href="index.html"> Home  </a>
+                          </li>
+                          <li class="nav-item">
+                             <a class="nav-link" href="#about">About</a>
+                          </li>
+                          <li class="nav-item">
+                             <a class="nav-link" href="#service">Service</a>
+                          </li>
+                          <li class="nav-item">
+                             <a class="nav-link" href="#customer">Customer</a>
+                          </li>
+                          <li class="nav-item">
+                             <a class="nav-link" href="#contact">Contact Us</a>
+                          </li>
+                       </ul>
+                    </div>
+                 </nav>
+              </div>
+              <div class="col-xl-2 col-lg-2 col-md-3 col-sm-3 col logo_section">
+                 <div class="full">
+                    <div class="center-desk">
+                       <div class="logo">
+                          <a href="index.html"><img src="{% static 'assets/images/logo.png' %}" alt="#" /></a>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+              <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5">
+                 <ul class="email">
+                    <li><a href="#">Call: (+71) 1234567890</a></li>
+                    <li><a href="#">Email: demo@gmail.com</a></li>
+                    <li><a href="#"><i class="fa fa-search" aria-hidden="true"></i></a></li>
+                 </ul>
+              </div>
+           </div>
+        </div>
+     </div>
+  </header>
+  <!-- end header inner -->
+  <!-- end header -->

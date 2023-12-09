@@ -1,35 +1,125 @@
-<footer class="bg-dark text-white py-5">
+{% load static %}
+<!--  contact -->
+      <div id="contact" class="contact">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="titlepage">
+                     <h2> <img src="{% static 'assets/images/head.png' %}" alt="#"/> Request <span class="white"> A call Back</span></h2>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+	            <div class="col-md-6">
+                  <form id="request" class="main_form">
+                     <div class="row">
+                        <div class="col-md-12 ">
+                           <input class="contactus" placeholder="Name" type="type" name="Name">
+                        </div>
+                        <div class="col-md-12">
+                           <input class="contactus" placeholder="Email" type="type" name="Email">
+                        </div>
+                        <div class="col-md-12">
+                           <input class="contactus" placeholder="Phone Number" type="type" name="Phone Number">
+                        </div>
+                        <div class="col-md-12">
+                           <textarea class="textarea" placeholder="Message" type="type" Message="Name">Message </textarea>
+                        </div>
+                        <div class="col-sm-col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                           <button class="send_btn">Send</button>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+
+               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                    <div class="map-responsive">
+                        <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&q=Eiffel+Tower+Guanambi+Brasil" width="600" height="432" frameborder="0" style="border:0; width: 100%;" allowfullscreen></iframe>
+                     </div>
+               </div>
+            </div>
+
+         </div>
+      </div>
+      <!-- end contact -->
+<!--  footer -->
+<footer id="contact">
+ <div class="footer">
     <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h5 class="mb-4">Informações de Contato</h5>
-                <p><i class="fas fa-phone me-2"></i>Telefone: (77) 1234-5678</p>
-                <p><i class="fas fa-envelope me-2"></i>Email: RentCars@gmail.com</p>
-                <p><i class="fas fa-map-marker-alt me-2"></i>Endereço: Rua Principal, 123 - Guanambi - Bahia</p>
-            </div>
-            <div class="col-md-6">
-                <h5 class="mb-4">Siga-nos nas Redes Sociais</h5>
-                <ul class="list-inline social-icons">
-                    <li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f fa-2x"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fab fa-twitter fa-2x"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fab fa-instagram fa-2x"></i></a></li>
-                </ul>
-            </div>
-        </div>
-        <hr class="my-4">
-        <div class="text-center">
-            <p class="mb-0">&copy; 2023 RentCars. Todos os direitos reservados.</p>
-        </div>
+       <div class="row">
+          <div class="col-md-8 offset-md-4">
+             <form class="bottom_form">
+                <h3>Newsletter</h3>
+                <input class="enter" placeholder="Enter your email" type="text" name="Enter your email">
+                <button class="sub_btn">subscribe</button>
+             </form>
+          </div>
+       </div>
+       <div class="row">
+          <div class="col-xl-6 col-md-12">
+             <div class="row">
+                <div class="col-md-7 padd_bottom">
+                   <div class="heading3">
+                      <a href="#"><img src="{% static 'assets/images/logo1.png' %}" alt="#"/></a>
+                      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros.Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros.</p>
+                   </div>
+                </div>
+                <div class="col-md-5 padd_bottom padd_bott">
+                   <div class="heading3">
+                      <h3>Contact Us</h3>
+                      <ul class="infometion">
+                         <li><a href="#">Donec odio. Quisque </a></li>
+                         <li><a href="#">volutpat mattis</a></li>
+                         <li><a href="#">eros.Lorem ipsum dolor</a></li>
+                         <li><a href="#">sit amet, consectetuer  </a></li>
+                         <li><a href="#">adipiscing elit. Donec  </a></li>
+                         <li><a href="#">odio. Quisque volutpat </a></li>
+                      </ul>
+                   </div>
+                </div>
+             </div>
+          </div>
+          <div class="col-xl-6 col-md-12">
+             <div class="row">
+                <div class="col-md-6 offset-md-1 padd_bottom">
+                   <div class="heading3">
+                      <h3>INFORMATION</h3>
+                      <ul class="infometion">
+                         <li><a href="#">Donec odio. Quisque </a></li>
+                         <li><a href="#">volutpat mattis</a></li>
+                         <li><a href="#">eros.Lorem ipsum dolor</a></li>
+                         <li><a href="#">sit amet, consectetuer  </a></li>
+                         <li><a href="#">adipiscing elit. Donec  </a></li>
+                         <li><a href="#">odio. Quisque volutpat </a></li>
+                      </ul>
+                   </div>
+                </div>
+                <div class="col-md-5">
+                   <div class="heading3">
+                      <h3>MY ACCOUNT</h3>
+                      <ul class="infometion">
+                         <li><a href="#">Donec odio. Quisque </a></li>
+                         <li><a href="#">volutpat mattis</a></li>
+                         <li><a href="#">eros.Lorem ipsum dolor</a></li>
+                         <li><a href="#">sit amet, consectetuer  </a></li>
+                         <li><a href="#">adipiscing elit. Donec  </a></li>
+                         <li><a href="#">odio. Quisque volutpat </a></li>
+                      </ul>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
     </div>
+    <div class="copyright">
+       <div class="container">
+          <div class="row">
+             <div class="col-md-12">
+                <p>© 2019 All Rights Reserved. <a href="https://html.design/"> Free  html Templates</a></p>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
 </footer>
-
-<style>
-    .social-icons a {
-        color: white;
-        transition: color 0.3s;
-    }
-
-    .social-icons a:hover {
-        color: #f39c12;
-    }
-</style>
+    <!-- end footer -->
