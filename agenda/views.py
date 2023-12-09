@@ -1,4 +1,4 @@
 from django.shortcuts import render
 
-def agenda(request):
+def fazer_agendamento(request):
     pass

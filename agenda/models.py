@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.core.exceptions import ValidationError
 
-
 def validar_dia(value):
     today = date.today()
     weekday = date.fromisoformat(f'{value}').weekday()

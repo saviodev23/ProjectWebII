@@ -1,7 +1,7 @@
-from .views import agenda
+from .views import fazer_agendamento
 from django.urls import path
-from django.contrib.auth.views import LoginView, LogoutView
+
 urlpatterns = [
-    path('ver_agenda/', agenda, name="ver_agenda"),
+    path('ver_agenda/', fazer_agendamento, name="ver_agenda"),
 
 ]
