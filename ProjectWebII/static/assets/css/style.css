@@ -34,7 +34,7 @@
 }
 
 body {
-     color: #666666;
+     color: white;
      font-size: 14px;
      font-family: 'Lato', sans-serif;
      line-height: 1.80857;
@@ -954,7 +954,6 @@ ul.infometion li a:hover {
 .copyright a:hover {
      color: #000;
 }
-
 
 /** end footer **/
 

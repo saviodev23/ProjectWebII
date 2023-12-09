@@ -13,19 +13,19 @@
                     <div class="collapse navbar-collapse" id="navbarsExample04">
                        <ul class="navbar-nav mr-auto">
                           <li class="nav-item active">
-                             <a class="nav-link" href="index.html"> Home  </a>
+                             <a class="nav-link" href="{% url 'home' %}"> Home  </a>
                           </li>
                           <li class="nav-item">
-                             <a class="nav-link" href="#about">About</a>
+                             <a class="nav-link" href="#about">Sobre</a>
                           </li>
                           <li class="nav-item">
-                             <a class="nav-link" href="#service">Service</a>
+                             <a class="nav-link" href="#service">Serviços</a>
                           </li>
                           <li class="nav-item">
-                             <a class="nav-link" href="#customer">Customer</a>
+                             <a class="nav-link" href="#customer">Customização</a>
                           </li>
                           <li class="nav-item">
-                             <a class="nav-link" href="#contact">Contact Us</a>
+                             <a class="nav-link" href="#contact">Contato</a>
                           </li>
                        </ul>
                     </div>
@@ -35,16 +35,19 @@
                  <div class="full">
                     <div class="center-desk">
                        <div class="logo">
-                          <a href="index.html"><img src="{% static 'assets/images/logo.png' %}" alt="#" /></a>
+                          <a href="{% url 'home' %}"><img src="{% static 'assets/images/logo.png' %}" alt="#" /></a>
                        </div>
                     </div>
                  </div>
               </div>
-              <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5">
+              <div>
+{#	              <div class="col-xl-5 col-lg-5 col-md-6 col-sm-5">#}
                  <ul class="email">
-                    <li><a href="#">Call: (+71) 1234567890</a></li>
-                    <li><a href="#">Email: demo@gmail.com</a></li>
-                    <li><a href="#"><i class="fa fa-search" aria-hidden="true"></i></a></li>
+                    <li><a class="text-bg" href="{% url 'minha_conta' %}">Minha Conta</a></li>
+	                 <li><a class="text-bg" href="{% url 'minha_conta' %}">Gerenciar Clientes</a></li>
+	                 <li><a class="text-bg" href="{% url 'minha_conta' %}">Gerenciar Agenda</a></li>
+	                <li><a class="text-bg" href="{% url 'logout' %}">Sair</a></li>
+{#                    <li><a href="#"><i class="fa fa-search" aria-hidden="true"></i></a></li>#}
                  </ul>
               </div>
            </div>

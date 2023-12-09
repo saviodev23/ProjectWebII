@@ -1,12 +1,12 @@
 {% extends 'assets/base.html' %}
 {% block content %}
-{% load bootstrap5 %}
+{% load bootstrap4 %}
 <div class="container py-5 mt-4">
   <div class="row justify-content-center">
     <div class="col-md-6">
       <div class="card">
         <div class="card-body">
-          <h2 class="card-title text-center mb-4">Editar Perfil</h2>
+          <h2 class="card-title text-center mb-4 text-white">Editar Perfil</h2>
           <form method="post">
             {% csrf_token %}
             {% bootstrap_form form %}
@@ -25,7 +25,7 @@
 		.card{
 			margin-top: 100px;
 			margin-bottom: 50px;
-			background: #cddad7;
+			background: #a4152d;
 			padding: 20px;
 		}
 	</style>

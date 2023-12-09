@@ -23,10 +23,10 @@
                 <div class="row">
                    <div class="col-md-6">
                       <div class="text-bg">
-                         <span>Welcome to</span>
-                         <h1>labspa</h1>
+                         <span>Bem vindo ao</span>
+                         <h1>Beleza Online</h1>
                          <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are </p>
-                         <a href="#">Read More </a> <a href="#">Book Now</a>
+	                     <a href="#">Marcar Horario </a> <a href="#service">Ver Serviços</a>
                       </div>
                    </div>
                    <div class="col-md-6">
@@ -38,6 +38,7 @@
              </div>
           </div>
        </div>
+
        <div class="carousel-item">
           <div class="container-fluid">
              <div class="carousel-caption">
@@ -47,28 +48,7 @@
                          <span>Welcome to</span>
                          <h1>labspa</h1>
                          <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are </p>
-                         <a href="#">Read More </a> <a href="#">Book Now</a>
-                      </div>
-                   </div>
-                   <div class="col-md-6">
-                      <div class="text_img">
-                         <figure><img src="{% static 'assets/images/girl.png' %}" alt="#"/></figure>
-                      </div>
-                   </div>
-                </div>
-             </div>
-          </div>
-       </div>
-       <div class="carousel-item">
-          <div class="container-fluid">
-             <div class="carousel-caption">
-                <div class="row">
-                   <div class="col-md-6">
-                      <div class="text-bg">
-                         <span>Welcome to</span>
-                         <h1>labspa</h1>
-                         <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are </p>
-                         <a href="#">Read More </a> <a href="#">Book Now</a>
+                         <a href="#">Marcar Horario </a> <a href="#service">Ver Serviços</a>
                       </div>
                    </div>
                    <div class="col-md-6">
@@ -123,7 +103,7 @@
           </div>
        </div>
        <div class="col-md-12">
-          <a class="read_more" href="#">Read More</a>
+          <a class="read_more" href="#">Tabela de Preços</a>
        </div>
     </div>
  </div>
@@ -210,8 +190,59 @@
     </div>
  </div>
 </div>
-<!-- end customer -->
+<!--  contact -->
+  <div id="contact" class="contact">
+     <div class="container">
+        <div class="row">
+           <div class="col-md-12">
+              <div class="titlepage">
+                 <h2> <img src="{% static 'assets/images/head.png' %}" alt="#"/> Request <span class="white"> A call Back</span></h2>
+              </div>
+           </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+              <form id="request" class="main_form">
+                 <div class="row">
+                    <div class="col-md-12 ">
+                       <input class="contactus" placeholder="Name" type="type" name="Name">
+                    </div>
+                    <div class="col-md-12">
+                       <input class="contactus" placeholder="Email" type="type" name="Email">
+                    </div>
+                    <div class="col-md-12">
+                       <input class="contactus" placeholder="Phone Number" type="type" name="Phone Number">
+                    </div>
+                    <div class="col-md-12">
+                       <textarea class="textarea" placeholder="Message" type="type" Message="Name">Message </textarea>
+                    </div>
+                    <div class="col-sm-col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                       <button class="send_btn">Send</button>
+                    </div>
+                 </div>
+              </form>
+           </div>
 
+           <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="map-responsive">
+                    <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&q=Eiffel+Tower+Guanambi+Brasil" width="600" height="432" frameborder="0" style="border:0; width: 100%;" allowfullscreen></iframe>
+                 </div>
+           </div>
+        </div>
+
+     </div>
+  </div>
+  <!-- end contact -->
+<!-- end customer -->
+<style>
+.marcar-horario{
+     color: red;
+	border-radius: 10px;
+	align-items: center;
+	height: 100px;
+	width: 200px;
+}
+</style>
 
 {% endblock %}
 
