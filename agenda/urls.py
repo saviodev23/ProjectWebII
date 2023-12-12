@@ -1,4 +1,5 @@
-from .views import fazer_agendamento, add_servico, editar_servico, remover_servico, confirmar_remocao_servico
+from .views.views_servico import add_servico, editar_servico, remover_servico, confirmar_remocao_servico
+from .views.views_agenda import fazer_agendamento
 from django.urls import path
 
 urlpatterns = [

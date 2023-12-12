@@ -91,4 +91,4 @@ class UserRegistrationForm(forms.ModelForm):
 class FormEditarUser(ModelForm):
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email']
+        fields = ['username', 'first_name', 'last_name', 'email',]

@@ -1,6 +1,8 @@
-from .views import register, minha_conta, alterar_dados, listar_usuarios, editar_usuario, remover_usuario, confirmar_remocao_usuario
+from .views.views import register, minha_conta, alterar_dados
+from.views.view_admin import listar_usuarios, editar_usuario, remover_usuario, confirmar_remocao_usuario
 from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth import views as auth_views
 urlpatterns = [
     #cadastroForaDoSistema
     path('login/', LoginView.as_view(), name="login"),
@@ -14,4 +16,10 @@ urlpatterns = [
     path('editar/usuario/<int:user_id>', editar_usuario, name="editar_usuario"),
     path('remover/usuario/<int:user_id>', remover_usuario, name="remover_usuario"),
     path('confirmar/remocao/usuario/<int:user_id>', confirmar_remocao_usuario, name="confirmar_remocao_usuario"),
+
+    #recuperação de senha   path('reset-password/', auth_views.PasswordResetView.as_view(), name='password_reset'),
+    path('reset-password/', auth_views.PasswordResetView.as_view(), name='password_reset'),
+    path('reset-password/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('reset-password/confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('reset-password/complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 ]

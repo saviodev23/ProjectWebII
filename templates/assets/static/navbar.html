@@ -27,29 +27,23 @@
                           <li class="nav-item">
                              <a class="nav-link" href="#contact">Contato</a>
                           </li>
+	                     <li class="nav-item"><a class="nav-link" href="{% url 'minha_conta' %}">Minha Conta</a></li>
+		                 <li class="nav-item"><a class="nav-link" href="{% url 'listar_usuarios' %}">Gerenciar Usuários</a></li>
+		                 <li class="nav-item"><a class="nav-link" href="{% url 'add_servico' %}">Gerenciar Serviços</a></li>
+		                <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Sair</a></li>
                        </ul>
                     </div>
                  </nav>
               </div>
-              <div class="col-xl-2 col-lg-2 col-md-3 col-sm-3 col logo_section">
-                 <div class="full">
-                    <div class="center-desk">
-                       <div class="logo">
-                          <a href="{% url 'home' %}"><img src="{% static 'assets/images/logo.png' %}" alt="#" /></a>
-                       </div>
-                    </div>
-                 </div>
-              </div>
-              <div>
-{#	              <div class="col-xl-5 col-lg-5 col-md-6 col-sm-5">#}
-                 <ul class="email">
-                    <li><a class="text-bg" href="{% url 'minha_conta' %}">Minha Conta</a></li>
-	                 <li><a class="text-bg" href="{% url 'listar_usuarios' %}">Gerenciar Usuários</a></li>
-	                 <li><a class="text-bg" href="{% url 'add_servico' %}">Add Serviço</a></li>
-	                <li><a class="text-bg" href="{% url 'logout' %}">Sair</a></li>
-{#                    <li><a href="#"><i class="fa fa-search" aria-hidden="true"></i></a></li>#}
-                 </ul>
-              </div>
+{#              <div class="col-xl-2 col-lg-2 col-md-3 col-sm-3 col logo_section">#}
+{#                 <div class="full">#}
+{#                    <div class="center-desk">#}
+{#                       <div class="logo">#}
+{#                          <a href="{% url 'home' %}"><img src="{% static 'assets/images/logo.png' %}" alt="#" /></a>#}
+{#                       </div>#}
+{#                    </div>#}
+{#                 </div>#}
+{#              </div>#}
            </div>
         </div>
      </div>

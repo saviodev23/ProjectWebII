@@ -1,9 +1,10 @@
 {% extends 'assets/static/base.html' %}
+
 {% block content %}
 {% load bootstrap4 %}
 {% load static %}
 
-<div id="intro" class="bg-image shadow-2-strong overlay">
+<div class="bg-image shadow-2-strong overlay" id="intro">
 
   <div class="mask d-flex align-items-center h-100">
     <div class="container">
@@ -11,36 +12,42 @@
         <div class="col-xl-5 col-md-8">
           <form class="bg-white rounded shadow-5-strong p-5" method="POST">
             <h4 class="text-center mb-4">Login</h4>
+
             {% if messages %}
-              <ul class="messages text-black">
-                {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                {% endfor %}
-              </ul>
+              <div class="alert alert-dismissible fade show {% if messages.tags %} {{ messages.tags }}{% endif %}" role="alert">
+                <ul class="messages text-black list-unstyled">
+                  {% for message in messages %}
+                    <li>{{ message }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
             {% endif %}
 
             {% csrf_token %}
             {% bootstrap_form form %}
-	          <input type="hidden" name="next" value="{{ next }}">
+            <input type="hidden" name="next" value="{{ next }}">
+
             <div class="row mb-4">
               <div class="col text-center">
-{#                <a href="{% url 'password_reset' %}">Esqueceu sua senha?</a>#}
+                <a href="{% url 'password_reset' %}">Esqueceu sua senha?</a>
               </div>
             </div>
 
             <button type="submit" class="btn btn-primary btn-block">Entrar</button>
-            <a href="{% url 'register' %}">Faça seu registro</a>
-
+            <p class="text-center mt-3">
+              Ainda não tem uma conta? <a href="{% url 'register' %}">Faça seu registro</a>
+            </p>
           </form>
         </div>
       </div>
     </div>
   </div>
 </div>
-    <style>
-	  body {
-		background-color: #b7d4ff;
-	  }
 
-    </style>
+<style>
+  body {
+    background: #a4152d;
+  }
+</style>
+
 {% endblock %}

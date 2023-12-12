@@ -4,4 +4,4 @@ class FormAddServico(forms.ModelForm):
 
     class Meta:
         model = Servico
-        fields = ['descricao', 'preco',]
+        fields = ['tipo_servico', 'nome_servico', 'preco']

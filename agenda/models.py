@@ -13,18 +13,41 @@ def validar_dia(value):
     if (weekday == 5) or (weekday == 6):
         raise ValidationError('Escolha um dia útil da semana.')
 
+# class ItemServico(models.Model):
+#     TIPO_CHOICES = [
+#         ('Corte', 'Corte de Cabelo'),
+#         ('Coloracao', 'Coloração de Cabelo'),
+#         ('Alisamento', 'Alisamento'),
+#         ('Manicure', 'Manicure'),
+#         ('Pedicure', 'Pedicure'),
+#         ('Sombrancelhas', 'Sombrancelhas'),
+#     ]
+#     nome = models.CharField(max_length=50, choices=TIPO_CHOICES)
+#     preco = models.DecimalField(max_digits=8, decimal_places=2)
+#
+#     def __str__(self):
+#         return self.nome
 class Servico(models.Model):
-    DESCRICAO_CHOICES = [
+    TIPO_CHOICES = [
+        ('Unhas', 'Unhas'),
+        ('Cosmedicos', 'Cosmédicos'),
+        ('Cabelereiro', 'Cabelereiro'),
+    ]
+    NOME_CHOICES = [
         ('Corte', 'Corte de Cabelo'),
         ('Coloracao', 'Coloração de Cabelo'),
         ('Alisamento', 'Alisamento'),
         ('Manicure', 'Manicure'),
+        ('Pedicure', 'Pedicure'),
+        ('Sombrancelhas', 'Sombrancelhas'),
     ]
-    descricao = models.CharField(max_length=50, choices=DESCRICAO_CHOICES)
+    tipo_servico = models.CharField(max_length=50, choices=TIPO_CHOICES)
+    nome_servico = models.CharField(max_length=50, choices=NOME_CHOICES)
     preco = models.DecimalField(max_digits=8, decimal_places=2)
 
     def __str__(self):
-        return self.descricao
+        servico = f"Nome Serviço: {self.nome_servico} Tipo Serviço:{self.tipo_servico}"
+        return servico
 
 class Agenda(models.Model):
     HORARIOS = (

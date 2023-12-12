@@ -1,13 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-
 from ProjectWebII.utils import group_required
 from agenda.forms import FormAddServico
 from agenda.models import Servico
 
-
-def fazer_agendamento(request):
-    pass
 @group_required(['Administrador', 'Profissional'], "/accounts/login/")
 def add_servico(request):
     if request.user.is_authenticated:
@@ -15,9 +11,10 @@ def add_servico(request):
         if request.method == 'POST':
             form = FormAddServico(request.POST)
             if form.is_valid():
-                descricao_form = form.cleaned_data['descricao']
-                descricao = Servico.objects.filter(descricao=descricao_form)
-                if descricao:
+                #Verfificar se existe já aquele tipo de serviço cadastrado
+                nome_form = form.cleaned_data['nome_servico']
+                nome_servico = Servico.objects.filter(nome_servico=nome_form)
+                if nome_servico:
                     return HttpResponse('já existe esse serviço')
 
                 form.save()
