@@ -1,0 +1,23 @@
+{% extends 'assets/static/base.html' %}
+{% block content %}
+
+<div id="intro" class="container py-5">
+  <div class="card p-5 text-dark ">
+    <h3 class="mb-4">Remover Usuário: {{usuario.first_name}} {{usuario.last_name}}</h3>
+    <h3 class="mb-4">Tem certeza que deseja deletar este Usuário?</h3>
+    <div class="d-flex justify-content-between">
+      <a class="btn btn-danger mr-2" href="{% url 'confirmar_remocao_usuario' usuario.id %}">Sim</a>
+      <a class="btn btn-secondary" href="{% url 'listar_usuarios'%}">Não</a>
+    </div>
+  </div>
+</div>
+
+<style>
+	body{
+		background:  #a4152d;
+	}
+	.card{
+		margin-top: 100px;
+	}
+</style>
+{% endblock %}

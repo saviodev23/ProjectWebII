@@ -1,18 +1,18 @@
 {% extends 'assets/static/base.html' %}
-{% block content %}
 {% load bootstrap4 %}
+{% block content %}
 <div class="container py-5">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="card">
+  <div class="row justify-content-center py-5">
+    <div class="col-md-6 py-5">
+      <div class="card shadow ">
         <div class="card-body">
-          <h2 class="card-title text-center mb-4 text-dark">Editar Perfil</h2>
+          <h2 class="text-center mb-4">Editar Serviço</h2>
           <form method="post">
             {% csrf_token %}
             {% bootstrap_form form %}
-            <div class="d-grid gap-2 mt-4">
+            <div class="text-center mt-4">
               <button type="submit" class="btn btn-primary">Salvar</button>
-              <a href="{% url 'minha_conta' %}" class="btn btn-secondary">Cancelar</a>
+              <a class="btn btn-secondary" href="{% url 'add_servico' %}">Voltar</a>
             </div>
           </form>
         </div>
@@ -21,13 +21,6 @@
   </div>
 </div>
 	<style>
-
-		.card{
-			margin-top: 100px;
-			margin-bottom: 50px;
-			padding: 20px;
-			color: black;
-		}
 		body{
 			background: #a4152d;
 		}

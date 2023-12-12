@@ -1,11 +1,11 @@
-{% extends 'assets/base.html' %}
+{% extends 'assets/static/base.html' %}
 {% block content %}
-  <div class="container mt-5">
+  <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-8">
         <div class="card">
           <div class="card-header">
-            <h3 class="mb-0 text-white">Meu Perfil</h3>
+            <h3 class="mb-0 text-dark">Meu Perfil</h3>
           </div>
           <div class="card-body">
             <form class="form" role="form" autocomplete="off">
@@ -42,7 +42,8 @@
             </form>
           </div>
         </div>
-	      <a href="{% url 'alterar_dados' %}" class="button btn btn-primary">Alterar Dados</a>
+	      <a href="{% url 'alterar_dados' %}" class="button btn btn-success">Alterar Dados</a>
+          <a href="{% url 'home' %}" class="button btn btn-secondary">Voltar</a>
       </div>
     </div>
   </div>
@@ -50,11 +51,14 @@
 		.card{
 			margin-top: 150px;
 			margin-bottom: 50px;
-			background: #a4152d;
 			padding: 30px;
+			color: black;
 		}
 		.button{
 			margin-bottom: 100px;
+		}
+		body{
+			background: #a4152d;
 		}
 
 

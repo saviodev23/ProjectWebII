@@ -1,0 +1,92 @@
+{% extends 'assets/static/base.html' %}
+{% load bootstrap4 %}
+
+{% block content %}
+<div class="container py-5">
+    <h2>Gerenciar Usuários</h2>
+    <ul class="nav nav-tabs mt-4" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="add-modelo-tab" data-toggle="tab" href="#add-modelo" role="tab" aria-controls="add-modelo" aria-selected="true">Adicionar Usuário</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="listar-modelos-tab" data-toggle="tab" href="#listar-modelos" role="tab" aria-controls="listar-modelos" aria-selected="false">Listar Usuários</a>
+        </li>
+    </ul>
+
+    <div class="tab-content mt-4" id="myTabContent">
+        <!-- Adicionar Cliente -->
+        <div class="tab-pane fade show active" id="add-modelo" role="tabpanel" aria-labelledby="add-modelo-tab">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card o-hidden border-0 shadow-lg">
+                        <div class="card-body p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4 text-dark">Cadastrar Novo Usuário</h1>
+                            </div>
+                            <form enctype="multipart/form-data" method="POST" class="text-dark">
+                                {% csrf_token %}
+                                {% bootstrap_form form %}
+                                <button class="btn btn-primary btn-user btn-block mt-3" type="submit">Cadastrar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Listar Modelos -->
+        <div class="tab-pane fade" id="listar-modelos" role="tabpanel" aria-labelledby="listar-modelos-tab">
+            <div class="row justify-content-center mt-4">
+                <div class="col-md-8">
+                    <div class="card o-hidden border-0 shadow-lg">
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <h3 class="p-4">Lista de Usuários</h3>
+                                <table class="table table-bordered text-dark">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Primeiro Nome</th>
+	                                        <th scope="col">Segundo Nome</th>
+	                                        <th scope="col">E-mail</th>
+	                                        <th scope="col">Tipo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for cliente in clientes %}
+                                        <tr>
+                                            <td>{{ cliente.id }}</td>
+                                            <td>{{ cliente.first_name }}</td>
+                                            <td>{{ cliente.last_name }}</td>
+	                                        <td>{{ cliente.email }}</td>
+	                                        {% for group in cliente.groups.all %}
+	                                        <td>{{ group.name }}</td>
+		                                    {% endfor %}
+                                            <td>
+                                                <a href="{% url 'editar_usuario' cliente.id %}" class="btn btn-success btn-sm">Editar</a>
+                                                <a href="{% url 'remover_usuario' cliente.id %}" class="btn btn-danger btn-sm">Remover</a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-6">
+            <a class="btn btn-secondary" href="{% url 'home' %}">Voltar</a>
+        </div>
+    </div>
+</div>
+	<style>
+		body{
+			background: #a4152d;
+		}
+	</style>
+{% endblock %}

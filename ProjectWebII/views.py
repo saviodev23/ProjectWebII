@@ -1,5 +1,8 @@
-from django.http import HttpResponse
 from django.shortcuts import render
 
+from ProjectWebII.utils import create_groups
+
+
 def home(request):
-    return render(request, 'assets/index.html')
+    create_groups()
+    return render(request, 'assets/static/index.html')

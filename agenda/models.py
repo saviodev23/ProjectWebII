@@ -15,10 +15,10 @@ def validar_dia(value):
 
 class Servico(models.Model):
     DESCRICAO_CHOICES = [
-        ('corte', 'Corte de Cabelo'),
-        ('coloracao', 'Coloração de Cabelo'),
-        ('alisamento', 'Alisamento'),
-        ('manicure', 'Manicure'),
+        ('Corte', 'Corte de Cabelo'),
+        ('Coloracao', 'Coloração de Cabelo'),
+        ('Alisamento', 'Alisamento'),
+        ('Manicure', 'Manicure'),
     ]
     descricao = models.CharField(max_length=50, choices=DESCRICAO_CHOICES)
     preco = models.DecimalField(max_digits=8, decimal_places=2)
@@ -36,7 +36,8 @@ class Agenda(models.Model):
     )
     profissional = models.ForeignKey(User, on_delete=models.CASCADE, related_name='profissional')
     cliente = models.ForeignKey(User, on_delete=models.CASCADE, related_name='cliente')
-    servico = models.ManyToManyField(Servico, related_name='agendas')
+    # servico = models.ManyToManyField(Servico, related_name='agendas')
+    servico = models.ForeignKey(Servico, on_delete=models.CASCADE)
     dia = models.DateField(help_text="Insira uma data para agenda", validators=[validar_dia])
     horario = models.CharField(max_length=1, choices=HORARIOS)
     status_agendamento = models.BooleanField()
