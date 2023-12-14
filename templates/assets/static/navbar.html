@@ -27,11 +27,41 @@
                           <li class="nav-item">
                              <a class="nav-link" href="#contact">Contato</a>
                           </li>
+	                    {% if user.is_authenticated %}
 	                     <li class="nav-item"><a class="nav-link" href="{% url 'minha_conta' %}">Minha Conta</a></li>
 		                 <li class="nav-item"><a class="nav-link" href="{% url 'listar_usuarios' %}">Gerenciar Usuários</a></li>
 		                 <li class="nav-item"><a class="nav-link" href="{% url 'add_servico' %}">Gerenciar Serviços</a></li>
+	                     <li class="nav-item"><a class="nav-link" href="{% url 'add_disponibilidade' %}">Gerenciar Disponibilidade</a></li>
 		                <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Sair</a></li>
+	                   {% else %}
+	                       <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+	                   {% endif %}
                        </ul>
+
+{#	                    {% if user.is_authenticated %}#}
+{#						    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">#}
+{#						        <li class="nav-item dropdown">#}
+{#						            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">#}
+{#						                <i class="fas fa-user fa-fw"></i>#}
+{#						            </a>#}
+{#						            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">#}
+{#						                <li><a class="dropdown-item" href="#">{{ user.username }}</a></li>#}
+{#						                <li><hr class="dropdown-divider" /></li>#}
+{#						                <li><a class="dropdown-item" href="{% url 'listar_usuarios' %}">Gerenciar Usuários</a></li>#}
+{#						                <li><a class="dropdown-item" href="{% url 'add_servico' %}">Gerenciar Serviços</a></li>#}
+{#						                <li><a class="dropdown-item" href="{% url 'add_disponibilidade' %}">Gerenciar Disponibilidade</a></li>#}
+{#						                <li><a class="dropdown-item" href="{% url 'logout' %}">Sair</a></li>#}
+{#						            </ul>#}
+{#						        </li>#}
+{#						    </ul>#}
+{#						{% else %}#}
+{#						    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">#}
+{#						        <li class="nav-item">#}
+{#						            <a class="nav-link" href="{% url 'login' %}">Login</a>#}
+{#						        </li>#}
+{#						    </ul>#}
+{#						{% endif %}#}
+
                     </div>
                  </nav>
               </div>

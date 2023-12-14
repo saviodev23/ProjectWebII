@@ -46,18 +46,20 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">ID</th>
-                                            <th scope="col">Tipo</th>
-	                                        <th scope="col">Nome</th>
-                                            <th scope="col">Preço</th>
+	                                        <th scope="col">Tipo</th>
+                                            <th scope="col">Nome</th>
+	                                        <th scope="col">Preço</th>
+                                            <th scope="col">Duração/Min</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {% for servico in servicos %}
                                         <tr>
                                             <td>{{ servico.id }}</td>
-                                            <td>{{ servico.tipo_servico }}</td>
-	                                        <td>{{ servico.nome_servico }}</td>
-                                            <td>{{ servico.preco }}</td>
+	                                        <td>{{ servico.tipo_servico }}</td>
+                                            <td>{{ servico.nome_servico }}</td>
+	                                        <td>{{ servico.preco }}</td>
+                                            <td>{{ servico.janela_tempo }}</td>
                                             <td>
                                                 <a href="{% url 'editar_servico' servico.id %}" class="btn btn-success btn-sm">Editar</a>
                                                 <a href="{% url 'remover_servico' servico.id %}" class="btn btn-danger btn-sm">Remover</a>
