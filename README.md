@@ -1,4 +1,4 @@
-# Sistema de Agendamento de horário para Salão de Beleza
+[Caso_uso_SalaoDeBeleza.pdf](https://github.com/saviodev23/ProjectWebII/files/13818968/Caso_uso_SalaoDeBeleza.pdf)# Sistema de Agendamento de horário para Salão de Beleza
 
 Este é um projeto de sistema web desenvolvido em Django para gerenciar o agendamento de serviços em um salão de beleza. O sistema permite que clientes realizem agendamentos online e inclui uma integração com o WhatsApp através de chatbot para facilitar o processo.
 
@@ -30,3 +30,13 @@ Este é um projeto de sistema web desenvolvido em Django para gerenciar o agenda
 - Agendamento de horários pelo cliente.
 - Integração com o WhatsApp via chatbot para agendamento de horário.
 - Programa de fidelidade com descontos baseados no histórico de agendamentos.
+
+## Diagrama de classe
+[Classe_salao_de_beleza.pdf](https://github.com/saviodev23/ProjectWebII/files/13818956/Classe_salao_de_beleza.pdf)
+
+## Diagrama de Caso de Uso
+[Caso_uso_SalaoDeBeleza.pdf](https://github.com/saviodev23/ProjectWebII/files/13818967/Caso_uso_SalaoDeBeleza.pdf)
+
+
+
+
