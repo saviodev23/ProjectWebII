@@ -32,10 +32,11 @@ Este é um projeto de sistema web desenvolvido em Django para gerenciar o agenda
 - Programa de fidelidade com descontos baseados no histórico de agendamentos.
 
 ## Diagrama de classe
-[Classe_salao_de_beleza.pdf](https://github.com/saviodev23/ProjectWebII/files/13818956/Classe_salao_de_beleza.pdf)
+![classe](https://github.com/saviodev23/ProjectWebII/assets/132952225/4ec5983a-e31d-4b0a-a82b-1533ee7de137)
+
 
 ## Diagrama de Caso de Uso
-[Caso_uso_SalaoDeBeleza.pdf](https://github.com/saviodev23/ProjectWebII/files/13818967/Caso_uso_SalaoDeBeleza.pdf)
+![casoUso](https://github.com/saviodev23/ProjectWebII/assets/132952225/f4fe7349-83a5-48ed-95db-91a9e21ef602)
 
 
 
