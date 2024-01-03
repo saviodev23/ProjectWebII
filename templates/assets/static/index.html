@@ -1,248 +1,323 @@
 {% extends 'assets/static/base.html' %}
 {% load static %}
 {% block content %}
+    <body class="sb-nav-fixed">
 
-<!-- loader  -->
-<div class="loader_bg">
-  <div class="loader"><img src="{% static 'assets/images/loading.gif' %}" alt="#" /></div>
-</div>
-<!-- end loader -->
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Core</div>
+                            <a class="nav-link" href="index.html">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-calendar-days"></i></div>
+                                Agendado
+                            </a>
+                            <div class="sb-sidenav-menu-heading">Administração</div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-calendar-days"></i></div>
+                                Agendamento
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="layout-static.html">Fazer Agendamento</a>
+                                    <a class="nav-link" href="layout-sidenav-light.html">Histórico</a>
+                                </nav>
+                            </div>
 
-<!-- banner -->
-<section class="banner_main">
- <div id="banner1" class="carousel slide" data-ride="carousel">
-    <ol class="carousel-indicators">
-       <li data-target="#banner1" data-slide-to="0" class="active"></li>
-       <li data-target="#banner1" data-slide-to="1"></li>
-       <li data-target="#banner1" data-slide-to="2"></li>
-    </ol>
-    <div class="carousel-inner">
-       <div class="carousel-item active">
-          <div class="container-fluid">
-             <div class="carousel-caption">
-                <div class="row">
-                   <div class="col-md-6">
-                      <div class="text-bg">
-                         <span>Bem vindo ao</span>
-                         <h1>Beleza Online</h1>
-                         <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are </p>
-	                     <a href="#">Marcar Horario </a> <a href="#service">Ver Serviços</a>
-                      </div>
-                   </div>
-                   <div class="col-md-6">
-                      <div class="text_img">
-                         <figure><img src="{% static 'assets/images/girl.png' %}" alt="#"/></figure>
-                      </div>
-                   </div>
-                </div>
-             </div>
-          </div>
-       </div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-user-tie"></i></div>
+	                            Admin
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                        Gerenciamentos
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="{% url 'listar_usuarios' %}">Usuários</a>
+                                            <a class="nav-link" href="register.html">Agendamentos</a>
+	                                        <a class="nav-link" href="password.html">Disponibilidade</a>
+	                                        <a class="nav-link" href="password.html">Parametros</a>
+	                                        <a class="nav-link" href="{% url 'add_servico' %}">Serviços</a>
+	                                        <a class="nav-link" href="password.html">Fidelidade</a>
+                                        </nav>
+                                    </div>
 
-       <div class="carousel-item">
-          <div class="container-fluid">
-             <div class="carousel-caption">
-                <div class="row">
-                   <div class="col-md-6">
-                      <div class="text-bg">
-                         <span>Bem vindo ao</span>
-                         <h1>Beleza Online</h1>
-                         <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are </p>
-	                     <a href="#">Marcar Horario </a> <a href="#service">Ver Serviços</a>
-                      </div>
-                   </div>
-                   <div class="col-md-6">
-                      <div class="text_img">
-                         <figure><img src="{% static 'assets/images/girl.png' %}" alt="#"/></figure>
-                      </div>
-                   </div>
-                </div>
-             </div>
-          </div>
-       </div>
-    </div>
-    <a class="carousel-control-prev" href="#banner1" role="button" data-slide="prev">
-    <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
-    </a>
-    <a class="carousel-control-next" href="#banner1" role="button" data-slide="next">
-    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-    </a>
- </div>
-</section>
-<!-- end banner -->
-<!-- service -->
-<div id="service"  class="service">
- <div class="container">
-    <div class="row">
-       <div class="col-md-12">
-          <div class="titlepage">
-             <h2> <img src="{% static 'assets/images/head.png' %}" alt="#"/> Nossos Serviços</h2>
-          </div>
-       </div>
-    </div>
-    <div class="row">
-       <div class="col-md-4">
-          <div id="hover_chang" class="service_box">
-             <i><img src="{% static 'assets/images/thr.png' %}" alt="#"/></i>
-             <h3>Cosméticos</h3>
-             <p>some form, by injected humour, or randomised words which don't look even slightly believable. If you are </p>
-          </div>
-       </div>
-       <div class="col-md-4">
-          <div id="hover_chang" class="service_box">
-             <i><img src="{% static 'assets/images/thr1.png' %}" alt="#"/></i>
-             <h3>Unhas</h3>
-             <p>some form, by injected humour, or randomised words which don't look even slightly believable. If you are </p>
-          </div>
-       </div>
-       <div class="col-md-4">
-          <div id="hover_chang" class="service_box">
-             <i><img src="{% static 'assets/images/thr2.png' %}" alt="#"/></i>
-             <h3>Cabeleireiro</h3>
-             <p>some form, by injected humour, or randomised words which don't look even slightly believable. If you are </p>
-          </div>
-       </div>
-       <div class="col-md-12">
-          <a class="read_more" href="#">Tabela de Preços</a>
-       </div>
-    </div>
- </div>
-</div>
-<!-- service -->
-<!-- about -->
-<div id="about"  class="about">
- <div class="container">
-    <div class="row">
-       <div class="col-md-9">
-          <div class="titlepage">
-             <h2> <img src="{% static 'assets/images/head.h.png' %}" alt="#"/> About Our Labspa</h2>
-             <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are </p>
-             <a class="read_more">Read More</a>
-          </div>
-       </div>
-    </div>
- </div>
-</div>
-<!-- end about -->
-<!-- customer -->
-<div id="customer" class="customer">
- <div class="container">
-    <div class="row">
-       <div class="col-md-12">
-          <div class="titlepage">
-             <h2> <img src="{% static 'assets/images/head.png' %}" alt="#"/> Our Customer Feedback</h2>
-          </div>
-       </div>
-    </div>
-    <div id="myCarousel" class="carousel slide customer_Carousel " data-ride="carousel">
-       <ol class="carousel-indicators">
-          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-          <li data-target="#myCarousel" data-slide-to="1"></li>
-          <li data-target="#myCarousel" data-slide-to="2"></li>
-       </ol>
-       <div class="carousel-inner">
-          <div class="carousel-item active">
-             <div class="container">
-                <div class="carousel-caption ">
-                   <div class="test_box">
-                      <i><img src="{% static 'assets/images/tes.png' %}" alt="#"/></i>
-                      <h4>Rohali jonson</h4>
-                      <span>customer</span>
-                      <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined </p>
-                      <img src="{% static 'assets/images/icon.png' %}" alt="#"/>
-                   </div>
-                </div>
-             </div>
-          </div>
-          <div class="carousel-item">
-             <div class="container">
-                <div class="carousel-caption">
-                   <div class="test_box">
-                      <i><img src="{% static 'assets/images/tes.png' %}" alt="#"/></i>
-                      <h4>Rohali jonson</h4>
-                      <span>customer</span>
-                      <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined </p>
-                      <img src="{% static 'assets/images/icon.png' %}" alt="#"/>
-                   </div>
-                </div>
-             </div>
-          </div>
-          <div class="carousel-item">
-             <div class="container">
-                <div class="carousel-caption">
-                   <div class="test_box">
-                      <i><img src="{% static 'assets/images/tes.png' %}" alt="#"/></i>
-                      <h4>Rohali jonson</h4>
-                      <span>customer</span>
-                      <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined </p>
-                      <img src="{% static 'assets/images/icon.png' %}" alt="#"/>
-                   </div>
-                </div>
-             </div>
-          </div>
-       </div>
-       <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
-       <i class="fa fa-chevron-left" aria-hidden="true"></i>
-       </a>
-       <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
-       <i class="fa fa-chevron-right" aria-hidden="true"></i>
-       </a>
-    </div>
- </div>
-</div>
-<!--  contact -->
-  <div id="contact" class="contact">
-     <div class="container">
-        <div class="row">
-           <div class="col-md-12">
-              <div class="titlepage">
-                 <h2> <img src="{% static 'assets/images/head.png' %}" alt="#"/> Request <span class="white"> A call Back</span></h2>
-              </div>
-           </div>
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                                        Error
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="401.html">401 Page</a>
+                                            <a class="nav-link" href="404.html">404 Page</a>
+                                            <a class="nav-link" href="500.html">500 Page</a>
+                                        </nav>
+                                    </div>
+
+                                </nav>
+                            </div>
+
+                            <div class="sb-sidenav-menu-heading">Programas</div>
+                            <a class="nav-link" href="charts.html">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-money-check-dollar"></i></div>
+                                Fidelidade
+                            </a>
+                            <a class="nav-link" href="tables.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Tables
+                            </a>
+                        </div>
+                    </div>
+                    <div class="sb-sidenav-footer">
+                        <div class="small">Logged in as:</div>
+                        Start Bootstrap
+                    </div>
+                </nav>
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Dashboard</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ol>
+                        <div class="row">
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-primary text-white mb-4">
+                                    <div class="card-body">Primary Card</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-warning text-white mb-4">
+                                    <div class="card-body">Warning Card</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-success text-white mb-4">
+                                    <div class="card-body">Success Card</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-danger text-white mb-4">
+                                    <div class="card-body">Danger Card</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-area me-1"></i>
+                                        Area Chart Example
+                                    </div>
+                                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-bar me-1"></i>
+                                        Bar Chart Example
+                                    </div>
+                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                DataTable Example
+                            </div>
+                            <div class="card-body">
+                                <table id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Position</th>
+                                            <th>Office</th>
+                                            <th>Age</th>
+                                            <th>Start date</th>
+                                            <th>Salary</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Position</th>
+                                            <th>Office</th>
+                                            <th>Age</th>
+                                            <th>Start date</th>
+                                            <th>Salary</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <tr>
+                                            <td>Tiger Nixon</td>
+                                            <td>System Architect</td>
+                                            <td>Edinburgh</td>
+                                            <td>61</td>
+                                            <td>2011/04/25</td>
+                                            <td>$320,800</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Garrett Winters</td>
+                                            <td>Accountant</td>
+                                            <td>Tokyo</td>
+                                            <td>63</td>
+                                            <td>2011/07/25</td>
+                                            <td>$170,750</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ashton Cox</td>
+                                            <td>Junior Technical Author</td>
+                                            <td>San Francisco</td>
+                                            <td>66</td>
+                                            <td>2009/01/12</td>
+                                            <td>$86,000</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Cedric Kelly</td>
+                                            <td>Senior Javascript Developer</td>
+                                            <td>Edinburgh</td>
+                                            <td>22</td>
+                                            <td>2012/03/29</td>
+                                            <td>$433,060</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Airi Satou</td>
+                                            <td>Accountant</td>
+                                            <td>Tokyo</td>
+                                            <td>33</td>
+                                            <td>2008/11/28</td>
+                                            <td>$162,700</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Brielle Williamson</td>
+                                            <td>Integration Specialist</td>
+                                            <td>New York</td>
+                                            <td>61</td>
+                                            <td>2012/12/02</td>
+                                            <td>$372,000</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Herrod Chandler</td>
+                                            <td>Sales Assistant</td>
+                                            <td>San Francisco</td>
+                                            <td>59</td>
+                                            <td>2012/08/06</td>
+                                            <td>$137,500</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Rhona Davidson</td>
+                                            <td>Integration Specialist</td>
+                                            <td>Tokyo</td>
+                                            <td>55</td>
+                                            <td>2010/10/14</td>
+                                            <td>$327,900</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Colleen Hurst</td>
+                                            <td>Javascript Developer</td>
+                                            <td>San Francisco</td>
+                                            <td>39</td>
+                                            <td>2009/09/15</td>
+                                            <td>$205,500</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Sonya Frost</td>
+                                            <td>Software Engineer</td>
+                                            <td>Edinburgh</td>
+                                            <td>23</td>
+                                            <td>2008/12/13</td>
+                                            <td>$103,600</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jena Gaines</td>
+                                            <td>Office Manager</td>
+                                            <td>London</td>
+                                            <td>30</td>
+                                            <td>2008/12/19</td>
+                                            <td>$90,560</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Quinn Flynn</td>
+                                            <td>Support Lead</td>
+                                            <td>Edinburgh</td>
+                                            <td>22</td>
+                                            <td>2013/03/03</td>
+                                            <td>$342,000</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Charde Marshall</td>
+                                            <td>Regional Director</td>
+                                            <td>San Francisco</td>
+                                            <td>36</td>
+                                            <td>2008/10/16</td>
+                                            <td>$470,600</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Haley Kennedy</td>
+                                            <td>Senior Marketing Designer</td>
+                                            <td>London</td>
+                                            <td>43</td>
+                                            <td>2012/12/18</td>
+                                            <td>$313,500</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tatyana Fitzpatrick</td>
+                                            <td>Regional Director</td>
+                                            <td>London</td>
+                                            <td>19</td>
+                                            <td>2010/03/17</td>
+                                            <td>$385,750</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Michael Silva</td>
+                                            <td>Marketing Designer</td>
+                                            <td>London</td>
+                                            <td>66</td>
+                                            <td>2012/11/27</td>
+                                            <td>$198,500</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Paul Byrd</td>
+                                            <td>Chief Financial Officer (CFO)</td>
+                                            <td>New York</td>
+                                            <td>64</td>
+                                            <td>2010/06/09</td>
+                                            <td>$725,000</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+
+            </div>
         </div>
-        <div class="row">
-            <div class="col-md-6">
-              <form id="request" class="main_form">
-                 <div class="row">
-                    <div class="col-md-12 ">
-                       <input class="contactus" placeholder="Name" type="type" name="Name">
-                    </div>
-                    <div class="col-md-12">
-                       <input class="contactus" placeholder="Email" type="type" name="Email">
-                    </div>
-                    <div class="col-md-12">
-                       <input class="contactus" placeholder="Phone Number" type="type" name="Phone Number">
-                    </div>
-                    <div class="col-md-12">
-                       <textarea class="textarea" placeholder="Message" type="type" Message="Name">Message </textarea>
-                    </div>
-                    <div class="col-sm-col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                       <button class="send_btn">Send</button>
-                    </div>
-                 </div>
-              </form>
-           </div>
-
-           <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                <div class="map-responsive">
-                    <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&q=Eiffel+Tower+Guanambi+Brasil" width="600" height="432" frameborder="0" style="border:0; width: 100%;" allowfullscreen></iframe>
-                 </div>
-           </div>
-        </div>
-
-     </div>
-  </div>
-  <!-- end contact -->
-<!-- end customer -->
-<style>
-.marcar-horario{
-     color: red;
-	border-radius: 10px;
-	align-items: center;
-	height: 100px;
-	width: 200px;
-}
-</style>
-
+    </body>
 {% endblock %}
-

@@ -3,6 +3,7 @@ from datetime import time
 from django.contrib.auth.models import User
 from django.db import models
 
+# class Usuario()
 
 class Disponibilidade(models.Model):
     DIA_CHOICES = (

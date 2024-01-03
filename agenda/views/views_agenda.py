@@ -1,21 +1,30 @@
+from django.contrib.auth.models import User
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from agenda.forms import FormAgendamento
-from agenda.models import Agendamento
+from agenda.models import Agendamento, Servico
 
+def listar_servicos(requet):
+    servicos = Servico.objects.all()
+    return render(requet, 'assets/static/crud_agenda/servicos.html', {'servicos': servicos})
 
-def fazer_agendamento(request):
+def etapa_de_agendamento(request, servico_id):
+    servicos = get_object_or_404(Servico, pk=servico_id)
+    return render(request, 'assets/static/crud_agenda/agendamento.html', {'servicos': servicos})
+
+#AgendamentoCliente
+def fazer_agendamento(request, servico_id):
     if request.user.is_authenticated:
+        servico = get_object_or_404(Servico, pk=servico_id)
+        cliente = request.user.id
         if request.method == 'POST':
             form = FormAgendamento(request.POST)
             if form.is_valid():
                 profissional = form.cleaned_data['profissional']
-                cliente = form.cleaned_data['cliente']
-                servico = form.cleaned_data['servico']
                 dia = form.cleaned_data['dia']
                 horario = form.cleaned_data['horario']
-                status_agendamento = form.cleaned_data['status_agendamento']
 
-                #fazer a regra de negócio aqui
+                # se o dia do agendamento do cliente for igual ao dia de disponibilidade do profissional
 
                 agendamento = Agendamento.objects.create(
                     profissional_id=profissional,
@@ -23,18 +32,18 @@ def fazer_agendamento(request):
                     servico=servico,
                     dia=dia,
                     horario=horario,
-                    status_agendamento=status_agendamento,
                 )
                 agendamento.save()
                 # deixando o automovel indisponivel para não possibilitar algum clienta fazer a reserva dele
                 return redirect('home')
         else:
-            form = FormAdminLocacao()
+            form = FormAgendamento()
 
-        clientes = User.objects.all()
+        profissionais = User.objects.all()
+
 
         context = {
             'form': form,
-            'clientes': clientes
+            'servicos': servico
         }
-        return render(request, 'assets/locacao_admins/add_locacao.html', context)
+        return render(request, 'assets/static/crud_agenda/agendamento.html', context)

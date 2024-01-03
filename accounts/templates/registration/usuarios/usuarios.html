@@ -3,19 +3,19 @@
 
 {% block content %}
 <div class="container py-5">
-    <h2>Gerenciar Usuários</h2>
+    <h2 class="text-white">Gerenciar Usuários</h2>
     <ul class="nav nav-tabs mt-4" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
-            <a class="nav-link active" id="add-modelo-tab" data-toggle="tab" href="#add-modelo" role="tab" aria-controls="add-modelo" aria-selected="true">Adicionar Usuário</a>
+            <a class="nav-link active" id="add-usuario-tab" data-toggle="tab" href="#add-usuario" role="tab" aria-controls="add-modelo" aria-selected="true">Adicionar Usuário</a>
         </li>
         <li class="nav-item" role="presentation">
-            <a class="nav-link" id="listar-modelos-tab" data-toggle="tab" href="#listar-modelos" role="tab" aria-controls="listar-modelos" aria-selected="false">Listar Usuários</a>
+            <a class="nav-link" id="listar-usuarios-tab" data-toggle="tab" href="#listar-usuarios" role="tab" aria-controls="listar-usuarios" aria-selected="false">Listar Usuários</a>
         </li>
     </ul>
 
     <div class="tab-content mt-4" id="myTabContent">
         <!-- Adicionar Cliente -->
-        <div class="tab-pane fade show active" id="add-modelo" role="tabpanel" aria-labelledby="add-modelo-tab">
+        <div class="tab-pane fade show active" id="add-usuario" role="tabpanel" aria-labelledby="add-usuario-tab">
             <div class="row justify-content-center">
                 <div class="col-md-6">
                     <div class="card o-hidden border-0 shadow-lg">
@@ -35,7 +35,7 @@
         </div>
 
         <!-- Listar Modelos -->
-        <div class="tab-pane fade" id="listar-modelos" role="tabpanel" aria-labelledby="listar-modelos-tab">
+        <div class="tab-pane fade" id="listar-usuarios" role="tabpanel" aria-labelledby="listar-usuarios-tab">
             <div class="row justify-content-center mt-4">
                 <div class="col-md-8">
                     <div class="card o-hidden border-0 shadow-lg">
@@ -63,18 +63,18 @@
 	                                        <td>{{ group.name }}</td>
 		                                    {% endfor %}
                                             <td>
-                                            {% for group in cliente.groups.all %}
-	                                            {% if group.name == 'Administrador' %}
+{#                                            {% for group in cliente.groups.all %}#}
+{#	                                            {% if group.name == 'Administrador' %}#}
 	                                                <a href="{% url 'editar_usuario' cliente.id %}" class="btn btn-success btn-sm">Editar</a>
 	                                                <a href="{% url 'remover_usuario' cliente.id %}" class="btn btn-danger btn-sm">Remover</a>
-	                                            {% else %}
-		                                            <a href="" class="btn btn-success btn-sm">kkk</a>
-	                                                <a href="" class="btn btn-danger btn-sm">kkkk</a>
-	                                            {% endif %}
+{#	                                            {% else %}#}
+{#		                                            <a href="" class="btn btn-success btn-sm">kkk</a>#}
+{#	                                                <a href="" class="btn btn-danger btn-sm">kkkk</a>#}
+{#	                                            {% endif %}#}
 	                                        {% endfor %}
                                             </td>
                                         </tr>
-                                        {% endfor %}
+{#                                        {% endfor %}#}
                                     </tbody>
                                 </table>
                             </div>
@@ -93,7 +93,7 @@
 </div>
 	<style>
 		body{
-			background: #a4152d;
+			background: #212520;
 		}
 	</style>
 {% endblock %}
