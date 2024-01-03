@@ -38,6 +38,6 @@ Este é um projeto de sistema web desenvolvido em Django para gerenciar o agenda
 ## Diagrama de Caso de Uso
 ![casoUso](https://github.com/saviodev23/ProjectWebII/assets/132952225/f4fe7349-83a5-48ed-95db-91a9e21ef602)
 
-
+ll
 
 
