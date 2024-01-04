@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="container py-5">
-    <h2>Gerenciar Modelos</h2>
+    <h2>Gerenciar Disponibilidade</h2>
     <ul class="nav nav-tabs mt-4" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
             <a class="nav-link active" id="add-modelo-tab" data-toggle="tab" href="#add-modelo" role="tab" aria-controls="add-modelo" aria-selected="true">Adicionar Serviço</a>
@@ -21,11 +21,17 @@
                     <div class="card o-hidden border-0 shadow-lg">
                         <div class="card-body p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4 text-dark">Cadastrar Novo Serviço</h1>
+                                <h1 class="h4 text-gray-900 mb-4 text-dark">Cadastrar Disponibilidade</h1>
                             </div>
                             <form enctype="multipart/form-data" method="POST" class="text-dark">
                                 {% csrf_token %}
                                 {% bootstrap_form form %}
+{#	                                  <div class="form-group">#}
+{#								        <label for="{{ form.hoario_inicio.id_for_label }}">Horário de Início:</label>#}
+{#								        <div class="input-group">#}
+{#								          <input type="time" name="{{ form.horario_inicio.name }}" id="{{ form.horario_inicio.id_for_label }}" class="form-control">#}
+{#								        </div>#}
+{#								      </div>#}
                                 <button class="btn btn-primary btn-user btn-block mt-3" type="submit">Cadastrar</button>
                             </form>
                         </div>
@@ -41,28 +47,28 @@
                     <div class="card o-hidden border-0 shadow-lg">
                         <div class="card-body p-0">
                             <div class="table-responsive">
-                                <h3 class="p-4">Lista de Serviços</h3>
+                                <h3 class="p-4">Lista de Disponibilidade</h3>
                                 <table class="table table-bordered text-dark">
                                     <thead>
                                         <tr>
                                             <th scope="col">ID</th>
-	                                        <th scope="col">Tipo</th>
-                                            <th scope="col">Nome</th>
-	                                        <th scope="col">Preço</th>
-                                            <th scope="col">Duração/Min</th>
+                                            <th scope="col">Profissional</th>
+	                                        <th scope="col">Dia</th>
+                                            <th scope="col">horário Inicio</th>
+	                                        <th scope="col">horário Fim</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for servico in servicos %}
+                                        {% for disponivel in disponibilidades %}
                                         <tr>
-                                            <td>{{ servico.id }}</td>
-	                                        <td>{{ servico.tipo_servico }}</td>
-                                            <td>{{ servico.nome_servico }}</td>
-	                                        <td>{{ servico.preco }}</td>
-                                            <td>{{ servico.janela_tempo }}</td>
+                                            <td>{{ disponivel.id }}</td>
+                                            <td>{{ disponivel.profissional }}</td>
+	                                        <td>{{ disponivel.dia }}</td>
+                                            <td>{{ disponivel.horario_inicio }}</td>
+	                                        <td>{{ disponivel.horario_fim }}</td>
                                             <td>
-                                                <a href="{% url 'editar_servico' servico.id %}" class="btn btn-success btn-sm">Editar</a>
-                                                <a href="{% url 'remover_servico' servico.id %}" class="btn btn-danger btn-sm">Remover</a>
+                                                <a href="{% url 'editar_disponibilidade' disponivel.id %}" class="btn btn-success btn-sm">Editar</a>
+                                                <a href="{% url 'remover_disponibilidade' disponivel.id %}" class="btn btn-danger btn-sm">Remover</a>
                                             </td>
                                         </tr>
                                         {% endfor %}

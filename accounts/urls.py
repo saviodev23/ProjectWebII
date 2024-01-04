@@ -1,4 +1,4 @@
-from .views.views import register, minha_conta, alterar_dados
+from.views.views import register, minha_conta, alterar_dados, add_disponibilidade, editar_disponibilidade, remover_disponibilidade, confirmar_remocao_disponibilidade
 from.views.view_admin import listar_usuarios, editar_usuario, remover_usuario, confirmar_remocao_usuario
 from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
@@ -16,6 +16,12 @@ urlpatterns = [
     path('editar/usuario/<int:user_id>', editar_usuario, name="editar_usuario"),
     path('remover/usuario/<int:user_id>', remover_usuario, name="remover_usuario"),
     path('confirmar/remocao/usuario/<int:user_id>', confirmar_remocao_usuario, name="confirmar_remocao_usuario"),
+
+    #crud_disponibilidade
+    path('add/disponibilidade/', add_disponibilidade, name="add_disponibilidade"),
+    path('editar/disponibilidade/<int:dispo_id>', editar_disponibilidade, name="editar_disponibilidade"),
+    path('remover/disponibilidade/<int:dispo_id>', remover_disponibilidade, name="remover_disponibilidade"),
+    path('confirmar/remocao/disponibilidade/<int:dispo_id>', confirmar_remocao_disponibilidade, name="confirmar_remocao_disponibilidade"),
 
     #recuperação de senha   path('reset-password/', auth_views.PasswordResetView.as_view(), name='password_reset'),
     path('reset-password/', auth_views.PasswordResetView.as_view(), name='password_reset'),

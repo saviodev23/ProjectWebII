@@ -39,7 +39,7 @@ def editar_usuario(request, user_id):
 
     return render(request, "registration/usuarios/editar_usuario.html", {"ID": usuario, "form": form})
 
-@group_required(['Administrador', 'Profissional'], "/accounts/login/")
+@group_required(['Administrador'], "/accounts/login/")
 def remover_usuario(request, user_id):
     usuario = get_object_or_404(User, pk=user_id)
     context = {

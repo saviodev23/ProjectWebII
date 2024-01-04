@@ -1,10 +1,12 @@
 from .views.views_servico import add_servico, editar_servico, remover_servico, confirmar_remocao_servico
-from .views.views_agenda import fazer_agendamento
+from .views.views_agenda import fazer_agendamento, listar_servicos, etapa_de_agendamento
 from django.urls import path
 
 urlpatterns = [
-    path('ver_agenda/', fazer_agendamento, name="ver_agenda"),
+    path('etapa/agendamento/<int:servico_id>', etapa_de_agendamento, name="etapa_de_agendamento"),
+    path('fazer/agendamento/<int:servico_id>', fazer_agendamento, name="fazer_agendamento"),
     #Crud serviço
+    path('listar/servicos/', listar_servicos, name="listar_servicos"),
     path('add/servico/', add_servico, name="add_servico"),
     path('editar/servico/<int:servico_id>', editar_servico, name="editar_servico"),
     path('remove/servico/<int:servico_id>', remover_servico, name="remover_servico"),

@@ -1,0 +1,79 @@
+{% extends 'assets/static/base.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="container5">
+        <h1 class="text-center mb-4 py-5">Agendamento de Horário</h1>
+
+        <!-- Seleção de Serviços -->
+	    <div class="row justify-content-center mb-4">
+            {% for servico in servicos %}
+            <div class="col-md-3 mb-4">
+                <div class="card border-0" onclick="selectServico(this)">
+                    <div class="card-body text-center">
+	                    <img src="{{ servico.imagem.url }}" class="card-img-top img-fluid" alt="{{ servico.nome_servico }}" style="max-height: 180px; max-width: 150px">
+                        <h6 class="card-title">{{ servico.nome_servico }}</h6>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Seleção de Dias da Semana -->
+        <div class="row justify-content-center mb-4">
+            <div class="col-md-6">
+                <div class="card mx-auto p-4">
+                    <div class="form-group text-dark">
+                        <label for="{{ form.dia.id_for_label }}">Qual dia você quer agendar?</label>
+                        <div class="input-group">
+                            <input type="date" name="{{ form.dia.name }}" id="{{ form.dia.id_for_label }}" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seleção de Horários -->
+        <div class="row justify-content-center mb-4">
+            <div class="col-md-6">
+                <div class="card mx-auto p-4">
+                    <div class="form-group text-dark">
+                        <label for="{{ form.horario.id_for_label }}">Qual horário?</label>
+                        <div class="input-group">
+                            <input type="time" name="{{ form.horario.name }}" id="{{ form.horario.id_for_label }}" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profissional Disponível -->
+        <div class="card mx-auto mb-4" style="max-width: 400px;">
+            <img src="" class="card-img-top img-fluid" alt="Profissional Disponível">
+            <div class="card-body text-center">
+                <h5 class="card-title">Escolha o Profissional</h5>
+                {{ form.profissional }}
+            </div>
+        </div>
+
+        <!-- Botão de Agendamento -->
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-primary btn-block">Agendar Horário</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function selectServico(card) {
+            // Remover destaque de todos os cards
+            document.querySelectorAll('.card').forEach(function (el) {
+                el.classList.remove('border-primary');
+            });
+
+            // Adicionar destaque ao card selecionado
+            card.classList.add('border-primary');
+        }
+    </script>
+
+{% endblock %}

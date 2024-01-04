@@ -30,3 +30,12 @@ Este é um projeto de sistema web desenvolvido em Django para gerenciar o agenda
 - Agendamento de horários pelo cliente.
 - Integração com o WhatsApp via chatbot para agendamento de horário.
 - Programa de fidelidade com descontos baseados no histórico de agendamentos.
+
+## Diagrama de classe
+![classe](https://github.com/saviodev23/ProjectWebII/assets/132952225/4ec5983a-e31d-4b0a-a82b-1533ee7de137)
+
+
+## Diagrama de Caso de Uso
+![casoUso](https://github.com/saviodev23/ProjectWebII/assets/132952225/f4fe7349-83a5-48ed-95db-91a9e21ef602)
+
+

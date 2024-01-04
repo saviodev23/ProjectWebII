@@ -9,7 +9,7 @@ def add_servico(request):
     if request.user.is_authenticated:
         servicos = Servico.objects.all()
         if request.method == 'POST':
-            form = FormAddServico(request.POST)
+            form = FormAddServico(request.POST, request.FILES)
             if form.is_valid():
                 #Verfificar se existe já aquele tipo de serviço cadastrado
                 nome_form = form.cleaned_data['nome_servico']
