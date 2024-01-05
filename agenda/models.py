@@ -1,8 +1,11 @@
 import datetime
-from datetime import date
+import time
+from datetime import date, time
 from django.contrib.auth.models import User
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.utils.datetime_safe import date, datetime
+
 
 def validar_dia(value):
     today = date.today()
@@ -13,64 +16,46 @@ def validar_dia(value):
     if (weekday == 5) or (weekday == 6):
         raise ValidationError('Escolha um dia útil da semana.')
 
-# class ItemServico(models.Model):
-#     TIPO_CHOICES = [
-#         ('Corte', 'Corte de Cabelo'),
-#         ('Coloracao', 'Coloração de Cabelo'),
-#         ('Alisamento', 'Alisamento'),
-#         ('Manicure', 'Manicure'),
-#         ('Pedicure', 'Pedicure'),
-#         ('Sombrancelhas', 'Sombrancelhas'),
-#     ]
-#     nome = models.CharField(max_length=50, choices=TIPO_CHOICES)
-#     preco = models.DecimalField(max_digits=8, decimal_places=2)
-#
-#     def __str__(self):
-#         return self.nome
 class Servico(models.Model):
-    TIPO_CHOICES = [
+    TIPO_CHOICES = (
         ('Unhas', 'Unhas'),
-        ('Cosmedicos', 'Cosmédicos'),
         ('Cabelereiro', 'Cabelereiro'),
-    ]
-    NOME_CHOICES = [
-        ('Corte', 'Corte de Cabelo'),
-        ('Coloracao', 'Coloração de Cabelo'),
-        ('Alisamento', 'Alisamento'),
-        ('Manicure', 'Manicure'),
-        ('Pedicure', 'Pedicure'),
-        ('Sombrancelhas', 'Sombrancelhas'),
-    ]
-    tipo_servico = models.CharField(max_length=50, choices=TIPO_CHOICES)
-    nome_servico = models.CharField(max_length=50, choices=NOME_CHOICES)
-    preco = models.DecimalField(max_digits=8, decimal_places=2)
+        ('Cosmédicos', 'Cosmédicos'),
+    )
+    nome_servico = models.CharField(max_length=50, verbose_name='Nome do Serviço')
+    tipo_servico = models.CharField(max_length=50, choices=TIPO_CHOICES, verbose_name='Tipo de serviço')
+    preco = models.DecimalField(max_digits=8, decimal_places=2, verbose_name='Preço')
+    janela_tempo = models.TimeField(default=time(), verbose_name='Duração do Serviço')
+    imagem = models.ImageField(upload_to="images/%Y/%m/%d/", null=True)
 
     def __str__(self):
-        servico = f"Nome Serviço: {self.nome_servico} Tipo Serviço:{self.tipo_servico}"
+        servico = f"Nome Serviço: {self.nome_servico} Preço Serviço:{self.preco}"
         return servico
 
-class Agenda(models.Model):
-    HORARIOS = (
-        ("1", "07:00 ás 08:00"),
-        ("2", "08:00 ás 09:00"),
-        ("3", "09:00 ás 10:00"),
-        ("4", "10:00 ás 11:00"),
-        ("5", "11:00 ás 12:00"),
+class Agendamento(models.Model):
+    STATUS_CHOICES = (
+        ('AG', 'Agendado'),
+        ('CA', 'Cancelado'),
+        ('CO', 'Concluído')
     )
     profissional = models.ForeignKey(User, on_delete=models.CASCADE, related_name='profissional')
-    cliente = models.ForeignKey(User, on_delete=models.CASCADE, related_name='cliente')
-    # servico = models.ManyToManyField(Servico, related_name='agendas')
+    cliente = models.ForeignKey(User, on_delete=models.CASCADE, related_name='cliente', blank=True, null=True)
     servico = models.ForeignKey(Servico, on_delete=models.CASCADE)
     dia = models.DateField(help_text="Insira uma data para agenda", validators=[validar_dia])
-    horario = models.CharField(max_length=1, choices=HORARIOS)
-    status_agendamento = models.BooleanField()
+    horario = models.TimeField()
+    status_agendamento = models.CharField(max_length=2, choices=STATUS_CHOICES, default='AG')
+    criado_em = models.DateTimeField()
 
     def __str__(self):
         return f'Agenda para {self.cliente.username} com {self.profissional.username}'
 
-class HistoricoAgendamento(models.Model):
-    cliente = models.ForeignKey(User, on_delete=models.CASCADE)
-    data_agendamento = models.DateTimeField()
+class Fidelidade(models.Model):
+    STATUS_CHOICES = (
+        ('CA', 'Cancelado'),
+        ('CO', 'Concluido'),
+    )
+    agenda = models.ForeignKey(Agendamento, on_delete=models.CASCADE)
+    status = models.CharField(max_length=2, choices=STATUS_CHOICES)
 
     def __str__(self):
-        return f"{self.cliente.username} - {self.data_agendamento}"
+        return self.status

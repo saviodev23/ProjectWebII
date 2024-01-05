@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import Agenda, Servico, HistoricoAgendamento
+from .models import Agendamento, Servico, Fidelidade
 
-admin.site.register(Agenda)
+admin.site.register(Agendamento)
 admin.site.register(Servico)
-admin.site.register(HistoricoAgendamento)
+admin.site.register(Fidelidade)
 # admin.site.register(ItemServico)

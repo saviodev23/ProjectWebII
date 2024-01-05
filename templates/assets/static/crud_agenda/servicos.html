@@ -1,0 +1,43 @@
+{% extends 'assets/static/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Gerencie seus serviços</h1>
+
+    <div class="row">
+        <div class="col-md-2 mb-4">
+	        {% for servico in servicos %}
+	            <div class="card">
+		                <img src="{{ servico.imagem.url }}" class="card-img-top" alt="{{ servico.nome_servico }}">
+		                <div class="card-body">
+		                    <h5 class="card-title">{{ servico.nome_servico }}</h5>
+			                <p class="card-text text-dark">{{ servico.preco }}</p>
+		                </div>
+	            </div>
+	        {% endfor %}
+        </div>
+    </div>
+
+</div>
+
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4;
+    }
+
+
+    .card {
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+    }
+
+</style>
+
+
+{% endblock %}
