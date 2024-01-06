@@ -2,9 +2,6 @@ from django import forms
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 
-from accounts.models import Disponibilidade
-
-
 class UserRegistrationForm(forms.ModelForm):
     password = forms.CharField(label='Senha', widget=forms.PasswordInput)
     confirm_password = forms.CharField(label='Confirmar Senha', widget=forms.PasswordInput)
@@ -38,15 +35,7 @@ class FormEditarUser(ModelForm):
         model = User
         fields = ['username', 'first_name', 'last_name', 'email',]
 
-class AddDisponibilidade(ModelForm):
-    class Meta:
-        model = Disponibilidade
-        fields = ['profissional', 'dia', 'horario_inicio', 'horario_fim',]
 
-        # widgets = {
-        #     'horario_inicio': forms.TimeInput(attrs={'class': 'form-control'}),
-        #     'horario_fim': forms.TimeInput(attrs={'class': 'form-control'}),
-        # }
 
 
 #Adicionar depois
