@@ -1,0 +1,32 @@
+{% extends 'assets/static/base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+<div class="container mt-4">
+    <h3 class="mb-4">Lista de Serviços</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th>Duração/Min</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for servico in servicos %}
+                <tr>
+                    <td>{{ servico.id }}</td>
+                    <td>{{ servico.nome_servico }}</td>
+                    <td>{{ servico.preco }}</td>
+                    <td>{{ servico.janela_tempo }}</td>
+                    <td>
+                        <a href="{% url 'editar_servico' servico.id %}" class="btn btn-success btn-sm">Editar</a>
+                        <a href="{% url 'remover_servico' servico.id %}" class="btn btn-danger btn-sm">Remover</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

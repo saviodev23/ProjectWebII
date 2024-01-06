@@ -12,6 +12,7 @@
             {% bootstrap_form form %}
             <div class="d-grid gap-2 mt-4">
               <button type="submit" class="btn btn-primary">Salvar</button>
+	           <a href="{% url 'remover_conta' %}" class="btn btn-secondary">Apagar conta</a>
               <a href="{% url 'minha_conta' %}" class="btn btn-secondary">Cancelar</a>
             </div>
           </form>

@@ -1,7 +1,9 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from ProjectWebII.utils import group_required
 from accounts.forms import UserRegistrationForm, FormEditarUser
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
+
 
 def register(request):
     if request.method == 'POST':
@@ -37,6 +39,15 @@ def alterar_dados(request):
         form = FormEditarUser(instance=user_id)
 
     return render(request, "registration/alterar_dados.html", {"ID": user_id, "form": form})
+
+
+@group_required(['Cliente', 'Profissional'], "/accounts/login/")
+def remover_conta(request, user_id):
+    usuario = get_object_or_404(User, pk=user_id)
+    context = {
+        "usuario": usuario
+    }
+    return render(request, "registration/usuarios/remover_usuario.html", context)
 
 
 #adicionar depois

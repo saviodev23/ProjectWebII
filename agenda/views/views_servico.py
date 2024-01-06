@@ -59,3 +59,17 @@ def confirmar_remocao_servico(request, servico_id):
     Servico.objects.get(pk=servico_id).delete()
 
     return redirect('add_servico')
+
+def detalhes_servico(request, servico_id):
+    servico = get_object_or_404(Servico, pk=servico_id)
+    context ={
+        'servico': servico
+    }
+    return render(request, 'assets/static/crud_servico/servico.html', context)
+
+def listar_servicos(request):
+    servicos = Servico.objects.all()
+    context = {
+        'servicos': servicos
+    }
+    return render(request, 'assets/static/crud_servico/lista_servicos.html', context)

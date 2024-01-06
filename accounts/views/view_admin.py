@@ -5,7 +5,7 @@ from django.contrib.auth.models import Group, User
 
 @group_required(['Administrador', 'Profissional'], "/accounts/login/")
 def listar_usuarios(request):
-    clientes = User.objects.all()
+    usuarios = User.objects.all()
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
@@ -19,7 +19,7 @@ def listar_usuarios(request):
         form = UserRegistrationForm()
 
     context = {
-        'clientes': clientes,
+        'clientes': usuarios,
         'form': form
     }
     return render(request, 'registration/usuarios/usuarios.html', context)

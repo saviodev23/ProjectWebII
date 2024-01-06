@@ -1,5 +1,5 @@
-from .views.views_servico import add_servico, editar_servico, remover_servico, confirmar_remocao_servico
-from .views.views_agenda import fazer_agendamento, listar_servicos, etapa_de_agendamento
+from .views.views_servico import add_servico, editar_servico, remover_servico, confirmar_remocao_servico, detalhes_servico, listar_servicos
+from .views.views_agenda import fazer_agendamento, etapa_de_agendamento
 from django.urls import path
 
 urlpatterns = [
@@ -12,4 +12,7 @@ urlpatterns = [
     path('remove/servico/<int:servico_id>', remover_servico, name="remover_servico"),
     path('confirmar/remocao/servico/<int:servico_id>', confirmar_remocao_servico, name="confirmar_remocao_servico"),
 
+    #detalhes do serviço
+    path('detalhes/servico/<int:servico_id>', detalhes_servico, name="detalhes_servico"),
+    path('listar/servicos/', listar_servicos, name="listar_servicos"),
 ]

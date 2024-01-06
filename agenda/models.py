@@ -18,7 +18,7 @@ class Servico(models.Model):
     nome_servico = models.CharField(max_length=50, verbose_name='Nome do Serviço')
     preco = models.DecimalField(max_digits=8, decimal_places=2, verbose_name='Preço')
     janela_tempo = models.TimeField(default=time(), verbose_name='Duração do Serviço')
-    imagem = models.ImageField(upload_to="images/%Y/%m/%d/", null=True)
+    imagem = models.ImageField(upload_to="images/%Y/%m/%d/", null=True, blank=True)
 
     def __str__(self):
         servico = f"Nome Serviço: {self.nome_servico} Preço Serviço:{self.preco}"

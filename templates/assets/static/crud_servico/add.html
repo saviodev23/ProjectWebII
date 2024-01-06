@@ -1,21 +1,20 @@
 {% extends 'assets/static/base.html' %}
 {% load bootstrap4 %}
-
 {% block content %}
 <div class="container py-5">
-    <h2>Gerenciar Modelos</h2>
+    <h2>Gerenciar Serviços</h2>
     <ul class="nav nav-tabs mt-4" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
-            <a class="nav-link active" id="add-modelo-tab" data-toggle="tab" href="#add-modelo" role="tab" aria-controls="add-modelo" aria-selected="true">Adicionar Serviço</a>
+            <a class="nav-link active" id="add-servico-tab" data-toggle="tab" href="#add-servico" role="tab" aria-controls="add-servico" aria-selected="true">Adicionar Serviço</a>
         </li>
         <li class="nav-item" role="presentation">
-            <a class="nav-link" id="listar-modelos-tab" data-toggle="tab" href="#listar-modelos" role="tab" aria-controls="listar-modelos" aria-selected="false">Listar Serviços</a>
+            <a class="nav-link" id="listar-servico-tab" data-toggle="tab" href="{% url 'listar_servicos' %}" role="tab" aria-controls="listar-servico" aria-selected="false">Listar Serviços</a>
         </li>
     </ul>
 
     <div class="tab-content mt-4" id="myTabContent">
         <!-- Adicionar Modelo -->
-        <div class="tab-pane fade show active" id="add-modelo" role="tabpanel" aria-labelledby="add-modelo-tab">
+        <div class="tab-pane fade show active" id="add-servico" role="tabpanel" aria-labelledby="add-servico-tab">
             <div class="row justify-content-center">
                 <div class="col-md-6">
                     <div class="card o-hidden border-0 shadow-lg">
@@ -34,46 +33,8 @@
             </div>
         </div>
 
-        <!-- Listar Modelos -->
-        <div class="tab-pane fade" id="listar-modelos" role="tabpanel" aria-labelledby="listar-modelos-tab">
-            <div class="row justify-content-center mt-4">
-                <div class="col-md-8">
-                    <div class="card o-hidden border-0 shadow-lg">
-                        <div class="card-body p-0">
-                            <div class="table-responsive">
-                                <h3 class="p-4">Lista de Serviços</h3>
-                                <table class="table table-bordered text-dark">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">ID</th>
-	                                        <th scope="col">Tipo</th>
-                                            <th scope="col">Nome</th>
-	                                        <th scope="col">Preço</th>
-                                            <th scope="col">Duração/Min</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for servico in servicos %}
-                                        <tr>
-                                            <td>{{ servico.id }}</td>
-	                                        <td>{{ servico.tipo_servico }}</td>
-                                            <td>{{ servico.nome_servico }}</td>
-	                                        <td>{{ servico.preco }}</td>
-                                            <td>{{ servico.janela_tempo }}</td>
-                                            <td>
-                                                <a href="{% url 'editar_servico' servico.id %}" class="btn btn-success btn-sm">Editar</a>
-                                                <a href="{% url 'remover_servico' servico.id %}" class="btn btn-danger btn-sm">Remover</a>
-                                            </td>
-                                        </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- Listar Serviços -->
+
     </div>
 
     <div class="row justify-content-center mt-4">

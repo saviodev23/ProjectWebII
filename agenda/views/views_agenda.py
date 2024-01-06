@@ -4,9 +4,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from agenda.forms import FormAgendamento
 from agenda.models import Agendamento, Servico
 
-def listar_servicos(requet):
-    servicos = Servico.objects.all()
-    return render(requet, 'assets/static/crud_agenda/servicos.html', {'servicos': servicos})
 
 def etapa_de_agendamento(request, servico_id):
     servicos = get_object_or_404(Servico, pk=servico_id)
