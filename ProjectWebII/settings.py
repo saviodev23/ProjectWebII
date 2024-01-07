@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'agenda.apps.AgendaConfig',
+    'horario.apps.HorarioConfig',
     'bootstrap4'
 ]
 
@@ -128,11 +129,3 @@ CRISPY_TEMPLATE_PACK = 'Bootstrap4'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-#Recuperação de senha
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587  # Substitua pela porta do seu servidor de e-mail
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'salaodebelezaguanambi@gmail.com'  # Substitua pelo seu endereço de e-mail
-EMAIL_HOST_PASSWORD = '987654321SSs'  # Substitua pela sua senha de e-mail

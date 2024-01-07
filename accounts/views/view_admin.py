@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect, get_object_or_404
-
 from ProjectWebII.utils import group_required
 from accounts.forms import UserRegistrationForm, FormEditarUser
 from django.contrib.auth.models import Group, User
