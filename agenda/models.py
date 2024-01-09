@@ -1,5 +1,5 @@
 from datetime import date, time
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils.datetime_safe import date
@@ -30,13 +30,13 @@ class Agendamento(models.Model):
         ('CA', 'Cancelado'),
         ('CO', 'Concluído')
     )
-    profissional = models.ForeignKey(User, on_delete=models.CASCADE, related_name='profissional')
-    cliente = models.ForeignKey(User, on_delete=models.CASCADE, related_name='cliente', blank=True, null=True)
+    profissional = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profissional')
+    cliente = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='cliente', blank=True, null=True)
     servico = models.ForeignKey(Servico, on_delete=models.CASCADE)
     dia = models.DateField(help_text="Insira uma data para agenda", validators=[validar_dia])
     horario = models.TimeField()
     status_agendamento = models.CharField(max_length=2, choices=STATUS_CHOICES, default='AG')
-    criado_por = models.ForeignKey(User, on_delete=models.CASCADE, related_name='criado_por')
+    criado_por = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='criado_por')
     criado_em = models.DateTimeField()
 
     def __str__(self):

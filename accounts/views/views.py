@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect
 from accounts.forms import UserRegistrationForm, FormEditarUser
 from django.contrib.auth.models import Group
 
+
+
 def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
@@ -12,7 +14,9 @@ def register(request):
             group_name = 'Profissional' if user_type == 'profissional' else 'Cliente'
             group = Group.objects.get(name=group_name)  # Obtém o grupo correspondente
             user.groups.add(group)  # Adiciona o usuário ao grupo correspondente
-            return redirect('login')  # Redireciona para a página de login após o registro bem-sucedido
+            return redirect('login')  # Redireciona para a página de login após o registro bem-sucedidoio
+            
+            
     else:
         form = UserRegistrationForm()
     return render(request, 'registration/register.html', {'form': form})
