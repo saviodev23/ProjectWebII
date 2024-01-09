@@ -29,7 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'agenda.apps.AgendaConfig',
     'horario.apps.HorarioConfig',
-    'bootstrap4'
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [

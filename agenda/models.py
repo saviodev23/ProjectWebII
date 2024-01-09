@@ -1,4 +1,6 @@
 from datetime import date, time
+from sqlite3 import Date
+
 from django.contrib.auth.models import User
 from django.db import models
 from django.core.exceptions import ValidationError
@@ -16,6 +18,7 @@ def validar_dia(value):
 
 class Servico(models.Model):
     nome_servico = models.CharField(max_length=50, verbose_name='Nome do Serviço')
+    descricao = models.CharField(max_length=200, verbose_name='Descrição')
     preco = models.DecimalField(max_digits=8, decimal_places=2, verbose_name='Preço')
     janela_tempo = models.TimeField(default=time(), verbose_name='Duração do Serviço')
     imagem = models.ImageField(upload_to="images/%Y/%m/%d/", null=True, blank=True)
@@ -37,7 +40,7 @@ class Agendamento(models.Model):
     horario = models.TimeField()
     status_agendamento = models.CharField(max_length=2, choices=STATUS_CHOICES, default='AG')
     criado_por = models.ForeignKey(User, on_delete=models.CASCADE, related_name='criado_por')
-    criado_em = models.DateTimeField()
+    criado_em = models.DateTimeField(default=Date.today())
 
     def __str__(self):
         return f'Agenda para {self.cliente.username} com {self.profissional.username}'

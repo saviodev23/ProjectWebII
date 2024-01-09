@@ -67,9 +67,3 @@ def detalhes_servico(request, servico_id):
     }
     return render(request, 'assets/static/crud_servico/servico.html', context)
 
-def listar_servicos(request):
-    servicos = Servico.objects.all()
-    context = {
-        'servicos': servicos
-    }
-    return render(request, 'assets/static/crud_servico/lista_servicos.html', context)

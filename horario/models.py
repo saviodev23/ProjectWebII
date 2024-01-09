@@ -1,3 +1,4 @@
+from sqlite3 import Date
 from django.contrib.auth.models import User
 from django.db import models
 from datetime import time
@@ -16,13 +17,7 @@ class Disponibilidade(models.Model):
     horario_fim = models.TimeField(default=time())
 
 class Parametro(models.Model):
-    PRECO_CHOICES = (
-        ('1', '10.00'),
-        ('2', '15.00'),
-        ('3', '20.00'),
-        ('4', '30.00'),
-    )
     nome = models.CharField(max_length=30)
-    preco = models.CharField(max_length=20, choices=PRECO_CHOICES)
+    valor = models.IntegerField(default=30)
     criado_por = models.ForeignKey(User, on_delete=models.CASCADE)
-    criado_em = models.DateField()
+    criado_em = models.DateField(default=Date.today())

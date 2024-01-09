@@ -1,6 +1,6 @@
-from django.contrib.auth.models import User
-from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
+
+from ProjectWebII.utils import group_required
 from agenda.forms import FormAgendamento
 from agenda.models import Agendamento, Servico
 
@@ -9,10 +9,10 @@ def etapa_de_agendamento(request, servico_id):
     servicos = get_object_or_404(Servico, pk=servico_id)
     return render(request, 'assets/static/crud_agenda/agendamento.html', {'servicos': servicos})
 
-#AgendamentoCliente
-def fazer_agendamento(request, servico_id):
+#AgendamentoFeitoPeloProfissional
+@group_required(['Profissional', 'Administrador'], "/accounts/login/")
+def fazer_agendamento_pelo_profissional(request):#Agendamento simples feito, falta fazer a regra de negócio
     if request.user.is_authenticated:
-        servico = get_object_or_404(Servico, pk=servico_id)
         cliente = request.user.id
         if request.method == 'POST':
             form = FormAgendamento(request.POST)
@@ -20,27 +20,37 @@ def fazer_agendamento(request, servico_id):
                 profissional = form.cleaned_data['profissional']
                 dia = form.cleaned_data['dia']
                 horario = form.cleaned_data['horario']
-
-                # se o dia do agendamento do cliente for igual ao dia de disponibilidade do profissional
+                criado_por = form.cleaned_data['criado_por']
+                servico = form.cleaned_data['servico']
+                criado_em = form.cleaned_data['criado_em']
 
                 agendamento = Agendamento.objects.create(
-                    profissional_id=profissional,
+                    profissional=profissional,
                     cliente_id=cliente,
-                    servico=servico,
                     dia=dia,
                     horario=horario,
+                    servico=servico,
+                    criado_por=criado_por,
+                    criado_em=criado_em
                 )
                 agendamento.save()
-                # deixando o automovel indisponivel para não possibilitar algum clienta fazer a reserva dele
                 return redirect('home')
         else:
             form = FormAgendamento()
 
-        profissionais = User.objects.all()
-
-
         context = {
             'form': form,
-            'servicos': servico
+            # 'servicos': servico
         }
         return render(request, 'assets/static/crud_agenda/agendamento.html', context)
+
+@group_required(['Cliente', 'Administrador'], "/accounts/login/")
+def listar_agendamentos_cliente(request):
+    agendamentos = Agendamento.objects.filter(cliente=request.user).order_by('-dia', 'horario')
+    return render(request, 'assets/static/crud_agenda/lista_agendamentos_cliente.html', {'agendamentos': agendamentos})
+
+
+@group_required(['Profissional', 'Administrador'], "/accounts/login/")
+def listar_agendamentos(request):
+    agendamentos = Agendamento.objects.all()
+    return render(request, 'assets/static/crud_agenda/lista_agendamentos.html', {'agendamentos': agendamentos})
