@@ -1,7 +1,5 @@
 from datetime import date, time
-from sqlite3 import Date
-
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils.datetime_safe import date
@@ -33,17 +31,17 @@ class Agendamento(models.Model):
         ('CA', 'Cancelado'),
         ('CO', 'Concluído')
     )
-    profissional = models.ForeignKey(User, on_delete=models.CASCADE, related_name='profissional')
-    cliente = models.ForeignKey(User, on_delete=models.CASCADE, related_name='cliente', blank=True, null=True)
+    profissional = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profissional')
+    cliente = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='cliente')
     servico = models.ForeignKey(Servico, on_delete=models.CASCADE)
     dia = models.DateField(help_text="Insira uma data para agenda", validators=[validar_dia])
-    horario = models.TimeField()
+    horario = models.TimeField(default=time())
     status_agendamento = models.CharField(max_length=2, choices=STATUS_CHOICES, default='AG')
-    criado_por = models.ForeignKey(User, on_delete=models.CASCADE, related_name='criado_por')
-    criado_em = models.DateTimeField(default=Date.today())
+    criado_por = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='criado_por')
+    criado_em = models.DateTimeField(default=date.today())
 
     def __str__(self):
-        return f'Agenda para {self.cliente.username} com {self.profissional.username}'
+        return f'Agenda para {self.cliente.usernam} com {self.profissional.username}'
 
 class Fidelidade(models.Model):
     STATUS_CHOICES = (

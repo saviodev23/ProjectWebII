@@ -10,6 +10,7 @@
                 <tr>
 	                <th scope="col">Criado por</th>
                     <th scope="col">Cliente</th>
+	                <th scope="col">Profissional</th>
                     <th scope="col">Serviço</th>
                     <th scope="col">Data</th>
                     <th scope="col">Horário</th>
@@ -22,6 +23,7 @@
                     <tr>
                         <td>{{ agendamento.criado_por.username }}</td>
                         <td>{{ agendamento.cliente.username }}</td>
+	                    <td>{{ agendamento.profissional.username }}</td>
                         <td>{{ agendamento.servico.nome_servico }}</td>
                         <td>{{ agendamento.dia|date:"D, d M Y" }}</td>
                         <td>{{ agendamento.horario|time:"H:i" }}</td>

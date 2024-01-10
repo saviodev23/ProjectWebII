@@ -6,7 +6,7 @@ urlpatterns = [
     #Agendamento
     path('etapa/agendamento/<int:servico_id>', etapa_de_agendamento, name="etapa_de_agendamento"),
     path('fazer/agendamento/', fazer_agendamento_pelo_profissional, name="fazer_agendamento_pelo_profissional"),
-    path('lista/agendamentos/', listar_agendamentos_cliente, name="listar_agendamentos"),
+    path('lista/agendamentos/', listar_agendamentos_cliente, name="listar_agendamentos_cliente"),
     path('listar/agendamentos/', listar_agendamentos, name="listar_agendamentos"),
     #Crud serviço
     path('add/servico/', add_servico, name="add_servico"),

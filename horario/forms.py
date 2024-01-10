@@ -1,7 +1,6 @@
 from django import forms
 from horario.models import Disponibilidade, Parametro
 
-
 class AddDisponibilidade(forms.ModelForm):
     widgets = {
         'profissional': forms.Select(attrs={'class': 'form-control'}),

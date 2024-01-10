@@ -1,0 +1,22 @@
+{% extends 'assets/static/base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card o-hidden border-0 shadow-lg">
+                <div class="card-body p-5">
+                    <div class="text-center">
+                        <h1 class="h4 text-gray-900 mb-4 text-dark">Fazer Agendamento</h1>
+                    </div>
+                    <form method="POST" class="text-dark">
+                        {% csrf_token %}
+                        {% bootstrap_form form %}
+                        <button class="btn btn-primary btn-user btn-block mt-3" type="submit">Agendar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
