@@ -1,7 +1,10 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from ProjectWebII.utils import group_required
 from accounts.forms import UserRegistrationForm, FormEditarUser
 from django.contrib.auth.models import Group
+from accounts.models import Usuario
+
 
 
 
@@ -23,17 +26,18 @@ def register(request):
 
 @login_required
 def minha_conta(request):
+    user = request.user
+    context = {
+        'user':user
+    }
 
-    return render(request, 'registration/minha_conta.html', {'user': request.user})
+    return render(request, 'registration/minha_conta.html', context)
 
 @login_required
 def alterar_dados(request):
     user_id = request.user
-    # usuario = User.objects.get(id=user_id)
-    # usuario = get_object_or_404(User, pk=user_id)
     if request.method == 'POST':
         form = FormEditarUser(request.POST, instance=user_id)
-
         if form.is_valid():
             form.save()
             return redirect('minha_conta')
@@ -43,34 +47,10 @@ def alterar_dados(request):
     return render(request, "registration/alterar_dados.html", {"ID": user_id, "form": form})
 
 
-#adicionar depois
-
-    # def cadastro(request):
-    # if request.method == 'POST':
-    #     form = CadastroForms(request.POST)
-    #
-    #     if form.is_valid():
-    #         if form['senha'].value() != form['senha2'].value():
-    #             messages.error(request, 'As senhas precisam ser iguais.')
-    #             return redirect('cadastro')
-    #
-    #         nome = form['nome_cadastro'].value()
-    #         email = form['email'].value()
-    #         senha = form['senha'].value()
-    #
-    #         if User.objects.filter(username = nome).exists() or User.objects.filter(email = email).exists():
-    #             messages.error(request, 'Email ou usuário ja cadastrado.')
-    #             return redirect('cadastro')
-    #
-    #         usuario = User.objects.create_user(
-    #             username = nome,
-    #             email = email,
-    #             password = senha
-    #         )
-    #         usuario.save()
-    #         messages.success(request, f"Cadastro efetuado com sucesso!")
-    #         return redirect('login')
-    # else:
-    #     form = CadastroForms()
-    #     return render(request, 'galeria/usuarios/cadastro.html', {"form": form})
-
+@group_required(['Cliente', 'Profissional'], "/accounts/login/")
+def remover_conta(request, user_id):
+    usuario = get_object_or_404(Usuario, pk=user_id)
+    context = {
+        "usuario": usuario
+    }
+    return render(request, "registration/usuarios/remover_usuario.html", context)

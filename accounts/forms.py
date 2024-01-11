@@ -2,14 +2,16 @@ from django import forms
 from .models import Usuario
 from django.forms import ModelForm
 
+
 class UserRegistrationForm(forms.ModelForm):
     password = forms.CharField(label='Senha', widget=forms.PasswordInput)
     confirm_password = forms.CharField(label='Confirmar Senha', widget=forms.PasswordInput)
-    
+
     class Meta:
         model = Usuario
-        fields = ['username', 'email', 'first_name', 'last_name','telefone','cpf']
-    
+        fields = ['username', 'email', 'first_name', 'last_name', 'telefone', 'cpf']
+
+
     def clean_confirm_password(self):
         password = self.cleaned_data['password']
         confirm_password = self.cleaned_data['confirm_password']
@@ -36,7 +38,9 @@ class UserProfRegistrationForm(forms.ModelForm):
     
     class Meta:
         model = Usuario
-        fields = ['username', 'email', 'first_name', 'last_name','user_type','telefone','cpf']
+
+        fields = ['username', 'email', 'first_name', 'last_name', 'user_type', 'telefone', 'cpf']
+
 
     def clean_confirm_password(self):
         password = self.cleaned_data['password']
@@ -56,12 +60,11 @@ class UserProfRegistrationForm(forms.ModelForm):
 class FormEditarUser(ModelForm):
     class Meta:
         model = Usuario
-        fields = ['username', 'first_name', 'last_name', 'email',]
+
+        fields = ['username', 'first_name', 'last_name', 'email', ]
 
 
-
-
-#Adicionar depois
+# Adicionar depois
 
 # class CadastroForms(forms.Form):
 #     nome_cadastro=forms.CharField(
@@ -118,4 +121,3 @@ class FormEditarUser(ModelForm):
 #                 raise forms.ValidationError('Espaços não são permitidos nesse campo')
 #             else:
 #                 return nome
-

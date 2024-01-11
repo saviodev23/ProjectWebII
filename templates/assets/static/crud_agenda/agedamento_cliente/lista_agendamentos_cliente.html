@@ -1,0 +1,39 @@
+{% extends 'assets/static/base.html' %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <h2 class="mb-4">Meus Agendamentos</h2>
+
+    {% if agendamentos %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Serviço</th>
+                    <th scope="col">Data</th>
+                    <th scope="col">Horário</th>
+	                <th scope="col">Profissional</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for agendamento in agendamentos %}
+                    <tr>
+                        <td>{{ agendamento.servico.nome_servico }}</td>
+                        <td>{{ agendamento.dia|date:"D, d M Y" }}</td>
+                        <td>{{ agendamento.horario|time:"H:i" }}</td>
+	                    <td>{{ agendamento.profissional.username }}</td>
+                        <td>{{ agendamento.get_status_agendamento_display }}</td>
+                        <td>
+                            <a href="" class="btn btn-success btn-sm">Editar</a>
+                            <a href="" class="btn btn-danger btn-sm">Remover</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Nenhum agendamento encontrado.</p>
+    {% endif %}
+</div>
+{% endblock %}
+

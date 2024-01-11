@@ -1,6 +1,9 @@
+
+
 from django.conf import settings
 from django.db import models
-from datetime import time
+from datetime import time, date
+
 
 class Disponibilidade(models.Model):
     DIA_CHOICES = (
@@ -23,6 +26,8 @@ class Parametro(models.Model):
         ('4', '30.00'),
     )
     nome = models.CharField(max_length=30)
-    preco = models.CharField(max_length=20, choices=PRECO_CHOICES)
+
+    valor = models.CharField(max_length=20, choices=PRECO_CHOICES)
     criado_por = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    criado_em = models.DateField()
+    criado_em = models.DateField(default=date.today())
+

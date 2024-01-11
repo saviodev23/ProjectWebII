@@ -16,9 +16,10 @@ def validar_dia(value):
 
 class Servico(models.Model):
     nome_servico = models.CharField(max_length=50, verbose_name='Nome do Serviço')
+    descricao = models.CharField(max_length=200, verbose_name='Descrição')
     preco = models.DecimalField(max_digits=8, decimal_places=2, verbose_name='Preço')
     janela_tempo = models.TimeField(default=time(), verbose_name='Duração do Serviço')
-    imagem = models.ImageField(upload_to="images/%Y/%m/%d/", null=True)
+    imagem = models.ImageField(upload_to="images/%Y/%m/%d/", null=True, blank=True)
 
     def __str__(self):
         servico = f"Nome Serviço: {self.nome_servico} Preço Serviço:{self.preco}"
@@ -31,16 +32,20 @@ class Agendamento(models.Model):
         ('CO', 'Concluído')
     )
     profissional = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profissional')
-    cliente = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='cliente', blank=True, null=True)
+
+    cliente = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='cliente')
+
     servico = models.ForeignKey(Servico, on_delete=models.CASCADE)
     dia = models.DateField(help_text="Insira uma data para agenda", validators=[validar_dia])
-    horario = models.TimeField()
+    horario = models.TimeField(default=time())
     status_agendamento = models.CharField(max_length=2, choices=STATUS_CHOICES, default='AG')
     criado_por = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='criado_por')
-    criado_em = models.DateTimeField()
+
+    criado_em = models.DateTimeField(default=date.today())
+
 
     def __str__(self):
-        return f'Agenda para {self.cliente.username} com {self.profissional.username}'
+        return f'Agenda para {self.cliente.usernam} com {self.profissional.username}'
 
 class Fidelidade(models.Model):
     STATUS_CHOICES = (

@@ -1,5 +1,5 @@
 {% load static%}
-<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-color">
     <!-- Navbar Brand-->
     <a class="navbar-brand ps-3" href="{% url 'home' %}">BarberShop</a>
     <!-- Sidebar Toggle-->
@@ -27,5 +27,10 @@
 	        </li>
 	    </ul>
 	{% endif %}
+	<style>
+		.bg-color{
+			background: #50394c;
+		}
+	</style>
 </nav>
 

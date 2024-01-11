@@ -1,11 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from ProjectWebII.utils import group_required
-from accounts.forms import UserRegistrationForm, FormEditarUser, UserProfRegistrationForm
+
+from accounts.forms import FormEditarUser, UserProfRegistrationForm
+
 from django.contrib.auth.models import Group
 from accounts.models import Usuario
 
 @group_required(['Administrador', 'Profissional'], "/accounts/login/")
-def listar_usuarios(request):
+
+def listar_e_cadastrar_usuarios(request):
+
     clientes = Usuario.objects.all()
     if request.method == 'POST':
         form = UserProfRegistrationForm(request.POST)

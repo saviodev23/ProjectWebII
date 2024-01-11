@@ -81,51 +81,23 @@
 	    <div id="layoutSidenav_content">
 	        <main>
 	            <div class="container-fluid px-4">
-	                <h1 class="mt-4">Gerencie a Disponibilidade</h1>
+	                <h1 class="mt-4">Gerencie os Parâmetros</h1>
 
 	                <div class="row">
 					    <div class="tab-content mt-4" id="myTabContent">
-					        <!-- Adicionar Disponibilidade -->
+					        <!-- Adicionar Parametros -->
 					        <div class="tab-pane fade show active">
 					            <div class="row justify-content-center">
 					                <div class="col-md-6">
 					                    <div class="card o-hidden border-0 shadow-lg">
 					                        <div class="card-body p-5">
 					                            <div class="text-center">
-					                                <h1 class="h4 text-gray-900 mb-4 text-dark">Cadastrar Disponibilidade</h1>
+					                                <h1 class="h4 text-gray-900 mb-4 text-dark">Cadastrar Parâmetro</h1>
 					                            </div>
 					                            <form enctype="multipart/form-data" method="POST" class="text-dark">
 					                                {% csrf_token %}
-{#					                                {% bootstrap_form form %}#}
-						                            <div class="form-group">
-							                            <div class="mb-3">
-								                            <label for="{{ form.profissional.id_for_label }}" class="form-label">Profissional:</label>
-								                            <select name="{{ form.profissional.name }}" id="{{ form.profissional.id_for_label }}" class="form-select">
-								                                {% for profissional in profissionais %}
-								                                <option value="{{ profissional.id }}">{{ profissional.first_name }} {{ profissional.last_name }}</option>
-								                                {% endfor %}
-								                            </select>
-								                        </div>
+					                                {% bootstrap_form form %}
 
-							                            <div class="mb-3">
-								                            <label for="{{ form.dia.id_for_label }}" class="form-label">Dia:</label>
-								                            <select name="{{ form.dia.name }}" id="{{ form.dia.id_for_label }}" class="form-select">
-								                                {% for value, label in form.dia.field.choices %}
-								                                <option value="{{ value }}">{{ label }}</option>
-								                                {% endfor %}
-								                            </select>
-								                        </div>
-
-												        <label for="{{ form.horario_inicio.id_for_label }}">Horário Inicicio:</label>
-												        <div class="input-group">
-												          <input type="time" name="{{ form.horario_inicio.name }}" id="{{ form.horario_inicio.id_for_label }}" class="form-control">
-												        </div>
-								                        <label for="{{ form.horario_fim.id_for_label }}">Horário Fim:</label>
-												        <div class="input-group">
-												          <input type="time" name="{{ form.horario_fim.name }}" id="{{ form.horario_fim.id_for_label }}" class="form-control">
-												        </div>
-
-											      </div>
 					                                <button class="btn btn-primary btn-user btn-block mt-3" type="submit">Cadastrar</button>
 					                            </form>
 					                        </div>
@@ -135,45 +107,46 @@
 					        </div>
 					    </div>
 
-	                        <div>
-					        <div class="row justify-content-center mt-4">
-					            <div class="col-md-8 py-5">
-					                <div class="card o-hidden border-0 shadow-lg">
-					                    <div class="card-body p-0">
-					                        <div class="table-responsive">
-					                            <h3 class="p-4">Lista de Disponibilidades</h3>
-					                            <table class="table text-dark">
-					                                <thead>
-					                                    <tr>
-					                                        <th scope="col">ID</th>
-					                                        <th scope="col">Profissional</th>
-					                                        <th scope="col">Dia</th>
-					                                        <th scope="col">horário Inicio</th>
-					                                        <th scope="col">horário Fim</th>
-					                                    </tr>
-					                                </thead>
-					                                <tbody>
-					                                    {% for disponivel in disponibilidades %}
-					                                    <tr>
-					                                        <td>{{ disponivel.id }}</td>
-					                                        <td>{{ disponivel.profissional }}</td>
-					                                        <td>{{ disponivel.dia }}</td>
-					                                        <td>{{ disponivel.horario_inicio }}</td>
-					                                        <td>{{ disponivel.horario_fim }}</td>
-					                                        <td>
-					                                            <a href="{% url 'editar_disponibilidade' disponivel.id %}" class="btn btn-success btn-sm">Editar</a>
-					                                            <a href="{% url 'remover_disponibilidade' disponivel.id %}" class="btn btn-danger btn-sm">Remover</a>
-					                                        </td>
-					                                    </tr>
-					                                    {% endfor %}
-					                                </tbody>
-					                            </table>
-					                        </div>
-					                    </div>
-					                </div>
-					            </div>
-					        </div>
-					    </div>
+				        <!-- Listar Parametros -->
+				        <div>
+				            <div class="row justify-content-center mt-4">
+				                <div class="col-md-8 py-5">
+				                    <div class="card o-hidden border-0 shadow-lg">
+				                        <div class="card-body p-0">
+				                            <div class="table-responsive">
+				                                <h3 class="p-4">Lista de Parâmetros</h3>
+				                                <table class="table text-dark">
+				                                    <thead>
+				                                        <tr>
+				                                            <th scope="col">ID</th>
+				                                            <th scope="col">Nome</th>
+					                                        <th scope="col">Valor</th>
+				                                            <th scope="col">Criado Por</th>
+					                                        <th scope="col">Criado em</th>
+				                                        </tr>
+				                                    </thead>
+				                                    <tbody>
+				                                        {% for parametro in parametros %}
+				                                        <tr>
+				                                            <td>{{ parametro.id }}</td>
+				                                            <td>{{ parametro.nome }}</td>
+					                                        <td>{{ parametro.valor }}</td>
+				                                            <td>{{ parametro.criado_por.username }}</td>
+					                                        <td>{{ parametro.criado_em }}</td>
+				                                            <td>
+				                                                <a href="{% url 'editar_parametro' parametro.id %}" class="btn btn-success btn-sm">Editar</a>
+				                                                <a href="{% url 'remover_parametro' parametro.id %}" class="btn btn-danger btn-sm">Remover</a>
+				                                            </td>
+				                                        </tr>
+				                                        {% endfor %}
+				                                    </tbody>
+				                                </table>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
 	                </div>
 	            </div>
 	        </main>
