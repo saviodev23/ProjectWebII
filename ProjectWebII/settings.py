@@ -13,8 +13,8 @@ SECRET_KEY = 'django-insecure-=(req+1tb#%k(6an53k51$y1&d538@ctob11x3@zrjm*(-kfeb
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = []
+CSRF_COOKIE_SECURE = True
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -29,7 +29,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'agenda.apps.AgendaConfig',
     'horario.apps.HorarioConfig',
-    'bootstrap4'
+    'bootstrap4',
+    'bot',
 ]
 
 MIDDLEWARE = [
