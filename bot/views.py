@@ -14,13 +14,13 @@ def bot(request):
     horarios_disponiveis = gerar_horarios_disponiveis()
 
     # Verificar a mensagem do usuário e gerar a resposta apropriada
-    if user_message == 'horarios':
+    if user_message == 'horarios' or user_message == 'Horários' or user_message == 'Horarios' or user_message == 'horario':
         response_message = f"Horários disponíveis:\n{formatar_horarios(horarios_disponiveis)}"
     elif user_message.startswith('reservar'):
         horario_reservado = user_message.replace('reservar ', '').strip()
         response_message = reservar_horario(horario_reservado, horarios_disponiveis.copy())
     else:
-        response_message = "Obrigado por entrar em contato! Em breve, responderemos."
+        response_message = 'Bem vindo ao ChatBot da Barbearia. Digite "Horários" para ver os horários disponíveis.'
 
     # Construir a resposta
     twilio_response = MessagingResponse()
