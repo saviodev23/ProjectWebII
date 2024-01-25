@@ -32,20 +32,18 @@ class Agendamento(models.Model):
         ('CO', 'Concluído')
     )
     profissional = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profissional')
-
+    preco_servico = models.ForeignKey(Servico, on_delete=models.CASCADE, related_name='preco')
     cliente = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='cliente')
-
     servico = models.ForeignKey(Servico, on_delete=models.CASCADE)
     dia = models.DateField(help_text="Insira uma data para agenda", validators=[validar_dia])
     horario = models.TimeField(default=time())
     status_agendamento = models.CharField(max_length=2, choices=STATUS_CHOICES, default='AG')
     criado_por = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='criado_por')
-
     criado_em = models.DateTimeField(default=date.today())
-
+    quantidade_concluido = models.IntegerField(default=0)
 
     def __str__(self):
-        return f'Agenda para {self.cliente.usernam} com {self.profissional.username}'
+        return f'Agenda para {self.cliente.username} com {self.profissional.username}'
 
 class Fidelidade(models.Model):
     STATUS_CHOICES = (
@@ -54,6 +52,6 @@ class Fidelidade(models.Model):
     )
     agenda = models.ForeignKey(Agendamento, on_delete=models.CASCADE)
     status = models.CharField(max_length=2, choices=STATUS_CHOICES)
-
+    cupon = models.IntegerField(default=0)
     def __str__(self):
         return self.status

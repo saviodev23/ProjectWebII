@@ -15,8 +15,9 @@
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="">Fazer Agendamento</a>
+                                    <a class="nav-link" href="{% url 'fazer_agendamento_pelo_profissional' %}">Fazer Agendamento</a>
 	                                <a class="nav-link" href="{% url 'listar_agendamentos_cliente' %}">Meus Agendamentos</a>
+									<a class="nav-link" href="{% url 'listar_agendamentos' %}">Listar Agendamentos</a>
                                     <a class="nav-link" href="#">Histórico</a>
                                 </nav>
                             </div>
@@ -39,7 +40,7 @@
 		                                        <a class="nav-link" href="{% url 'add_disponibilidade' %}">Disponibilidade</a>
 		                                        <a class="nav-link" href="{% url 'add_parametro' %}">Parametros</a>
 		                                        <a class="nav-link" href="{% url 'add_servico' %}">Serviços</a>
-		                                        <a class="nav-link" href="password.html">Fidelidade</a>
+		                                        <a class="nav-link" href="{% url 'mostrar_pontos' %}">Fidelidade</a>
 	                                        </nav>
 	                                    </div>
 

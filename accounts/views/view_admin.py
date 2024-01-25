@@ -37,7 +37,7 @@ def editar_usuario(request, user_id):
 
         if form.is_valid():
             form.save()
-            return redirect('listar_usuarios')
+            return redirect('listar_e_cadastrar_usuarios')
     else:
         form = FormEditarUser(instance=usuario)
 

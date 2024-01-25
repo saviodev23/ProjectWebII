@@ -1,6 +1,9 @@
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import Group
 from django.core.exceptions import PermissionDenied
+from agenda.models import Agendamento, Fidelidade
+from accounts.models import Usuario
+from django.shortcuts import render, get_object_or_404
 
 
 def group_required(groups, login_url=None, raise_exception=False):
@@ -43,3 +46,25 @@ def create_groups():
         groupAdmin = Group(name='Profissional')
         groupAdmin.save()
 
+
+    
+def resgatar_cupon(fidelidade_id, usuario_id):
+    
+    fidelidade = get_object_or_404(Fidelidade, id=fidelidade_id)
+    usuario =  get_object_or_404(Usuario, id=usuario_id)
+    
+    cupon = fidelidade.cupon
+
+    cupon = cupon-1
+    usuario.desconto = 1
+
+ 
+def mostrar_pontos(request, agendamento_id,cupon_id):
+    agendamento = get_object_or_404(Agendamento, id=agendamento_id)
+    fidelidade = get_object_or_404(Fidelidade, id=cupon_id)
+
+    context = {
+        'agendamento':agendamento,
+        'fidelidade':fidelidade
+    }
+    return render(request, 'assets/static/crud_fidelidade/mostrar_pontos', context)
