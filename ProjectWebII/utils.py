@@ -69,14 +69,17 @@ def calcular_horarios_disponiveis(disponibilidade):
 
 
 def alterar_horario_atendimento(duracao_servico, horario_atendimento):
-    # Converta a duração do serviço para objeto timedelta
-    duracao_servico = timedelta(hours=duracao_servico.hour, minutes=duracao_servico.minute)
+    # Converte horario_disponivel para datetime.datetime
+    horario_datetime = datetime.combine(datetime.today(), horario_atendimento.horario_disponivel)
 
-    # Converta o horário de atendimento para objeto time
-    horario_atendimento = datetime.strptime(horario_atendimento, "%H:%M").time()
+    # Adiciona a duracao
+    horario_datetime += timedelta(minutes=duracao_servico.minute, seconds=duracao_servico.second)
 
-    # Calcule o horário de término
-    hora_atendimento = datetime.combine(datetime.today(), horario_atendimento)
-    horario_alterado = (hora_atendimento + duracao_servico).time()
+    # Converte de volta para datetime.time
+    novo_horario_disponivel = horario_datetime.time()
 
-    return horario_alterado
+    return novo_horario_disponivel
+
+
+
+

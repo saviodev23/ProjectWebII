@@ -1,7 +1,7 @@
 from django.contrib.auth.models import Group
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from ProjectWebII.utils import group_required
+from ProjectWebII.utils import group_required, alterar_horario_atendimento
 from accounts.models import Usuario
 from agenda.forms import FormAgendamentoProfissional
 from agenda.models import Agendamento, Servico
@@ -88,8 +88,6 @@ def selecione_profissional_para_agendamento(request):
 
 @group_required(['Cliente', 'Administrador'], "/accounts/login/")
 def fazendo_agendamento_pelo_cliente(request):
-    servicos = Servico.objects.all()
-
     profissional_id = request.GET.get('profissional_id')
     cliente_id = request.user.id
     disponibilidades = Disponibilidade.objects.filter(profissional=profissional_id)
@@ -100,48 +98,35 @@ def fazendo_agendamento_pelo_cliente(request):
         servico_id = request.POST.get("servico")
         profissional_id_post = request.POST.get("profissional_id")
 
-        try:
-            cliente = Usuario.objects.get(pk=cliente_id)
-            profissional = Usuario.objects.get(pk=profissional_id_post)
-            servico_selecionado = Servico.objects.get(pk=servico_id)
+        cliente = Usuario.objects.get(pk=cliente_id)
+        profissional = Usuario.objects.get(pk=profissional_id_post)
+        servico_selecionado = Servico.objects.get(pk=servico_id)
 
-            dia_selecionado = Disponibilidade.objects.get(profissional=profissional_id_post, dia=dia)
-            duracao = servico_selecionado.janela_tempo
+        dia_selecionado = Disponibilidade.objects.get(profissional=profissional_id_post, dia=dia)
+        duracao = servico_selecionado.janela_tempo
 
-            horario_selecionado = Horarios.objects.get(disponibilidade=dia_selecionado, horario_disponivel=horario)
-            if horario_selecionado:
-                # Converte horario_disponivel para datetime.datetime
-                horario_datetime = datetime.combine(datetime.today(), horario_selecionado.horario_disponivel)
+        horario_selecionado = Horarios.objects.get(disponibilidade=dia_selecionado, horario_disponivel=horario)
+        if horario_selecionado:
+            novo_horario_disponivel = alterar_horario_atendimento(duracao_servico=duracao, horario_atendimento=horario_selecionado)
+            horario_selecionado.horario_disponivel = novo_horario_disponivel
+            horario_selecionado.save()
 
-                # Adiciona a duracao
-                horario_datetime += timedelta(minutes=duracao.minute, seconds=duracao.second)
+        agendamento = Agendamento.objects.create(
+            profissional=profissional,
+            horario=horario,
+            cliente=cliente,
+            dia=dia,
+            servico=servico_selecionado,
+            criado_por=cliente,
+        )
 
-                # Converte de volta para datetime.time
-                novo_horario_disponivel = horario_datetime.time()
-
-                # Atualiza o horario_disponivel
-                horario_selecionado.horario_disponivel = novo_horario_disponivel
-                horario_selecionado.save()
-            else:
-                return HttpResponse('NÃO ENCONTRADO')
-
-            agendamento = Agendamento.objects.create(
-                profissional=profissional,
-                horario=horario,
-                cliente=cliente,
-                dia=dia,
-                servico=servico_selecionado,
-                criado_por=cliente,
-            )
-
-            agendamento.save()
-            return redirect('home')
-        except Usuario.DoesNotExist:
-            return HttpResponse("Usuário (profissional) não encontrado.")
+        agendamento.save()
+        return redirect('home')
 
     else:
-        profissional = Usuario.objects.get(pk=profissional_id)  # mostrar nome no agendamento
+        profissional = Usuario.objects.get(pk=profissional_id)  # mostrar nome no agendamento e enviar para POST no form
         horarios = Horarios.objects.all()
+        servicos = Servico.objects.all()
 
         context = {
             'disponibilidades': disponibilidades,#mostra os dias de expediente
