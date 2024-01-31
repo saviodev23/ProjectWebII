@@ -2,6 +2,9 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import Group
 from django.core.exceptions import PermissionDenied
 
+from horario.models import Parametro
+from datetime import datetime, timedelta
+
 
 def group_required(groups, login_url=None, raise_exception=False):
     """
@@ -43,3 +46,37 @@ def create_groups():
         groupAdmin = Group(name='Profissional')
         groupAdmin.save()
 
+
+
+def calcular_horarios_disponiveis(disponibilidade):
+    horario_inicio = datetime.combine(datetime.today(), disponibilidade.horario_inicio)
+    horario_fim = datetime.combine(datetime.today(), disponibilidade.horario_fim)
+    ciclo_servico = Parametro.objects.get(criado_por=disponibilidade.profissional).valor
+
+    horarios_disponiveis = []
+
+    horario_atual = horario_inicio
+    while horario_atual <= horario_fim:
+        # Exclui horários entre 12:00 e 14:00
+        if horario_atual.time() <= datetime.strptime("12:00", "%H:%M").time() \
+                or horario_atual.time() >= datetime.strptime("14:00", "%H:%M").time():
+            horarios_disponiveis.append(horario_atual.strftime("%H:%M"))
+
+        horario_atual += timedelta(minutes=ciclo_servico)
+
+    return horarios_disponiveis
+
+
+
+def alterar_horario_atendimento(duracao_servico, horario_atendimento):
+    # Converta a duração do serviço para objeto timedelta
+    duracao_servico = timedelta(hours=duracao_servico.hour, minutes=duracao_servico.minute)
+
+    # Converta o horário de atendimento para objeto time
+    horario_atendimento = datetime.strptime(horario_atendimento, "%H:%M").time()
+
+    # Calcule o horário de término
+    hora_atendimento = datetime.combine(datetime.today(), horario_atendimento)
+    horario_alterado = (hora_atendimento + duracao_servico).time()
+
+    return horario_alterado

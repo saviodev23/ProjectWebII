@@ -24,8 +24,8 @@
                         <td>{{ agendamento.criado_por.username }}</td>
                         <td>{{ agendamento.cliente.username }}</td>
 	                    <td>{{ agendamento.profissional.username }}</td>
-                        <td>{{ agendamento.servico.nome_servico }}</td>
-                        <td>{{ agendamento.dia|date:"D, d M Y" }}</td>
+                        <td>{{ agendamento.servico.nome }}</td>
+                        <td>{{ agendamento.dia }}</td>
                         <td>{{ agendamento.horario|time:"H:i" }}</td>
                         <td>{{ agendamento.get_status_agendamento_display }}</td>
                         <td>

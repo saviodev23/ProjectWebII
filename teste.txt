@@ -57,78 +57,115 @@
 {% load static %}
 {% block content %}
 
-    <div class="container5">
-        <h1 class="text-center mb-4 py-5">Agendamento de Horário</h1>
-
-        <!-- Seleção de Serviços -->
-	    <div class="row justify-content-center mb-4">
-            {% for servico in servicos %}
-            <div class="col-md-3 mb-4">
-                <div class="card border-0" onclick="selectServico(this)">
-                    <div class="card-body text-center">
-	                    <img src="{{ servico.imagem.url }}" class="card-img-top img-fluid" alt="{{ servico.nome_servico }}" style="max-height: 180px; max-width: 150px">
-                        <h6 class="card-title">{{ servico.nome_servico }}</h6>
-                    </div>
+<div class="container mt-5 mb-5">
+	<div class="row justify-content-cente">
+	    <div class="col-md-6">
+		    <div class="card">
+                <div class="card-header">
+                    <img src="{% static 'images/savio.jpg' %}" alt="Professional Name" class="rounded-circle" width="50" height="50">
+                    <span class="ml-3">{{ profissional.username }}</span>
                 </div>
-            </div>
-            {% endfor %}
-        </div>
-
-        <!-- Seleção de Dias da Semana -->
-        <div class="row justify-content-center mb-4">
-            <div class="col-md-6">
-                <div class="card mx-auto p-4">
-                    <div class="form-group text-dark">
-                        <label for="{{ form.dia.id_for_label }}">Qual dia você quer agendar?</label>
-                        <div class="input-group">
-                            <input type="date" name="{{ form.dia.name }}" id="{{ form.dia.id_for_label }}" class="form-control">
+                <div class="card-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="date">Você quer agendar para qual dia?</label>
+                            <input type="date" id="date" class="form-control">
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Seleção de Horários -->
-        <div class="row justify-content-center mb-4">
-            <div class="col-md-6">
-                <div class="card mx-auto p-4">
-                    <div class="form-group text-dark">
-                        <label for="{{ form.horario.id_for_label }}">Qual horário?</label>
-                        <div class="input-group">
-                            <input type="time" name="{{ form.horario.name }}" id="{{ form.horario.id_for_label }}" class="form-control">
+                        <div class="form-group">
+                            <label for="time">Qual Horário?</label>
+                            <select id="time" class="form-control">
+                                <option>8:00</option>
+                                <option>8:30</option>
+                                <option>9:00</option>
+                                <option>9:30</option>
+                            </select>
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <label for="service">Selecione o serviço</label>
+                            <select id="service" class="form-control">
+                                <option>Corte Social R$20.00</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Agendar</button>
+                    </form>
                 </div>
             </div>
         </div>
 
-        <!-- Profissional Disponível -->
-        <div class="card mx-auto mb-4" style="max-width: 400px;">
-            <img src="" class="card-img-top img-fluid" alt="Profissional Disponível">
-            <div class="card-body text-center">
-                <h5 class="card-title">Escolha o Profissional</h5>
-                {{ form.profissional }}
-            </div>
-        </div>
-
-        <!-- Botão de Agendamento -->
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <button type="submit" class="btn btn-primary btn-block">Agendar Horário</button>
-            </div>
+        <div class="col-md-6">
+            <h3>Selecione um profissional</h3>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>D</th>
+                        <th>S</th>
+                        <th>T</th>
+                        <th>Q</th>
+                        <th>Q</th>
+                        <th>S</th>
+                        <th>S</th>
+                    </tr>
+                    <tr>
+                        <th>1</th>
+                        <th>2</th>
+                        <th>3</th>
+                        <th>4</th>
+                        <th>5</th>
+                        <th>6</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="available">8:00</td>
+                        <td class="unavailable">8:00</td>
+                        <td class="available">8:00</td>
+                        <td class="unavailable">8:00</td>
+                        <td class="available">8:00</td>
+                        <td class="unavailable">8:00</td>
+                        <td class="available">8:00</td>
+                    </tr>
+                    <tr>
+                        <td class="unavailable">8:30</td>
+                        <td class="available">8:30</td>
+                        <td class="unavailable">8:30</td>
+                        <td class="available">8:30</td>
+                        <td class="unavailable">8:30</td>
+                        <td class="available">8:30</td>
+                        <td class="unavailable">8:30</td>
+                    </tr>
+                    <tr>
+                        <td class="available">9:00</td>
+                        <td class="unavailable">9:00</td>
+                        <td class="available">9:00</td>
+                        <td class="unavailable">9:00</td>
+                        <td class="available">9:00</td>
+                        <td class="unavailable">9:00</td>
+                        <td class="available">9:00</td>
+                    </tr>
+                    <tr>
+                        <td class="unavailable">9:30</td>
+                        <td class="available">9:30</td>
+                        <td class="unavailable">9:30</td>
+                        <td class="available">9:30</td>
+                        <td class="unavailable">9:30</td>
+                        <td class="available">9:30</td>
+                        <td class="unavailable">9:30</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><span class="available"><i class="fa-solid fa-check"></i></span> Disponível</p>
+            <p><span class="unavailable"><i class="fa-solid fa-x"></i></span> Indisponível</p>
         </div>
     </div>
+</div>
 
-    <script>
-        function selectServico(card) {
-            // Remover destaque de todos os cards
-            document.querySelectorAll('.card').forEach(function (el) {
-                el.classList.remove('border-primary');
-            });
-
-            // Adicionar destaque ao card selecionado
-            card.classList.add('border-primary');
-        }
-    </script>
+<style>
+  .available .fa-check {
+    color: green;
+  }
+  .unavailable .fa-x {
+	  color: red;
+  }
+</style>
 
 {% endblock %}

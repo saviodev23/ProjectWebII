@@ -1,7 +1,10 @@
 {% load static%}
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-color">
     <!-- Navbar Brand-->
-    <a class="navbar-brand ps-3" href="{% url 'home' %}">BarberShop</a>
+    <a class="navbar-brand ps-3" href="{% url 'home' %}"> BarberShop
+        <img src="{% static 'images/Barber-shop-logo.png' %}" alt="BarberShop Logo" width="auto" height="40" class="d-inline-block align-top">
+	</a>
+
     <!-- Sidebar Toggle-->
     <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
     <!-- Navbar Search-->
@@ -29,7 +32,7 @@
 	{% endif %}
 	<style>
 		.bg-color{
-			background: #50394c;
+			background: #001F3F;
 		}
 	</style>
 </nav>

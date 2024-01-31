@@ -1,22 +1,100 @@
 {% extends 'assets/static/base.html' %}
-{% load bootstrap4 %}
+{% load static %}
 {% block content %}
-<div class="container mt-5 mb-5">
-    <div class="row justify-content-center">
+
+<div class="container mt-4 py-5 mb-5">
+    <div class="row">
+        <div class="col-md-6 mt-3 mt-md-0">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Dia</th>
+                            <th>Horários Disponíveis</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for disponibilidade in disponibilidades %}
+                            <tr>
+                                <td>{{ disponibilidade.dia }}</td>
+                                <td>
+                                    {% for horario in horarios %}
+                                        {% if horario.disponibilidade == disponibilidade %}
+                                            <span class="badge bg-primary">{{ horario.horario_disponivel }}</span>
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
         <div class="col-md-6">
-            <div class="card o-hidden border-0 shadow-lg">
-                <div class="card-body p-5">
-                    <div class="text-center">
-                        <h1 class="h4 text-gray-900 mb-4 text-dark">Fazer Agendamento</h1>
-                    </div>
-                    <form method="POST" class="text-dark">
+            <div class="card">
+                <div class="card-header">
+                    <img src="{% static 'images/savio.jpg' %}" alt="Professional Name" class="rounded-circle" width="50" height="50">
+                    <span class="ml-3">{{ profissional.first_name }} {{ profissional.last_name }}</span>
+                </div>
+                <div class="card-body">
+                    <form action="{% url 'fazendo_agendamento_pelo_cliente' %}" method="POST">
                         {% csrf_token %}
-                        {% bootstrap_form form %}
-                        <button class="btn btn-primary btn-user btn-block mt-3" type="submit">Agendar</button>
+                     <input type="hidden" name="profissional_id" value="{{ profissional.id }}">
+                        <div class="mb-3">
+                            <label for="dia" class="form-label">Você quer agendar para qual dia?</label>
+                            <select name="dia" id="id_dia" class="form-select">
+                                {% for disponibilidade in disponibilidades %}
+                                    <option value="{{ disponibilidade.dia }}">{{ disponibilidade.dia }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+							<div class="mb-3">
+	                            <label for="horario" class="form-label">Qual Horário?</label>
+	                            <select name="horario" class="form-select">
+		                            {% for disponibilidade in disponibilidades %}
+			                            {% for horario in horarios %}
+				                            {% if horario.disponibilidade == disponibilidade %}
+				                            <option value="{{ horario.horario_disponivel }}">{{ horario.horario_disponivel }}</option>
+				                            {% endif %}
+			                            {% endfor %}
+		                            {% endfor %}
+	                            </select>
+                            </div>
+                        <div class="mb-3">
+                            <label for="servico" class="form-label">Selecione um serviço</label>
+                            <select name="servico" class="form-select">
+                                {% for servico in servicos %}
+                                    <option value="{{ servico.id }}">{{ servico.nome }}, {{ servico.descricao }} R$: {{ servico.preco }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-user btn-block mt-3">Agendar</button>
                     </form>
                 </div>
             </div>
         </div>
+
     </div>
 </div>
+
+<style>
+    /* Adicionado estilo para centralizar texto nas células */
+    .table th, .table td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    /* Adicionado estilo para centralizar texto nas células pequenas */
+    .table-sm th, .table-sm td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .badge {
+        margin-right: 5px; /* Ajuste o espaçamento conforme necessário */
+        margin-bottom: 5px;
+    }
+</style>
+
 {% endblock %}

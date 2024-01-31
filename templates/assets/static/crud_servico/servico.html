@@ -2,32 +2,42 @@
 {% load static %}
 {% block content %}
 
-<div id="layoutSidenav_content">
-	<main>
-	    <div class="container-fluid px-4">
-	        <h1 class="mt-4">Detalhes do Serviço</h1>
-	        <ol class="breadcrumb mb-4">
-
-	        </ol>
-	        <div class="row">
-	            <div class="col-md-6">
-	                {% if servico %}
-	                    <div class="card bg-secondary text-white mb-3">
-	                        {% if servico.imagem != '' %}
-	                            <img src="{{ servico.imagem.url }}" class="card-img-top img-fluid" alt="{{ servico.nome_servico }}" style="max-height: 300px; max-width: 100%;">
-	                        {% endif %}
-	                        <div class="card-body">
-	                            <h5 class="card-title">{{ servico.nome_servico }}</h5>
-	                            <p class="card-text"><strong>R$ {{ servico.preco }}</strong></p>
-	                        </div>
-	                    </div>
-	                {% else %}
-	                    <p>Serviço não encontrado.</p>
-	                {% endif %}
-	            </div>
-	        </div>
-	    </div>
-	</main>
+<div id="layoutSidenav_content" class="d-flex align-items-center">
+    <main class="container-fluid px-4">
+        <h2 class="mt-4 text-center">Detalhes do Serviço</h2>
+        <ol class="breadcrumb mb-4"></ol>
+        <div class="row justify-content-center">
+            <div class="col-lg-7 col-md-10">
+                {% if servico %}
+                    <div id="carouselExample" class="carousel slide mb-4" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            {% for imagem in imagens_servico %}
+                                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                    <img src="{{ imagem.imagem.url }}" class="d-block w-100 img-fluid" alt="{{ imagem.servico.nome }}" style="max-height: 300px; object-fit: cover; margin: auto;">
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Anterior</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Próximo</span>
+                        </button>
+                    </div>
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{ servico.nome }}</h5>
+                            <p class="card-text"><strong>R$ {{ servico.preco }}</strong></p>
+                        </div>
+                    </div>
+                {% else %}
+                    <p>Serviço não encontrado.</p>
+                {% endif %}
+            </div>
+        </div>
+    </main>
 </div>
 
 {% endblock %}

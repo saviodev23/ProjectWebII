@@ -9,7 +9,7 @@ class UserRegistrationForm(forms.ModelForm):
 
     class Meta:
         model = Usuario
-        fields = ['username', 'email', 'first_name', 'last_name', 'telefone', 'cpf']
+        fields = ['username', 'email', 'first_name', 'last_name', 'telefone']
 
     def clean_confirm_password(self):
         password = self.cleaned_data['password']
@@ -37,7 +37,7 @@ class UserProfRegistrationForm(forms.ModelForm):
 
     class Meta:
         model = Usuario
-        fields = ['username', 'email', 'first_name', 'last_name', 'user_type', 'telefone', 'cpf']
+        fields = ['username', 'email', 'first_name', 'last_name', 'user_type', 'telefone']
 
     def clean_confirm_password(self):
         password = self.cleaned_data['password']

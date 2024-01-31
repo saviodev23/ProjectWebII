@@ -1,0 +1,43 @@
+{% extends 'assets/static/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container">
+        <h3 class="text-center py-4">Selecione o profissional que irá realizar o serviço</h3>
+        <div class="row justify-content-center">
+            {% for profissional in profissionais %}
+                <div class="col-sm-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            {% if profissional.imagem %}
+                                <img src="{{ profissional.imagem.url }}" class="card-img-top rounded-circle" alt="Foto do profissional" style="width: 200px; height: 200px;">
+                            {% else %}
+                                <img src="{% static 'images/savio.jpg' %}" class="card-img-top rounded-circle" alt="Foto do profissional" style="width: 200px; height: 200px;">
+                            {% endif %}
+                            <h5 class="card-title mt-3">{{ profissional.first_name }} {{ profissional.last_name }}</h5>
+                            <button class="btn btn-primary btn-block" onclick="selecionarProfissional('{{ profissional.id }}')" data-url="{% url 'fazendo_agendamento_pelo_cliente' %}">Selecionar</button>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+		function selecionarProfissional(profissionalId) {
+		    // Verifique se profissionalId não é nulo ou indefinido
+		    if (profissionalId) {
+		        // Obter a URL da data attribute
+		        var url = document.querySelector('[data-url]').getAttribute('data-url');
+
+		        // Adicione um parâmetro de consulta ao URL
+		        url += "?profissional_id=" + encodeURIComponent(profissionalId);
+
+		        // Redireciona para a página de agendamento com o profissionalId
+		        window.location.href = url;
+		    } else {
+		        console.error("ID do profissional não especificado.");
+		    }
+		}
+
+    </script>
+{% endblock %}
