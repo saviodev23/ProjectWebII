@@ -6,16 +6,23 @@ from django.http import HttpResponse
 from twilio.twiml.messaging_response import MessagingResponse
 from datetime import datetime, timedelta as td
 from agenda.forms import FormAgendamentoCliente
+from unidecode import unidecode
+import re
 
 @csrf_exempt
 def bot(request):   
     user_message = request.POST.get('Body', '').lower()
+    user_message = unidecode(request.POST.get('Body', ''))
+
+    # Lista inicial de horários disponíveis
     horarios_disponiveis = gerar_horarios_disponiveis()
 
 
     # Verificar se o usuário está solicitando os horários disponíveis
     if user_message == 'horarios':
-        response_message = f"Horários disponíveis:\n{formatar_horarios(horarios_disponiveis)}"
+    # Verificar a mensagem do usuário e gerar a resposta apropriada
+        if re.search(r'horari[oa]s?', user_message, re.IGNORECASE):
+         response_message = f"Horários disponíveis:\n{formatar_horarios(horarios_disponiveis)}"
     # Verificar se o usuário está tentando reservar um horário
     elif user_message.startswith('reservar'):
         horario_reservado = user_message.replace('reservar ', '').strip()
@@ -23,6 +30,7 @@ def bot(request):
     else:
         # Se a mensagem do usuário não corresponder a nenhuma das opções acima, solicite as informações para agendamento
         response_message = "Olá! Para agendar um horário, por favor, forneça as seguintes informações:\n- Dia desejado (DD/MM/AAAA)\n- Horário desejado (HH:MM)\n- Serviço desejado"
+        response_message = 'Bem-vindo ao ChatBot da Barbearia. Digite "Horários" para ver os horários disponíveis.'
 
     # Construir a resposta
     twilio_response = MessagingResponse()
