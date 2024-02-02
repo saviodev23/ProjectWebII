@@ -1,16 +1,14 @@
 {% extends 'assets/static/base.html' %}
-
 {% block content %}
 {% load bootstrap4 %}
 {% load static %}
 
-<div class="bg-image shadow-2-strong overlay" id="intro">
-
+<div class="bg-image overlay" id="intro">
   <div class="mask d-flex align-items-center h-100">
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-xl-5 col-md-8">
-          <form class="bg-white rounded shadow-5-strong p-5 text-dark" method="POST">
+        <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12">
+          <form class="bg-color-login rounded shadow-5-strong p-5 text-dark" method="POST">
             <h4 class="text-center mb-4">Login</h4>
 
             {% if messages %}
@@ -45,9 +43,14 @@
 </div>
 
 <style>
-  body {
-    background: #a4152d;
+	.bg-color-login{
+		background: #ffffff;
+	}
+  .bg-image {
+    height: 100vh; /* Definir a altura da imagem como 100% da altura da tela */
+    background-image: url({% static 'images/barbeshop.jpg' %});
+    background-size: cover;
+    background-position: center;
   }
 </style>
-
 {% endblock %}

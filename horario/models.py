@@ -1,9 +1,6 @@
-
 from django.conf import settings
 from django.db import models
-from datetime import time, date
-
-
+from datetime import time
 class Disponibilidade(models.Model):
     DIA_CHOICES = (
         ('Segunda', 'Segunda-Feira'),
@@ -17,14 +14,12 @@ class Disponibilidade(models.Model):
     horario_inicio = models.TimeField(default=time())
     horario_fim = models.TimeField(default=time())
 
+class Horarios(models.Model):
+    disponibilidade = models.ForeignKey(Disponibilidade, on_delete=models.CASCADE)
+    horario_disponivel = models.TimeField()
+
 class Parametro(models.Model):
-    PRECO_CHOICES = (
-        ('1', '10.00'),
-        ('2', '15.00'),
-        ('3', '20.00'),
-        ('4', '30.00'),
-    )
     nome = models.CharField(max_length=30)
-    valor = models.CharField(max_length=20, choices=PRECO_CHOICES)
+    valor = models.IntegerField(default=30)
     criado_por = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    criado_em = models.DateField(default=date.today())
+    criado_em = models.DateField(auto_now_add=True)

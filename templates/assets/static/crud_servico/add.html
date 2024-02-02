@@ -41,6 +41,7 @@
 		                                <nav class="sb-sidenav-menu-nested nav">
 		                                    <a class="nav-link" href="{% url 'listar_e_cadastrar_usuarios' %}">Usuários</a>
 		                                    <a class="nav-link" href="{% url 'add_disponibilidade' %}">Disponibilidade</a>
+			                                <a class="nav-link" href="{% url 'listar_horarios' %}">Horários</a>
 		                                    <a class="nav-link" href="{% url 'add_parametro' %}">Parametros</a>
 		                                    <a class="nav-link" href="{% url 'add_servico' %}">Serviços</a>
 		                                    <a class="nav-link" href="password.html">Fidelidade</a>
@@ -80,10 +81,10 @@
 	    <div id="layoutSidenav_content">
 	        <main>
 	            <div class="container-fluid px-4">
-	                <h1 class="mt-4">Gerencie os Serviços</h1>
+	                <h2 class="mt-4">Gerencie os Serviços</h2>
 
 	                <div class="row">
-					    <div class="tab-content mt-4" id="myTabContent">
+					    <div class="tab-content" id="myTabContent">
 					        <!-- Adicionar Parametros -->
 					        <div class="tab-pane fade show active">
 					            <div class="row justify-content-center">
@@ -128,7 +129,7 @@
 				                                        {% for servico in servicos %}
 				                                        <tr>
 				                                            <td>{{ servico.id }}</td>
-				                                            <td>{{ servico.nome_servico }}</td>
+				                                            <td>{{ servico.nome }}</td>
 					                                        <td>{{ servico.preco }}</td>
 					                                        <td>{{ servico.descricao }}</td>
 				                                            <td>{{ servico.janela_tempo }}</td>

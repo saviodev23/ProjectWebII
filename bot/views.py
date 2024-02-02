@@ -5,22 +5,24 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from twilio.twiml.messaging_response import MessagingResponse
 from datetime import datetime, timedelta as td
+from agenda.forms import FormAgendamentoCliente
 
 @csrf_exempt
 def bot(request):   
     user_message = request.POST.get('Body', '').lower()
-
-    # Lista inicial de horários disponíveis
     horarios_disponiveis = gerar_horarios_disponiveis()
 
-    # Verificar a mensagem do usuário e gerar a resposta apropriada
+
+    # Verificar se o usuário está solicitando os horários disponíveis
     if user_message == 'horarios':
         response_message = f"Horários disponíveis:\n{formatar_horarios(horarios_disponiveis)}"
+    # Verificar se o usuário está tentando reservar um horário
     elif user_message.startswith('reservar'):
         horario_reservado = user_message.replace('reservar ', '').strip()
         response_message = reservar_horario(horario_reservado, horarios_disponiveis.copy())
     else:
-        response_message = "Obrigado por entrar em contato! Em breve, responderemos."
+        # Se a mensagem do usuário não corresponder a nenhuma das opções acima, solicite as informações para agendamento
+        response_message = "Olá! Para agendar um horário, por favor, forneça as seguintes informações:\n- Dia desejado (DD/MM/AAAA)\n- Horário desejado (HH:MM)\n- Serviço desejado"
 
     # Construir a resposta
     twilio_response = MessagingResponse()
@@ -52,6 +54,17 @@ def formatar_horarios(horarios):
     return formatted_horarios
 
 
+def processar_mensagem(request):
+    if request.method == 'POST':
+        form = FormAgendamentoCliente(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponse("Agendamento realizado com sucesso!")
+    else:
+        form = FormAgendamentoCliente()
+    return render(request, 'agendamento.html', {'form': form})
+
+
 def reservar_horario(horario_reservado, horarios_disponiveis):
     if horario_reservado.isdigit() and 1 <= int(horario_reservado) <= len(horarios_disponiveis):
         horario_selecionado = horarios_disponiveis[int(horario_reservado) - 1]
@@ -63,7 +76,7 @@ def reservar_horario(horario_reservado, horarios_disponiveis):
 def enviar_mensagem(destinatario, mensagem):
     # Configurar as credenciais do Twilio
     account_sid = 'ACb079459447497a6a92e585083c1d4c7a'
-    auth_token = '90b724ad785ee8827b157555ddc21189'
+    auth_token = '2b07f7c0995fceea65b5e5074ff6936e'
     client = Client(account_sid, auth_token)
 
     # Enviar a mensagem
@@ -72,3 +85,5 @@ def enviar_mensagem(destinatario, mensagem):
         body=mensagem,
         to=destinatario
     )
+
+

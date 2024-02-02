@@ -1,23 +1,20 @@
 {% extends 'assets/static/base.html' %}
 {% block content %}
 
-<div id="intro" class="container py-5">
-  <div class="card p-5 text-dark ">
-    <h3 class="mb-4">Remover Serviço: {{servico.nome_servico}}</h3>
-    <h3 class="mb-4">Tem certeza que deseja deletar este Serviço?</h3>
-    <div class="d-flex justify-content-between">
-      <a class="btn btn-danger mr-2" href="{% url 'confirmar_remocao_servico' servico.id %}">Sim</a>
-      <a class="btn btn-secondary" href="{% url 'add_servico'%}">Não</a>
+<div class="container d-flex align-items-center justify-content-center vh-100">
+  <div class="card p-4 text-dark text-center shadow-lg">
+    <h3 class="mb-3">Remover Serviço: {{servico.nome}}</h3>
+    <h4 class="mb-3">Tem certeza que deseja deletar este Serviço?</h4>
+
+    <div class="d-flex justify-content-center mt-4">
+      <a class="btn btn-danger btn-lg mr-2" href="{% url 'confirmar_remocao_servico' servico.id %}">
+        <i class="fas fa-check-circle"></i> Sim
+      </a>
+      <a class="btn btn-secondary btn-lg" href="{% url 'add_servico'%}">
+        <i class="fas fa-times-circle"></i> Não
+      </a>
     </div>
   </div>
 </div>
 
-<style>
-	body{
-		background:  #a4152d;
-	}
-	.card{
-		margin-top: 100px;
-	}
-</style>
 {% endblock %}

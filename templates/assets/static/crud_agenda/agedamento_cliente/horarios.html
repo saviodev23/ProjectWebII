@@ -1,0 +1,22 @@
+{% extends 'assets/static/base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+
+	<!-- Exibição de Horários Disponíveis -->
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-6">
+            <div class="card mx-auto p-4">
+                <div class="form-group text-dark">
+                    <label for="{{ form.horario.id_for_label }}">Escolha um horário disponível:</label>
+                    <div class="input-group">
+                        <select name="{{ form.horario.name }}" id="{{ form.horario.id_for_label }}" class="form-control">
+                            {% for horario in horarios %}
+                                <option value="{{ horario }}">{{ horario }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

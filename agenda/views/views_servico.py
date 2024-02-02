@@ -2,7 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from ProjectWebII.utils import group_required
 from agenda.forms import FormAddServico
-from agenda.models import Servico
+from agenda.models import Servico, ImagemServico
+
 
 @group_required(['Administrador', 'Profissional'], "/accounts/login/")
 def add_servico(request):
@@ -12,8 +13,8 @@ def add_servico(request):
             form = FormAddServico(request.POST, request.FILES)
             if form.is_valid():
                 #Verfificar se existe já aquele tipo de serviço cadastrado
-                nome_form = form.cleaned_data['nome_servico']
-                nome_servico = Servico.objects.filter(nome_servico=nome_form)
+                nome_form = form.cleaned_data['nome']
+                nome_servico = Servico.objects.filter(nome=nome_form)
                 if nome_servico:
                     return HttpResponse('já existe esse serviço')
 
@@ -62,8 +63,11 @@ def confirmar_remocao_servico(request, servico_id):
 
 def detalhes_servico(request, servico_id):
     servico = get_object_or_404(Servico, pk=servico_id)
+    imagens_servico = ImagemServico.objects.filter(servico=servico_id)
+
     context ={
-        'servico': servico
+        'servico': servico,
+        'imagens_servico': imagens_servico
     }
     return render(request, 'assets/static/crud_servico/servico.html', context)
 

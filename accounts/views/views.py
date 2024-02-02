@@ -40,13 +40,19 @@ def alterar_dados(request):
     else:
         form = FormEditarUser(instance=user_id)
 
-    return render(request, "registration/alterar_dados.html", {"ID": user_id, "form": form})
+    context = {
+        "usuario": user_id,
+        "form": form
+
+    }
+
+    return render(request, "registration/alterar_dados.html", context)
 
 
-@group_required(['Cliente', 'Profissional'], "/accounts/login/")
+@group_required(['Cliente', 'Profissional', 'Administrador', 'Secretaria'], "/accounts/login/")
 def remover_conta(request, user_id):
     usuario = get_object_or_404(Usuario, pk=user_id)
     context = {
-        "usuario": usuario
+        'usuario': usuario
     }
     return render(request, "registration/usuarios/remover_usuario.html", context)
