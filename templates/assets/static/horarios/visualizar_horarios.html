@@ -1,62 +1,139 @@
 {% extends 'assets/static/base.html' %}
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-8 py-4">
-        <div class="card o-hidden border-0 shadow-lg">
-            <div class="card-body p-0">
-	            <h3 class="text-center py-3">Gerar horários para os profissionais</h3>
+	<body class="sb-nav-fixed">
+		<div id="layoutSidenav">
+			<div id="layoutSidenav_nav">
+		        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+		            <div class="sb-sidenav-menu">
+		                <div class="nav">
+		                    <div class="sb-sidenav-menu-heading">Core</div>
+			                <a class="nav-link" href="{% url 'home' %}">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-house"></i></div>
+                                HOME
+                            </a>
+		                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+		                        <div class="sb-nav-link-icon"><i class="fa-solid fa-calendar-days"></i></div>
+		                        Agendamento
+		                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+		                    </a>
+		                    <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+		                        <nav class="sb-sidenav-menu-nested nav">
+		                            <a class="nav-link" href="">Fazer Agendamento</a>
+		                            <a class="nav-link" href="{% url 'listar_agendamentos' %}">Meus Agendamentos</a>
+		                            <a class="nav-link" href="#">Histórico</a>
+		                        </nav>
+		                    </div>
+		                    <div class="sb-sidenav-menu-heading">Administração</div>
+		                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+		                        <div class="sb-nav-link-icon"><i class="fa-solid fa-user-tie"></i></div>
+		                        Administrativo
+		                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+		                    </a>
+		                    <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+		                        <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+		                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+		                                Gerenciamentos
+		                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+		                            </a>
+		                            <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+		                                <nav class="sb-sidenav-menu-nested nav">
+		                                    <a class="nav-link" href="{% url 'listar_e_cadastrar_usuarios' %}">Usuários</a>
+		                                    <a class="nav-link" href="{% url 'add_disponibilidade' %}">Disponibilidade</a>
+			                                <a class="nav-link" href="{% url 'listar_horarios' %}">Horários</a>
+		                                    <a class="nav-link" href="{% url 'add_parametro' %}">Parametros</a>
+		                                    <a class="nav-link" href="{% url 'add_servico' %}">Serviços</a>
+		                                    <a class="nav-link" href="password.html">Fidelidade</a>
+		                                </nav>
+		                            </div>
 
-	            <div class="mb-4 px-4">
-                    {% for profissional in profissionais %}
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ profissional.first_name }} {{ profissional.last_name }}</h5>
-                                <a href="{% url 'gerar_horarios_disponiveis' profissional.id %}" class="btn btn-secondary btn-sm">Gerar Horários</a>
-	                            <a href="{% url 'apagar_horarios_disponiveis' profissional.id %}" class="btn btn-danger btn-sm">Apagar Horários</a>
+		                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+		                                Agendamento
+		                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+		                            </a>
+		                            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+		                                <nav class="sb-sidenav-menu-nested nav">
+		                                    <a class="nav-link" href="{% url 'fazer_agendamento_pelo_profissional' %}">Fazer Agendamento</a>
+		                                    <a class="nav-link" href="{% url 'listar_agendamentos' %}">Agendamentos</a>
+		                                </nav>
+		                            </div>
 
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
+		                        </nav>
+		                    </div>
 
-                <h3 class="text-center py-3">Lista de Horários Disponíveis</h3>
+		                    <div class="sb-sidenav-menu-heading">Programas e Promoções</div>
+		                    <a class="nav-link" href="#">
+		                        <div class="sb-nav-link-icon"><i class="fa-solid fa-money-check-dollar"></i></div>
+		                        Fidelidade
+		                    </a>
+		                </div>
+		            </div>
+		            <div class="sb-sidenav-footer">
+		                <div class="small">Logado como:</div>
+		                {{ user.username }}
+		            </div>
+		        </nav>
+			</div>
+			<div id="layoutSidenav_content">
+				<div class="row justify-content-center">
+				    <div class="col-md-8 py-4">
+				        <div class="card o-hidden border-0 shadow-lg">
+				            <div class="card-body p-0">
+					            <h3 class="text-center py-3">Gerar horários para os profissionais</h3>
 
-                <div class="d-flex justify-content-between align-items-center px-3 py-2">
-                    <div class="input-group mb-3">
-				      <div class="col-md-8 offset-md-2">
-				        <form class="d-flex my-2" method="GET">
-				          <input class="form-control form-control-lg mr-sm-2 flex-grow-1 busca" type="search" name="search" placeholder="Pesquise por profissional" aria-label="Search">
-				          <button class="btn btn-primary" type="submit">Buscar</button>
-				        </form>
-				      </div>
-                    </div>
-                </div>
-			{% if horarios %}
-                <div class="table-responsive mt-3">
-                    <table class="table text-dark">
-                        <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Profissional</th>
-                                <th scope="col">Dia</th>
-                                <th scope="col">Horário Disponível</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for horario in horarios %}
-                                <tr>
-                                    <td>{{ horario.id }}</td>
-                                    <td>{{ horario.disponibilidade.profissional }}</td>
-                                    <td>{{ horario.disponibilidade.dia }}</td>
-                                    <td>{{ horario.horario_disponivel }}</td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            {% endif %}
-            </div>
-        </div>
-    </div>
-</div>
+					            <div class="mb-4 px-4">
+				                    {% for profissional in profissionais %}
+				                        <div class="card mb-3">
+				                            <div class="card-body">
+				                                <h5 class="card-title">{{ profissional.first_name }} {{ profissional.last_name }}</h5>
+				                                <a href="{% url 'gerar_horarios_disponiveis' profissional.id %}" class="btn btn-secondary btn-sm">Gerar Horários</a>
+					                            <a href="{% url 'apagar_horarios_disponiveis' profissional.id %}" class="btn btn-danger btn-sm">Apagar Horários</a>
+
+				                            </div>
+				                        </div>
+				                    {% endfor %}
+				                </div>
+
+				                <h3 class="text-center py-3">Lista de Horários Disponíveis</h3>
+
+				                <div class="d-flex justify-content-between align-items-center px-3 py-2">
+				                    <div class="input-group mb-3">
+								      <div class="col-md-8 offset-md-2">
+								        <form class="d-flex my-2" method="GET">
+								          <input class="form-control form-control-lg mr-sm-2 flex-grow-1 busca" type="search" name="search" placeholder="Pesquise por profissional" aria-label="Search">
+								          <button class="btn btn-primary" type="submit">Buscar</button>
+								        </form>
+								      </div>
+				                    </div>
+				                </div>
+							{% if horarios %}
+				                <div class="table-responsive mt-3">
+				                    <table class="table text-dark">
+				                        <thead>
+				                            <tr>
+				                                <th scope="col">ID</th>
+				                                <th scope="col">Profissional</th>
+				                                <th scope="col">Dia</th>
+				                                <th scope="col">Horário Disponível</th>
+				                            </tr>
+				                        </thead>
+				                        <tbody>
+				                            {% for horario in horarios %}
+				                                <tr>
+				                                    <td>{{ horario.id }}</td>
+				                                    <td>{{ horario.disponibilidade.profissional }}</td>
+				                                    <td>{{ horario.disponibilidade.dia }}</td>
+				                                    <td>{{ horario.horario_disponivel }}</td>
+				                                </tr>
+				                            {% endfor %}
+				                        </tbody>
+				                    </table>
+				                </div>
+				            {% endif %}
+				            </div>
+				        </div>
+				    </div>
+				</div>
+			</div>
+		</div>
+	</body>
 {% endblock %}

@@ -3,10 +3,10 @@ from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from ProjectWebII.utils import group_required
+from accounts.models import Usuario
 from horario.forms import AddDisponibilidade, AddParametro
 from horario.models import Disponibilidade, Parametro, Horarios
 from datetime import datetime, timedelta
-from ProjectWebII.utils import calcular_horarios_disponiveis, alterar_horario_atendimento
 
 #CRUD de disponibilidade -- Inicio
 @group_required(['Administrador', 'Profissional'], "/accounts/login/")
@@ -167,6 +167,32 @@ def listar_horarios(request):
     return render(request, 'assets/static/horarios/visualizar_horarios.html', context)
 
 def apagar_horarios_disponiveis(request, profissional_id):
+    profissional = Usuario.objects.get(pk=profissional_id)
+    context ={
+        'profissional': profissional
+    }
+    return render(request, 'assets/static/horarios/remove.html', context)
+
+def confirmar_remocao_horarios(request, profissional_id):
     horarios = Horarios.objects.filter(disponibilidade__profissional=profissional_id)
     horarios.delete()
     return redirect('listar_horarios')
+
+
+def calcular_horarios_disponiveis(disponibilidade):
+    horario_inicio = datetime.combine(datetime.today(), disponibilidade.horario_inicio)
+    horario_fim = datetime.combine(datetime.today(), disponibilidade.horario_fim)
+    ciclo_servico = Parametro.objects.get(criado_por=disponibilidade.profissional).valor
+
+    horarios_disponiveis = []
+
+    horario_atual = horario_inicio
+    while horario_atual <= horario_fim:
+        # Exclui horários entre 12:00 e 14:00
+        if horario_atual.time() <= datetime.strptime("12:00", "%H:%M").time() \
+                or horario_atual.time() >= datetime.strptime("14:00", "%H:%M").time():
+            horarios_disponiveis.append(horario_atual.strftime("%H:%M"))
+
+        horario_atual += timedelta(minutes=ciclo_servico)
+
+    return horarios_disponiveis

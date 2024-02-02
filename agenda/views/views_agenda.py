@@ -1,7 +1,7 @@
 from django.contrib.auth.models import Group
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from ProjectWebII.utils import group_required, alterar_horario_atendimento
+from ProjectWebII.utils import group_required
 from accounts.models import Usuario
 from agenda.forms import FormAgendamentoProfissional
 from agenda.models import Agendamento, Servico
@@ -12,22 +12,6 @@ def etapa_de_agendamento(request, servico_id):
     servicos = get_object_or_404(Servico, pk=servico_id)
     return render(request, 'assets/static/crud_agenda/agendamento.html', {'servicos': servicos})
 
-# def alterar_horario_atendimento(duracao_servico, hora_atendimento):
-#     # horarioAtendimento = "09:00"
-#     # duracaoServico = "00:40"
-#
-#     # Converta os horários para objetos datetime
-#     dt1 = datetime.strptime(hora_atendimento, "%H:%M")
-#     dt2 = datetime.strptime(duracao_servico, "%H:%M")
-#
-#     # Some os horários
-#     resultado = dt1 + timedelta(hours=dt2.hour, minutes=dt2.minute)
-#
-#     # Converta o resultado de volta para o formato de string
-#     resultado = resultado.strftime("%H:%M")
-#
-#     print(resultado)
-#     return resultado
 
 #AgendamentoFeitoPeloProfissional
 @group_required(['Profissional', 'Administrador'], "/accounts/login/")
@@ -71,7 +55,10 @@ def fazer_agendamento_pelo_profissional(request):#Agendamento simples feito, fal
 @group_required(['Cliente'], "/accounts/login/")
 def listar_agendamentos_cliente(request):
     agendamentos = Agendamento.objects.filter(cliente=request.user).order_by('-dia', 'horario')
-    return render(request, 'assets/static/crud_agenda/agedamento_cliente/lista_agendamentos_cliente.html', {'agendamentos': agendamentos})
+    context = {
+        'agendamentos': agendamentos
+    }
+    return render(request, 'assets/static/crud_agenda/agedamento_cliente/lista_agendamentos_cliente.html', context)
 
 
 @group_required(['Profissional', 'Administrador'], "/accounts/login/")
@@ -137,15 +124,24 @@ def fazendo_agendamento_pelo_cliente(request):
         return render(request, 'assets/static/crud_agenda/agedamento_cliente/fazer_agendamento.html', context)
 
 
+def alterar_horario_atendimento(duracao_servico, horario_atendimento):
+    # Converte horario_disponivel para datetime.datetime
+    horario_datetime = datetime.combine(datetime.today(), horario_atendimento.horario_disponivel)
 
+    # Adiciona a duracao
+    horario_datetime += timedelta(minutes=duracao_servico.minute, seconds=duracao_servico.second)
 
-def get_horarios_disponiveis(request):
-    if request.is_ajax() and request.method == 'GET':
-        dia_id = request.GET.get('dia_id')
-        horarios = Horarios.objects.filter(disponibilidade__dia__id=dia_id).values_list('horario_disponivel', flat=True)
-        horarios_disponiveis = list(horarios)
+    # Converte de volta para datetime.time
+    novo_horario_disponivel = horario_datetime.time()
 
+    return novo_horario_disponivel
 
-        return JsonResponse({'horarios': horarios_disponiveis}, safe=False)
-    else:
-        return JsonResponse({'error': 'Invalid request'})
+# def get_horarios_disponiveis(request):
+#     if request.is_ajax() and request.method == 'GET':
+#         dia_id = request.GET.get('dia_id')
+#         horarios = Horarios.objects.filter(disponibilidade__dia__id=dia_id).values_list('horario_disponivel', flat=True)
+#         horarios_disponiveis = list(horarios)
+#
+#         return JsonResponse({'horarios': horarios_disponiveis}, safe=False)
+#     else:
+#         return JsonResponse({'error': 'Invalid request'})

@@ -1,14 +1,17 @@
 from django.contrib.auth.models import Group
 from django.shortcuts import render
 from ProjectWebII.utils import create_groups
-from agenda.models import Servico
+from agenda.models import Servico, Agendamento
 
 
 def home(request):
     create_groups()
     servicos = Servico.objects.all()
+    agendamentos = Agendamento.objects.filter(cliente=request.user).order_by('-dia', 'horario')
+
     context = {
-        'servicos': servicos
+        'servicos': servicos,
+        'agendamentos': agendamentos
     }
     return render(request, 'assets/static/index.html', context)
 

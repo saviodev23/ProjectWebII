@@ -21,7 +21,7 @@ class Servico(models.Model):
     janela_tempo = models.TimeField(verbose_name='Duração do Serviço, ex: 00:30:00 min')
 
     def __str__(self):
-        servico = f"Nome Serviço: {self.nome} Preço:{self.preco}"
+        servico = f"Nome Serviço: {self.nome} Preço:{self.preco} Duração: {self.janela_tempo} min"
         return servico
 
 class ImagemServico(models.Model):

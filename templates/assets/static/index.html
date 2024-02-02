@@ -110,7 +110,7 @@
 					                {% for agendamento in agendamentos %}
 					                <li class="list-group-item">
 					                    <strong>{{ agendamento.servico.nome }}</strong><br>
-					                    {{ agendamento.data|date:"D, d M Y" }} às {{ agendamento.horario|time:"H:i" }}
+					                    {{ agendamento.dia }} às {{ agendamento.horario|time:"H:i" }} / {{ agendamento.servico.janela_tempo }} min
 					                </li>
 					                {% endfor %}
 					            </ul>

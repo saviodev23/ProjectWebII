@@ -1,5 +1,5 @@
 from .views.views_servico import add_servico, editar_servico, remover_servico, confirmar_remocao_servico, detalhes_servico
-from .views.views_agenda import fazer_agendamento_pelo_profissional, etapa_de_agendamento, listar_agendamentos_cliente, listar_agendamentos, fazendo_agendamento_pelo_cliente, selecione_profissional_para_agendamento, get_horarios_disponiveis
+from .views.views_agenda import fazer_agendamento_pelo_profissional, etapa_de_agendamento, listar_agendamentos_cliente, listar_agendamentos, fazendo_agendamento_pelo_cliente, selecione_profissional_para_agendamento
 from django.urls import path
 
 urlpatterns = [
@@ -22,5 +22,5 @@ urlpatterns = [
     path('fazendo/agendamento/', fazendo_agendamento_pelo_cliente, name="fazendo_agendamento_pelo_cliente"),
 
     #fazer requisição AJAX para horarios disponiveis
-    path('get/horarios/disponiveis/', get_horarios_disponiveis, name='get_horarios_disponiveis'),
+    # path('get/horarios/disponiveis/', get_horarios_disponiveis, name='get_horarios_disponiveis'),
 ]

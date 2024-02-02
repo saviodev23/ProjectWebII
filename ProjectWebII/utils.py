@@ -46,39 +46,12 @@ def create_groups():
         groupAdmin = Group(name='Profissional')
         groupAdmin.save()
 
-
-
-def calcular_horarios_disponiveis(disponibilidade):
-    horario_inicio = datetime.combine(datetime.today(), disponibilidade.horario_inicio)
-    horario_fim = datetime.combine(datetime.today(), disponibilidade.horario_fim)
-    ciclo_servico = Parametro.objects.get(criado_por=disponibilidade.profissional).valor
-
-    horarios_disponiveis = []
-
-    horario_atual = horario_inicio
-    while horario_atual <= horario_fim:
-        # Exclui horários entre 12:00 e 14:00
-        if horario_atual.time() <= datetime.strptime("12:00", "%H:%M").time() \
-                or horario_atual.time() >= datetime.strptime("14:00", "%H:%M").time():
-            horarios_disponiveis.append(horario_atual.strftime("%H:%M"))
-
-        horario_atual += timedelta(minutes=ciclo_servico)
-
-    return horarios_disponiveis
+        groupAdmin = Group(name='Secretaria')
+        groupAdmin.save()
 
 
 
-def alterar_horario_atendimento(duracao_servico, horario_atendimento):
-    # Converte horario_disponivel para datetime.datetime
-    horario_datetime = datetime.combine(datetime.today(), horario_atendimento.horario_disponivel)
 
-    # Adiciona a duracao
-    horario_datetime += timedelta(minutes=duracao_servico.minute, seconds=duracao_servico.second)
-
-    # Converte de volta para datetime.time
-    novo_horario_disponivel = horario_datetime.time()
-
-    return novo_horario_disponivel
 
 
 
