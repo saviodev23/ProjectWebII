@@ -32,7 +32,8 @@ Este é um projeto de sistema web desenvolvido em Django para gerenciar o agenda
 - Programa de fidelidade com descontos baseados no histórico de agendamentos.
 
 ## Diagrama de classe
-![classe](https://github.com/saviodev23/ProjectWebII/assets/132952225/4ec5983a-e31d-4b0a-a82b-1533ee7de137)
+![diagramClass](https://github.com/saviodev23/ProjectWebII/assets/132952225/f9d36fe1-f973-4af6-90e9-026878cbd21d)
+
 
 
 ## Diagrama de Caso de Uso
