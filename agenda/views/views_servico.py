@@ -108,6 +108,7 @@ def editar_imagem_servico(request, img_servico_id):
         "imagem_servico": imagem_servico
     }
     return render(request, "assets/static/crud_servico/imagem_servico/editar.html", context)
+
 @group_required(['Administrador', 'Profissional'], "/accounts/login/")
 def remover_imagem_servico(request, img_servico_id):
     imagem_servico = get_object_or_404(ImagemServico, pk=img_servico_id)
