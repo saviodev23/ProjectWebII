@@ -1,0 +1,20 @@
+{% extends 'assets/static/base.html' %}
+{% block content %}
+
+<div class="container d-flex align-items-center justify-content-center vh-100">
+  <div class="card p-4 text-dark text-center shadow-lg">
+    <h3 class="mb-3">Remover Imagem do Serviço: {{imagem_servico.servico.nome}}</h3>
+    <h4 class="mb-3">Tem certeza que deseja deletar esta Imagem de Serviço?</h4>
+
+    <div class="d-flex justify-content-center mt-4">
+      <a class="btn btn-danger btn-lg mr-2" href="{% url 'confirmar_remocao_imagem_servico' imagem_servico.id %}">
+        <i class="fas fa-check-circle"></i> Sim
+      </a>
+      <a class="btn btn-secondary btn-lg" href="{% url 'add_imagem_servico'%}">
+        <i class="fas fa-times-circle"></i> Não
+      </a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

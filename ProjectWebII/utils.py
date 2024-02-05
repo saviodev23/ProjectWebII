@@ -2,10 +2,6 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import Group
 from django.core.exceptions import PermissionDenied
 
-from horario.models import Parametro
-from datetime import datetime, timedelta
-
-
 def group_required(groups, login_url=None, raise_exception=False):
     """
     Decorator for views that checks whether a user has a group permission,

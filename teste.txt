@@ -169,3 +169,24 @@
 </style>
 
 {% endblock %}
+
+
+
+
+                        <h2 class="mt-4">Nossos serviços</h2>
+                        <ol class="mb-3">
+
+                        </ol>
+
+                        <div class="row">
+	                        {% for servico in servicos %}
+	                            <div class="col-xl-3 col-md-3">
+	                                <div class="card bg-color-service text-white mb-4" style="height: 70%; width: 85%">
+	                                    <div class="card-body">{{ servico.nome }} / {{ servico.janela_tempo }} min</div>
+	                                    <div class="card-footer d-flex align-items-center justify-content-between">
+	                                        <a class="small text-white stretched-link" href="{% url 'detalhes_servico' servico.id %}">Ver Detalhes</a>
+	                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+	                                    </div>
+	                                </div>
+	                            </div>
+							{% endfor %}

@@ -40,6 +40,7 @@
 		                                        <a class="nav-link" href="{% url 'listar_horarios' %}">Horários</a>
 		                                        <a class="nav-link" href="{% url 'add_parametro' %}">Parametros</a>
 		                                        <a class="nav-link" href="{% url 'add_servico' %}">Serviços</a>
+		                                        <a class="nav-link" href="{% url 'add_imagem_servico' %}">Imagens de Serviços</a>
 		                                        <a class="nav-link" href="password.html">Fidelidade</a>
 	                                        </nav>
 	                                    </div>
@@ -81,47 +82,49 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-	                    <div class="row">
-		                    <div class="col-12">
-		                        <img src="{% static 'images/testecapa.png' %}" class="img-fluid w-100" alt="Capa" style="height: 300px; margin: 10px;">
-		                    </div>
-		                </div>
+				     <div class="row">
+					    <div class="col-12">
+					        <img src="{% static 'images/cta-section-img.jpg' %}" class="img-fluid w-100 d-none d-sm-block" alt="Capa Desktop" style="height: 300px; margin: 10px;">
+					        <img src="{% static 'images/gallery2.png' %}" class="img-fluid w-100 d-sm-none" alt="Capa Mobile" style="height: 300px; margin: 10px;">
+					    </div>
+				     </div>
+
 
                         <h2 class="mt-4">Nossos serviços</h2>
                         <ol class="mb-3">
 
                         </ol>
-                        <div class="row">
-	                        {% for servico in servicos %}
-	                            <div class="col-xl-3 col-md-4">
-	                                <div class="card bg-color-service text-white mb-4" style="height: 100px">
-	                                    <div class="card-body">{{ servico.nome }}</div>
-	                                    <div class="card-footer d-flex align-items-center justify-content-between">
-	                                        <a class="small text-white stretched-link" href="{% url 'detalhes_servico' servico.id %}">Ver Detalhes</a>
-	                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-	                                    </div>
-	                                </div>
-	                            </div>
-							{% endfor %}
 
-                            <h2>Seus agendamentos</h2>
-				            {% if agendamentos %}
-					            <ul class="list-group">
-					                {% for agendamento in agendamentos %}
-					                <li class="list-group-item">
-					                    <strong>{{ agendamento.servico.nome }}</strong><br>
-					                    {{ agendamento.dia }} às {{ agendamento.horario|time:"H:i" }} / {{ agendamento.servico.janela_tempo }} min
-					                </li>
-					                {% endfor %}
-					            </ul>
-				            {% else %}
-				                <p>Nenhum agendamento recente.</p>
-				            {% endif %}
+                        <div class="row">
+						    {% for servico in servicos %}
+						        <div class="col-md-4 col-sm-6 col-12 mb-4">
+						            <div class="d-flex justify-content-between align-items-center bg-color-service text-white p-2">
+						                <span>{{ servico.nome }} / {{ servico.janela_tempo }} min</span>
+						                <a class="btn btn-primary" href="{% url 'detalhes_servico' servico.id %}">Ver</a>
+						            </div>
+						        </div>
+						    {% endfor %}
+
+                            {% if user.is_authenticated %}
+	                            <h2>Seus agendamentos</h2>
+	                            {% if agendamentos %}
+						            <ul class="list-group">
+						                {% for agendamento in agendamentos %}
+						                <li class="list-group-item">
+						                    <strong>{{ agendamento.servico.nome }}</strong><br>
+						                    {{ agendamento.dia }} às {{ agendamento.horario|time:"H:i" }} / {{ agendamento.servico.janela_tempo }} min
+						                </li>
+						                {% endfor %}
+						            </ul>
+					            {% else %}
+					                <p>Nenhum agendamento recente.</p>
+					            {% endif %}
+                            {% endif %}
 
                             <div class="py-4">
 				                <h2>Promoções e Programas</h2>
 				                <p>Confira nossas promoções e programas de fidelidade para ganhar descontos exclusivos!</p>
-				                <a href="" class="btn btn-primary">Ver Programas</a>
+				                <a href="" class="btn bg-color-program">Ver Programas</a>
 				            </div>
 
                         </div>
@@ -131,8 +134,19 @@
         </div>
     </body>
 	<style>
-		.bg-color-service{
-			background: #001F3F;
+		.bg-color-service {
+			background: #454140;
+			border-radius: 5px;
 		}
+		.bg-color-program{
+			background: #454140;
+			color: white;
+		}
+		.bg-color-program:hover{
+			background: #054140;
+			color: white;
+		}
+
 	</style>
+
 {% endblock %}

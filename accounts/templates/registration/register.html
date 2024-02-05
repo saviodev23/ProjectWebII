@@ -5,28 +5,27 @@
 
 	<div class="d-flex align-items-center h-100 bg-imagem">
 		 <div class="container">
-			<div class="col-md-6 col-lg-4 mx-auto">
+			<div class="col-md-6 col-lg-5 mx-auto">
 				<div class="row justify-content-center">
-					<div class="col-12 py-4">
+					<div class="col-md-12">
+					    <div class="text-center titulo text-white">
+						   <h4 class="py-4">Criar uma conta</h4>
+					    </div>
 
-						    <div class="text-center mb-4 titulo text-white">
-							   <h4>Criar uma conta</h4>
-						    </div>
+					    {% if messages %}
+					        <ul class="messages">
+					            {% for message in messages %}
+					            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+					            {% endfor %}
+					        </ul>
+					    {% endif %}
 
-						    {% if messages %}
-						        <ul class="messages">
-						            {% for message in messages %}
-						            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-						            {% endfor %}
-						        </ul>
-						    {% endif %}
+					    <form class="rounded-3 shadow py-4 form-teste text-white bg-color-login" method="post">
+					        {% csrf_token %}
+					        {% bootstrap_form form %}
 
-						    <form class="bg-white rounded-3 shadow p-5 form-teste text-dark" method="post">
-						        {% csrf_token %}
-						        {% bootstrap_form form %}
-
-						        <button type="submit" class="btn btn-primary btn-block mt-4">Registrar</button>
-						    </form>
+					        <button type="submit" class="btn btn-primary btn-block mt-4">Registrar</button>
+					    </form>
 					</div>
 				</div>
 			</div>
@@ -35,8 +34,11 @@
 
 
 <style>
+	.bg-color-login{
+		background: transparent;
+	}
      .bg-imagem {
-        background-image: url('{% static 'images/barbeshop.jpg' %}');
+        background-image: url('{% static 'images/big_image_1.jpg' %}');
         height: 100vh;
         background-size: cover;
         background-position: center;

@@ -81,12 +81,12 @@
 			        <div class="row justify-content-center">
 			            {% for profissional in profissionais %}
 			                <div class="col-sm-4">
-			                    <div class="card text-center">
+			                    <div class="card text-center bg-color-card ">
 			                        <div class="card-body">
 			                            {% if profissional.imagem %}
 			                                <img src="{{ profissional.imagem.url }}" class="card-img-top rounded-circle" alt="Foto do profissional" style="width: 200px; height: 200px;">
 			                            {% else %}
-			                                <img src="{% static 'images/savio.jpg' %}" class="card-img-top rounded-circle" alt="Foto do profissional" style="width: 200px; height: 200px;">
+			                                <img src="{% static 'images/team3.png' %}" class="card-img-top rounded-circle" alt="Foto do profissional" style="width: 200px; height: 210px;">
 			                            {% endif %}
 			                            <h5 class="card-title mt-3">{{ profissional.first_name }} {{ profissional.last_name }}</h5>
 			                            <button class="btn btn-primary btn-block" onclick="selecionarProfissional('{{ profissional.id }}')" data-url="{% url 'fazendo_agendamento_pelo_cliente' %}">Selecionar</button>
@@ -118,4 +118,12 @@
 		}
 
     </script>
+	<style>
+		.bg-color-card{
+			background: #001F3F;
+			border-radius: 30px;
+			color: white;
+			margin: 10px;
+		}
+	</style>
 {% endblock %}

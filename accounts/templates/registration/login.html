@@ -8,7 +8,7 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12">
-          <form class="bg-color-login rounded shadow-5-strong p-5 text-dark" method="POST">
+          <form class="bg-color-login rounded shadow-5-strong p-5 text-white" method="POST">
             <h4 class="text-center mb-4">Login</h4>
 
             {% if messages %}
@@ -44,11 +44,11 @@
 
 <style>
 	.bg-color-login{
-		background: #ffffff;
+		background: transparent;
 	}
   .bg-image {
     height: 100vh; /* Definir a altura da imagem como 100% da altura da tela */
-    background-image: url({% static 'images/barbeshop.jpg' %});
+	background-image: url({% static 'images/big_image_1.jpg' %});
     background-size: cover;
     background-position: center;
   }

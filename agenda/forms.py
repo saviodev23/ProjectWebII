@@ -13,7 +13,7 @@ class ImagemServicoForm(forms.ModelForm):
     }
     class Meta:
         model = ImagemServico
-        fields = ['imagem']
+        fields = ['servico', 'imagem']
 class FormAgendamentoCliente(forms.ModelForm):
     # dia = forms.DateField(label='Dia de Agendamento')
     # horario = forms.TimeField(label='Horário de Agendamento')
