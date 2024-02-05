@@ -73,6 +73,7 @@ def detalhes_servico(request, servico_id):
     return render(request, 'assets/static/crud_servico/servico.html', context)
 
 #CRUD Imagem Servico
+
 def add_imagem_servico(request):
     if request.user.is_authenticated:
         imagens_servicos = ImagemServico.objects.all()
