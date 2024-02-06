@@ -27,6 +27,7 @@ def register(request):
 @login_required
 def minha_conta(request):
     user = request.user
+    print(user)    
     context = {
         'user':user
     }

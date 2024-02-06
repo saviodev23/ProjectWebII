@@ -12,6 +12,7 @@
                     <th scope="col">Cliente</th>
 	                <th scope="col">Profissional</th>
                     <th scope="col">Serviço</th>
+                    <th scope="col">Preco</th>
                     <th scope="col">Data</th>
                     <th scope="col">Horário</th>
                     <th scope="col">Status</th>
@@ -25,12 +26,15 @@
                         <td>{{ agendamento.cliente.username }}</td>
 	                    <td>{{ agendamento.profissional.username }}</td>
                         <td>{{ agendamento.servico.nome_servico }}</td>
+                        <td>{{ agendamento.preco_servico }}</td>
                         <td>{{ agendamento.dia|date:"D, d M Y" }}</td>
                         <td>{{ agendamento.horario|time:"H:i" }}</td>
                         <td>{{ agendamento.get_status_agendamento_display }}</td>
                         <td>
                             <a href="{% url 'editar_agendamento' agendamento.id %}" class="btn btn-sm btn-success">Editar</a>
-	                        <a href="{% url 'remover_agendamento' agendamento.id %}" class="btn btn-sm btn-danger">Remover</a>
+                            {% if agendamento.status_agendamento == 'AG' %}
+	                            <a href="{% url 'concluir_agendamento' agendamento.id %}" class="btn btn-sm btn-success">concluir</a>
+                            {% endif %} 
                         </td>
                     </tr>
                 {% endfor %}

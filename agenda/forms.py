@@ -16,7 +16,7 @@ class FormAgendamento(forms.ModelForm):
     horario = forms.TimeField(label='Horário de Agendamento')
     class Meta:
         model = Agendamento
-        fields = ['profissional', 'cliente', 'dia', 'horario', 'servico','preco_servico','criado_por', 'criado_em']
+        fields = ['profissional', 'cliente', 'dia', 'horario','servico','criado_por', 'criado_em']
 
 class FormEditarAgendamento(ModelForm):
     class Meta:

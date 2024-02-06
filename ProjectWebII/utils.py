@@ -6,6 +6,7 @@ from accounts.models import Usuario
 from django.shortcuts import render, get_object_or_404
 
 
+
 def group_required(groups, login_url=None, raise_exception=False):
     """
     Decorator for views that checks whether a user has a group permission,
@@ -58,13 +59,41 @@ def resgatar_cupon(fidelidade_id, usuario_id):
     cupon = cupon-1
     usuario.desconto = 1
 
- 
-def mostrar_pontos(request, agendamento_id,cupon_id):
-    agendamento = get_object_or_404(Agendamento, id=agendamento_id)
-    fidelidade = get_object_or_404(Fidelidade, id=cupon_id)
+@group_required(['Cliente'], "/accounts/login/")
+def mostrar_pontos(request, user_id):
+    usuario = get_object_or_404(Usuario, pk=user_id)
+    agendamentos = Agendamento.objects.filter(cliente=request.user).order_by('-dia', 'horario')
+    quantidade = usuario.agendamentos_concluidos
+    cupon = usuario.cupon
 
     context = {
-        'agendamento':agendamento,
-        'fidelidade':fidelidade
+        'quantidade':quantidade,
+        'cupon':cupon,
+        'agendamentos':agendamentos
+
     }
-    return render(request, 'assets/static/crud_fidelidade/mostrar_pontos', context)
+    return render(request, 'assets/static/crud_Fidelidade/mostrar_pontos', context)
+
+def resgatar_cupon(request, user_id):
+    usuario = get_object_or_404(Usuario, pk=user_id)
+    agendamentos = Agendamento.objects.filter(cliente=request.user).order_by('-dia', 'horario')
+    quantidade = usuario.agendamentos_concluidos
+
+    usuario.cupon -= 1
+    usuario.desconto += 1
+    
+    
+    usuario.save()
+
+    cupon = usuario.cupon
+    desconto = usuario.desconto
+
+    context = {
+        'quantidade':quantidade,
+        'cupon':cupon,
+        'agendamentos':agendamentos,
+        'desconto':desconto
+
+    }
+
+    return render(request, "assets/static/crud_Fidelidade/mostrar_pontos", context)
