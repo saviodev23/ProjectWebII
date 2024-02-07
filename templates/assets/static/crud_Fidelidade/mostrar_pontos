@@ -10,6 +10,8 @@
     <p>Quantidade de cupons: {{ cupon }}</p>
     {% if cupon >= 1 and desconto == 0  %}
         <a href="{% url 'resgatar_cupon' user.id%}" class="btn btn-success btn-sm">resgatar</a>
+    {%else%}
+        <p>Voce ja possui um desconto resgatado</p>
     {% endif %}    
         <table class="table">
             <thead>

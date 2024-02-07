@@ -39,10 +39,10 @@ def fazer_agendamento_pelo_profissional(request):
                 preco = servico.preco
                 usuario = cliente
 
-                if usuario.desconto == 1:
+                if usuario.desconto >= 1:
 
-                     preco = Decimal(float(preco) * 0.5)
-                
+                    preco = Decimal(float(preco) * 0.5)
+                    usuario.desconto -= 1 
                 
                 agendamento = Agendamento.objects.create(
                    
