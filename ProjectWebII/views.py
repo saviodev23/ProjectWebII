@@ -1,14 +1,16 @@
 from django.contrib.auth.models import Group
 from django.shortcuts import render
 from ProjectWebII.utils import create_groups
-from agenda.models import Servico
+from agenda.models import Servico, Fidelidade
 
 
 def home(request):
     create_groups()
     servicos = Servico.objects.all()
+    fidelidades = Fidelidade.objects.all()
     context = {
-        'servicos': servicos
+        'servicos': servicos,
+        'fidelidades':fidelidades
     }
     return render(request, 'assets/static/index.html', context)
 

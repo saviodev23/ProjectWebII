@@ -1,9 +1,10 @@
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import Group
 from django.core.exceptions import PermissionDenied
-from agenda.models import Agendamento, Fidelidade
+from agenda.models import Agendamento, Fidelidade, Servico
 from accounts.models import Usuario
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -49,51 +50,64 @@ def create_groups():
 
 
     
-def resgatar_cupon(fidelidade_id, usuario_id):
-    
-    fidelidade = get_object_or_404(Fidelidade, id=fidelidade_id)
-    usuario =  get_object_or_404(Usuario, id=usuario_id)
-    
-    cupon = fidelidade.cupon
 
-    cupon = cupon-1
-    usuario.desconto = 1
+
+#@group_required(['Cliente'], "/accounts/login/")
+#def mostrar_pontos(request, user_id):
+    #usuario = get_object_or_404(Usuario, pk=user_id)
+    #agendamentos = Agendamento.objects.filter(cliente=request.user).order_by('-dia', 'horario')
+    #quantidade = agendamentos.count
+    #cupon = usuario.cupon
+
+    #context = {
+        #'quantidade':quantidade,
+        #'cupon':cupon,
+        #'agendamentos':agendamentos
+
+    #}
+    #return render(request, 'assets/static/crud_Fidelidade/mostrar_pontos', context)
+@group_required(['Cliente'], "/accounts/login/")
+def resgatar_fidelidade(request, fidelidade_id):
+    usuario = request.user
+    fidelidade = get_object_or_404(Fidelidade, pk=fidelidade_id)
+    usuario.fidelidade = fidelidade
+
+    usuario.save()
+
+    servicos = Servico.objects.all()
+    fidelidades = Fidelidade.objects.all()
+    context = {
+        'servicos': servicos,
+        'fidelidades':fidelidades
+    }
+
+    return render(request, 'assets/static/index.html', context)
 
 @group_required(['Cliente'], "/accounts/login/")
 def mostrar_pontos(request, user_id):
     usuario = get_object_or_404(Usuario, pk=user_id)
-    agendamentos = Agendamento.objects.filter(cliente=request.user).order_by('-dia', 'horario')
-    quantidade = usuario.agendamentos_concluidos
-    cupon = usuario.cupon
+    agendamentos = Agendamento.objects.filter(cliente=request.user,status_agendamento='CO').order_by('-dia', 'horario')
+    fidelidade = usuario.fidelidade
+    quantidade = agendamentos.count()
+    valor = quantidade % fidelidade.requisito
+    desconto = usuario.desconto
+    falta = fidelidade.requisito - valor
 
     context = {
-        'quantidade':quantidade,
-        'cupon':cupon,
-        'agendamentos':agendamentos
+        'fidelidade':fidelidade,
+        'desconto':desconto,
+        'falta':falta,
+        
 
     }
     return render(request, 'assets/static/crud_Fidelidade/mostrar_pontos', context)
 
-def resgatar_cupon(request, user_id):
-    usuario = get_object_or_404(Usuario, pk=user_id)
-    agendamentos = Agendamento.objects.filter(cliente=request.user).order_by('-dia', 'horario')
-    quantidade = usuario.agendamentos_concluidos
 
-    usuario.cupon -= 1
-    usuario.desconto += 1
-    
-    
+@group_required(['Cliente'], "/accounts/login/")
+def remover_fidelidade_cliente(request, user_id):
+    usuario = get_object_or_404(Usuario, pk=user_id)
+    usuario.fidelidade = None
     usuario.save()
 
-    cupon = usuario.cupon
-    desconto = usuario.desconto
 
-    context = {
-        'quantidade':quantidade,
-        'cupon':cupon,
-        'agendamentos':agendamentos,
-        'desconto':desconto
-
-    }
-
-    return render(request, "assets/static/crud_Fidelidade/mostrar_pontos", context)
+    return redirect('mostrar_pontos', user_id=user_id)

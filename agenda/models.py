@@ -47,11 +47,7 @@ class Agendamento(models.Model):
         return f'Agenda para {self.cliente.username} com {self.profissional.username}'
 
 class Fidelidade(models.Model):
-    STATUS_CHOICES = (
-        ('CA', 'Cancelado'),
-        ('CO', 'Concluido'),
-    )
-    agenda = models.ForeignKey(Agendamento, on_delete=models.CASCADE)
-    status = models.CharField(max_length=2, choices=STATUS_CHOICES)
-    def __str__(self):
-        return self.status
+    nome = models.CharField(max_length=50, verbose_name='Nome da Fidelidade')
+    descricao = models.CharField(max_length=350, verbose_name='Descrição')
+    desconto = models.IntegerField(default=0)
+    requisito = models.IntegerField(default=0)

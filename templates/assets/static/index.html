@@ -1,6 +1,8 @@
 {% extends 'assets/static/base.html' %}
 {% load static %}
 {% block content %}
+
+
     <body class="sb-nav-fixed">
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
@@ -15,9 +17,8 @@
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="{% url 'fazer_agendamento_pelo_profissional' %}">Fazer Agendamento</a>
+                                    <a class="nav-link" href="#">Fazer Agendamento</a>
 	                                <a class="nav-link" href="{% url 'listar_agendamentos_cliente' %}">Meus Agendamentos</a>
-									<a class="nav-link" href="{% url 'listar_agendamentos' %}">Listar Agendamentos</a>
                                     <a class="nav-link" href="#">Histórico</a>
                                 </nav>
                             </div>
@@ -40,7 +41,8 @@
 		                                        <a class="nav-link" href="{% url 'add_disponibilidade' %}">Disponibilidade</a>
 		                                        <a class="nav-link" href="{% url 'add_parametro' %}">Parametros</a>
 		                                        <a class="nav-link" href="{% url 'add_servico' %}">Serviços</a>
-		                                        <a class="nav-link" href="{% url 'mostrar_pontos' user.id%}">Fidelidade</a>
+												<a class="nav-link" href="{% url 'adicionar_fidelidade' %}">Fidelidade</a>
+
 		                                      
 	                                        </nav>
 	                                    </div>
@@ -53,18 +55,21 @@
 	                                        <nav class="sb-sidenav-menu-nested nav">
 	                                            <a class="nav-link" href="{% url 'fazer_agendamento_pelo_profissional' %}">Fazer Agendamento</a>
 	                                            <a class="nav-link" href="{% url 'listar_agendamentos' %}">Agendamentos</a>
+							
 	                                        </nav>
 	                                    </div>
 
 	                                </nav>
 	                            </div>
 	                        {% endif %}
-
+			
+							{% if user.is_authenticated %}
                             <div class="sb-sidenav-menu-heading">Programas e Promoções</div>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{% url 'mostrar_pontos' user.id %}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-money-check-dollar"></i></div>
                                 Fidelidade
                             </a>
+							{% endif %}
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
@@ -116,8 +121,23 @@
                             <div class="mt-4">
 				                <h2>Promoções e Programas</h2>
 				                <p>Confira nossas promoções e programas de fidelidade para ganhar descontos exclusivos!</p>
-				                <a href="" class="btn btn-primary">Ver Programas</a>
-				            </div>
+				                <ol class="breadcrumb mb-4">
+
+								</ol>
+								<div class="row">
+									{% for fidelidade in fidelidades %}
+										<div class="col-xl-3 col-md-6">
+											<div class="card bg-secondary text-white mb-4">
+												<div class="card-body">{{ fidelidade.nome }}</div>
+												<div class="card-footer d-flex align-items-center justify-content-between">
+												<div class="card-body">{{ fidelidade.descricao }}</div>
+												</div>
+												<button> <a class="small text-black stretched-link" href="{% url 'resgatar_fidelidade' fidelidade.id %}">Selecionar</a></button>
+
+											</div>
+										</div>
+									{% endfor %}
+					
 
                         </div>
                     </div>

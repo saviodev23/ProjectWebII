@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from accounts.models import Usuario
 from ProjectWebII.utils import group_required
 from agenda.forms import FormAgendamento, FormEditarAgendamento
-from agenda.models import Agendamento, Servico, Fidelidade
+from agenda.models import Agendamento, Servico
 from decimal import Decimal
 
 
@@ -23,7 +23,7 @@ def fazer_agendamento_pelo_profissional(request):
        #usuario = get_object_or_404(Usuario, id=usuario_id)
         profissional_group = Group.objects.get(name='Profissional')
         profissionais = profissional_group.user_set.all()
-       
+        
 
         if request.method == 'POST':
             form = FormAgendamento(request.POST)
@@ -39,24 +39,30 @@ def fazer_agendamento_pelo_profissional(request):
                 preco = servico.preco
                 usuario = cliente
 
-                if usuario.desconto >= 1:
-
-                    preco = Decimal(float(preco) * 0.5)
-                    usuario.desconto -= 1 
+                fidelidade = usuario.fidelidade
                 
-                agendamento = Agendamento.objects.create(
+                if usuario.fidelidade is not None:
+                    if usuario.desconto > 0:
+                               
+                        desconto = preco * (fidelidade.desconto / Decimal('100'))
+                        preco = preco - desconto
+                        usuario.desconto = 0   
+                    
+            
+            agendamento = Agendamento.objects.create(
                    
-                    profissional=profissional,
-                    cliente=cliente,
-                    dia=dia,
-                    horario=horario,
-                    servico=servico,
-                    preco_servico=preco,
-                    criado_por=criado_por,
-                    criado_em=criado_em
-                )
-                agendamento.save()
-                return redirect('home')
+            profissional=profissional,
+            cliente=cliente,
+            dia=dia,
+            horario=horario,
+            servico=servico,
+            preco_servico=preco,
+            criado_por=criado_por,
+            criado_em=criado_em
+            )
+            agendamento.save()
+            usuario.save()
+            return redirect('home')
         else:
             form = FormAgendamento()
 
@@ -100,16 +106,18 @@ def concluir_agendamento(request, agendamento_id):
 
     if agendamento.status_agendamento == 'AG':
         agendamento.status_agendamento = 'CO'
-        usuario.agendamentos_concluidos += 1
          
         agendamento.save()
         usuario.save()
-      
-        if usuario.agendamentos_concluidos % 5 == 0:
-            usuario.cupon +=1
-        
-            usuario.save()
 
+        agendamentos_cliente = Agendamento.objects.filter(cliente=agendamento.cliente, status_agendamento='CO')
+        quantidade = agendamentos_cliente.count()
+        if usuario.fidelidade is not None:
+            if quantidade %  usuario.fidelidade.requisito == 0:
+                usuario.desconto = usuario.fidelidade.desconto
+
+                usuario.save()
+        
     context = {
         'agendamento': agendamento,
         'agendamentos': agendamentos

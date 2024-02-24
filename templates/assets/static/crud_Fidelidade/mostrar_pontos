@@ -3,45 +3,40 @@
 
 {% block content %}
 <div class="container mt-5 mb-5">
-    <h2 class="mb-4">Meus Agendamentos</h2>
+    <h2 class="mb-4">Fidelidade</h2>
 
-    {% if agendamentos %}
-    <p>Quantidade de Agendamentos: {{ quantidade }}</p>
-    <p>Quantidade de cupons: {{ cupon }}</p>
-    {% if cupon >= 1 and desconto == 0  %}
-        <a href="{% url 'resgatar_cupon' user.id%}" class="btn btn-success btn-sm">resgatar</a>
-    {%else%}
-        <p>Voce ja possui um desconto resgatado</p>
-    {% endif %}    
+    {% if fidelidade %}
+    <p>Voce possui um desconto atual de: {{ fidelidade.desconto }}</p>
+    <p>Faltam um total de  {{ falta }} cortes para voce receber o desconto</p>
+
+  
         <table class="table">
             <thead>
                 <tr> 
-                    <th scope="col">Cliente</th>
-                    <th scope="col">Serviço</th>
-                    <th scope="col">Data</th>
-                    <th scope="col">Horário</th>
-	                <th scope="col">Profissional</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">desconto</th>
+                    <th scope="col">requisito</th>
+
                 </tr>
             </thead>
             <tbody>
-                {% for agendamento in agendamentos %}
                     <tr>
-                        <td>{{ agendamento.cliente.username }}</td>
-                        <td>{{ agendamento.servico.nome_servico }}</td>
-                        <td>{{ agendamento.dia|date:"D, d M Y" }}</td>
-                        <td>{{ agendamento.horario|time:"H:i" }}</td>
-	                    <td>{{ agendamento.profissional.username }}</td>
-                        <td>{{ agendamento.get_status_agendamento_display }}</td>
-                        <td>
+                        <td>{{ fidelidade.nome }}</td>
+                        <td>{{ fidelidade.descricao}}</td>
+                        <td>{{ fidelidade.desconto }}</td>
+                        <td>{{ fidelidade.requisito }}</td>
+                        <td><a href="{% url 'remover_fidelidade_cliente' user.id %}" class="btn btn-danger btn-sm">Remover</a>
                         </td>
                     </tr>
-                {% endfor %}
+                    
             </tbody>
         </table>
+        
     {% else %}
-        <p>Nenhum agendamento encontrado.</p>
+        <p>Nenhuma Fidelidade encontrada.</p>
     {% endif %}
+    <a href="../../../.. " class="btn btn-sm btn-success">voltar</a>
 </div>
 {% endblock %}
 
