@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from ProjectWebII.utils import group_required
@@ -19,6 +20,7 @@ def add_servico(request):
                     return HttpResponse('já existe esse serviço')
 
                 form.save()
+                messages.success(request, f'Serviço {nome_form} adicionado com sucesso!')
                 return redirect('add_servico')
         else:
             form = FormAddServico()
@@ -26,7 +28,6 @@ def add_servico(request):
             'servicos': servicos,
             'form': form
         }
-
         return render(request, 'assets/static/crud_servico/add.html', context)
     else:
         return HttpResponse('erro!')
@@ -58,8 +59,9 @@ def remover_servico(request, servico_id):
     return render(request, "assets/static/crud_servico/remove.html", context)
 
 def confirmar_remocao_servico(request, servico_id):
+    servico = Servico.objects.get(id=servico_id)
     Servico.objects.get(pk=servico_id).delete()
-
+    messages.error(request, f'Serviço {servico.nome} deletado com sucesso!')
     return redirect('add_servico')
 
 def detalhes_servico(request, servico_id):
@@ -79,7 +81,9 @@ def add_imagem_servico(request):
         if request.method == 'POST':
             form = ImagemServicoForm(request.POST, request.FILES)
             if form.is_valid():
+                servico = form.cleaned_data['servico']
                 form.save()
+                messages.success(request, f'Imagem do serviço: {servico.nome} adicionado com sucesso!')
                 return redirect('add_imagem_servico')
         else:
             form = ImagemServicoForm()
@@ -117,6 +121,7 @@ def remover_imagem_servico(request, img_servico_id):
     }
     return render(request, "assets/static/crud_servico/imagem_servico/remove.html", context)
 def confirmar_remocao_imagem_servico(request, img_servico_id):
+    nome_servico = ImagemServico.objects.get(id=img_servico_id)
     ImagemServico.objects.get(pk=img_servico_id).delete()
-
+    messages.error(request, f'Imagem do serviço: {nome_servico.servico.nome} deletado com sucesso!')
     return redirect('add_imagem_servico')

@@ -1,192 +1,203 @@
-{% extends 'assets/static/base.html' %}
-{% load bootstrap4 %}
-{% block content %}
-<div class="container mt-5">
-    <h2 class="mb-4">Gerenciamento de Serviços</h2>
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card o-hidden border-0 shadow-lg">
-                    <div class="card-body p-5">
-                        <div class="text-center">
-                            <h1 class="h4 text-gray-900 mb-4 text-dark">Cadastrar Serviço</h1>
-                        </div>
-                        <form enctype="multipart/form-data" method="POST" class="text-dark">
-                            {% csrf_token %}
-                            {% bootstrap_form form %}
-                            <button class="btn btn-primary btn-user btn-block mt-3" type="submit">Cadastrar</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+# Navbar
 
-    <!-- Tabela para listar serviços -->
-    <h3>Lista de Serviços</h3>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome do Serviço</th>
-                <th>Preço</th>
-	            <th>Duração/Min</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for servico in servicos %}
-                <tr>
-                    <td>{{ servico.id }}</td>
-                    <td>{{ servico.nome_servico }}</td>
-                    <td>R$ {{ servico.preco }}</td>
-                    <td>{{ servico.janela_tempo }}</td>
-	                <td>
-                        <a href="{% url 'editar_servico' servico.id %}" class="btn btn-success btn-sm">Editar</a>
-                        <a href="{% url 'remover_servico' servico.id %}" class="btn btn-danger btn-sm">Remover</a>
-	                </td>
-                </tr>
+{% load static%}
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-color">
+    <!-- Navbar Brand-->
+    <a class="navbar-brand ps-3" href="{% url 'home' %}"> BarberShop
+        <img src="{% static 'images/LOGO_CANVA.png' %}" alt="BarberShop Logo" width="auto" height="30" class="d-inline-block align-top">
+	</a>
 
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
-{% endblock %}
+    <!-- Sidebar Toggle-->
+    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+    <!-- Navbar Search-->
+    <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
 
+    </form>
+    <!-- Navbar-->
+	{% if user.is_authenticated %}
+	    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+	        <li class="nav-item dropdown">
+	            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+	            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+	                <li><a class="dropdown-item" href="{% url 'minha_conta' %}">Minha conta</a></li>
+	                <li><hr class="dropdown-divider" /></li>
+	                <li><a class="dropdown-item" href="{% url 'logout' %}">Sair</a></li>
+	            </ul>
+	        </li>
+	    </ul>
+	{% else %}
+		<ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+	        <li class="nav-item">
+	            <a class="nav-link" href="{% url 'login' %}">Login</a>
+	        </li>
+	    </ul>
+	{% endif %}
+	<style>
+		.bg-color{
+			background: #001F3F;
+		}
+	</style>
+</nav>
 
---------------------------------- Agendamento ----------------------------------------------
+# Base
 
-{% extends 'assets/static/base.html' %}
 {% load static %}
-{% block content %}
 
-<div class="container mt-5 mb-5">
-	<div class="row justify-content-cente">
-	    <div class="col-md-6">
-		    <div class="card">
-                <div class="card-header">
-                    <img src="{% static 'images/savio.jpg' %}" alt="Professional Name" class="rounded-circle" width="50" height="50">
-                    <span class="ml-3">{{ profissional.username }}</span>
-                </div>
-                <div class="card-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="date">Você quer agendar para qual dia?</label>
-                            <input type="date" id="date" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="time">Qual Horário?</label>
-                            <select id="time" class="form-control">
-                                <option>8:00</option>
-                                <option>8:30</option>
-                                <option>9:00</option>
-                                <option>9:30</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="service">Selecione o serviço</label>
-                            <select id="service" class="form-control">
-                                <option>Corte Social R$20.00</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Agendar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Barbeshop</title>
+	<link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+{#    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />#}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 
-        <div class="col-md-6">
-            <h3>Selecione um profissional</h3>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>D</th>
-                        <th>S</th>
-                        <th>T</th>
-                        <th>Q</th>
-                        <th>Q</th>
-                        <th>S</th>
-                        <th>S</th>
-                    </tr>
-                    <tr>
-                        <th>1</th>
-                        <th>2</th>
-                        <th>3</th>
-                        <th>4</th>
-                        <th>5</th>
-                        <th>6</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="available">8:00</td>
-                        <td class="unavailable">8:00</td>
-                        <td class="available">8:00</td>
-                        <td class="unavailable">8:00</td>
-                        <td class="available">8:00</td>
-                        <td class="unavailable">8:00</td>
-                        <td class="available">8:00</td>
-                    </tr>
-                    <tr>
-                        <td class="unavailable">8:30</td>
-                        <td class="available">8:30</td>
-                        <td class="unavailable">8:30</td>
-                        <td class="available">8:30</td>
-                        <td class="unavailable">8:30</td>
-                        <td class="available">8:30</td>
-                        <td class="unavailable">8:30</td>
-                    </tr>
-                    <tr>
-                        <td class="available">9:00</td>
-                        <td class="unavailable">9:00</td>
-                        <td class="available">9:00</td>
-                        <td class="unavailable">9:00</td>
-                        <td class="available">9:00</td>
-                        <td class="unavailable">9:00</td>
-                        <td class="available">9:00</td>
-                    </tr>
-                    <tr>
-                        <td class="unavailable">9:30</td>
-                        <td class="available">9:30</td>
-                        <td class="unavailable">9:30</td>
-                        <td class="available">9:30</td>
-                        <td class="unavailable">9:30</td>
-                        <td class="available">9:30</td>
-                        <td class="unavailable">9:30</td>
-                    </tr>
-                </tbody>
-            </table>
-            <p><span class="available"><i class="fa-solid fa-check"></i></span> Disponível</p>
-            <p><span class="unavailable"><i class="fa-solid fa-x"></i></span> Indisponível</p>
-        </div>
-    </div>
-</div>
+</head>
+<body class="main-layout">
 
+	{% include 'assets/static/navbar.html' %}
+
+	<div>
+		{% block content %}{% endblock %}
+	</div>
+
+
+{% include 'assets/static/footer.html' %}
 <style>
-  .available .fa-check {
-    color: green;
-  }
-  .unavailable .fa-x {
-	  color: red;
-  }
+body{
+    background-color: #fff;
+}
+
 </style>
+</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="{% static 'assets/js/scripts.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="{% static 'assets/js/chart-area-demo.js' %}"></script>
+    <script src="{% static 'assets/js/chart-bar-demo.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+    <script src="{% static 'assets/js/datatables-simple-demo.js' %}"></script>
 
-{% endblock %}
 
+{#	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>#}
+{#	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>#}
 
+	<script>
+	    // Função para ocultar as mensagens após um período de tempo específico
+	    document.addEventListener('DOMContentLoaded', function() {
+	        var mensagens = document.querySelectorAll('.message');
+	        mensagens.forEach(function(mensagem) {
+	            setTimeout(function() {
+	                mensagem.style.display = 'none';
+	            }, 4000); // 5000 milissegundos = 5 segundos
+	        });
+	    });
+    </script>
 
+</html>
 
-                        <h2 class="mt-4">Nossos serviços</h2>
-                        <ol class="mb-3">
+# Index
 
-                        </ol>
-
-                        <div class="row">
-	                        {% for servico in servicos %}
-	                            <div class="col-xl-3 col-md-3">
-	                                <div class="card bg-color-service text-white mb-4" style="height: 70%; width: 85%">
-	                                    <div class="card-body">{{ servico.nome }} / {{ servico.janela_tempo }} min</div>
-	                                    <div class="card-footer d-flex align-items-center justify-content-between">
-	                                        <a class="small text-white stretched-link" href="{% url 'detalhes_servico' servico.id %}">Ver Detalhes</a>
-	                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-	                                    </div>
-	                                </div>
-	                            </div>
-							{% endfor %}
+# /////////////////////////////////////////
+            <div class="row ">
+              <div class="col-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Serviços agendados</h4>
+                    <div class="table-responsive">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th>
+                              <div class="form-check form-check-muted m-0">
+                                <label class="form-check-label">
+                                  <input type="checkbox" class="form-check-input">
+                                </label>
+                              </div>
+                            </th>
+                            <th> Client Name </th>
+                            <th> Order No </th>
+                            <th> Product Cost </th>
+                            <th> Project </th>
+                            <th> Payment Mode </th>
+                            <th> Start Date </th>
+                            <th> Payment Status </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <div class="form-check form-check-muted m-0">
+                                <label class="form-check-label">
+                                  <input type="checkbox" class="form-check-input">
+                                </label>
+                              </div>
+                            </td>
+                            <td>
+                              <img src="{% static 'assets/images/faces/face1.jpg' %}" alt="image" />
+                              <span class="pl-2">Henry Klein</span>
+                            </td>
+                            <td> 02312 </td>
+                            <td> $14,500 </td>
+                            <td> Dashboard </td>
+                            <td> Credit card </td>
+                            <td> 04 Dec 2019 </td>
+                            <td>
+                              <div class="badge badge-outline-success">Approved</div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="form-check form-check-muted m-0">
+                                <label class="form-check-label">
+                                  <input type="checkbox" class="form-check-input">
+                                </label>
+                              </div>
+                            </td>
+                            <td>
+                              <img src="{% static 'assets/images/faces/face2.jpg' %}" alt="image" />
+                              <span class="pl-2">Estella Bryan</span>
+                            </td>
+                            <td> 02312 </td>
+                            <td> $14,500 </td>
+                            <td> Website </td>
+                            <td> Cash on delivered </td>
+                            <td> 04 Dec 2019 </td>
+                            <td>
+                              <div class="badge badge-outline-warning">Pending</div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="form-check form-check-muted m-0">
+                                <label class="form-check-label">
+                                  <input type="checkbox" class="form-check-input">
+                                </label>
+                              </div>
+                            </td>
+                            <td>
+                              <img src="{% static 'assets/images/faces/face5.jpg' %}" alt="image" />
+                              <span class="pl-2">Lucy Abbott</span>
+                            </td>
+                            <td> 02312 </td>
+                            <td> $14,500 </td>
+                            <td> App design </td>
+                            <td> Credit card </td>
+                            <td> 04 Dec 2019 </td>
+                            <td>
+                              <div class="badge badge-outline-danger">Rejected</div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
