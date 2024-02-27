@@ -7,12 +7,12 @@
       <div class="card shadow ">
         <div class="card-body">
           <h2 class="text-center mb-4">Editar Imagem de Serviço</h2>
-          <form method="post" class="text-dark">
+          <form method="post" enctype="multipart/form-data" class="text-dark">
             {% csrf_token %}
             {% bootstrap_form form %}
             <div class="text-center mt-4">
               <button type="submit" class="btn btn-primary">Salvar</button>
-              <a class="btn btn-secondary" href="{% url 'editar_imagem_servico' imagem_servico.id %}">Voltar</a>
+              <a class="btn btn-secondary" href="{% url 'home' %}">Voltar</a>
             </div>
           </form>
         </div>

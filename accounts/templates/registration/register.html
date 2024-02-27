@@ -12,14 +12,6 @@
 						   <h4 class="py-4">Criar uma conta</h4>
 					    </div>
 
-					    {% if messages %}
-					        <ul class="messages">
-					            {% for message in messages %}
-					            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-					            {% endfor %}
-					        </ul>
-					    {% endif %}
-
 					    <form class="rounded-3 shadow py-4 form-teste text-white bg-color-login" method="post">
 					        {% csrf_token %}
 					        {% bootstrap_form form %}
@@ -43,5 +35,6 @@
         background-size: cover;
         background-position: center;
     }
+
 </style>
 {% endblock %}

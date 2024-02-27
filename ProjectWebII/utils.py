@@ -50,5 +50,3 @@ def create_groups():
 
 
 
-
-

@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from ProjectWebII.utils import group_required
@@ -28,8 +29,8 @@ def listar_e_cadastrar_usuarios(request):
                 user.groups.add(group)
             else:
                 return HttpResponse('grupo inválido!')
-
-            return redirect('home')
+            messages.success(request, f'Usuário cadastrado com sucesso!')
+            return redirect('listar_e_cadastrar_usuarios')
     else:
         form = UserProfRegistrationForm()
 
@@ -64,10 +65,12 @@ def remover_usuario(request, user_id):
     context = {
         "usuario": usuario
     }
+
     return render(request, "registration/usuarios/remover_usuario.html", context)
 
 
 def confirmar_remocao_usuario(request, user_id):
-    Usuario.objects.get(pk=user_id).delete()
-
+    usuario = Usuario.objects.get(pk=user_id)
+    usuario.delete()
+    messages.error(request, f'Usuário {usuario.username} deletado com sucesso!')
     return redirect('listar_e_cadastrar_usuarios')

@@ -37,3 +37,8 @@ class FormAgendamentoProfissional(forms.ModelForm):
         model = Agendamento
         fields = ['dia', 'horario', 'servico', 'criado_por', 'cliente', 'profissional']
 
+class FormEditarAgendamento(forms.ModelForm):
+    class Meta:
+        model = Agendamento
+
+        fields = ['status_agendamento']

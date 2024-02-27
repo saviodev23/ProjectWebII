@@ -1,139 +1,265 @@
 {% extends 'assets/static/base.html' %}
+{% load static %}
 {% block content %}
-	<body class="sb-nav-fixed">
-		<div id="layoutSidenav">
-			<div id="layoutSidenav_nav">
-		        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-		            <div class="sb-sidenav-menu">
-		                <div class="nav">
-		                    <div class="sb-sidenav-menu-heading">Core</div>
-			                <a class="nav-link" href="{% url 'home' %}">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-house"></i></div>
-                                HOME
-                            </a>
-		                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-		                        <div class="sb-nav-link-icon"><i class="fa-solid fa-calendar-days"></i></div>
-		                        Agendamento
-		                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-		                    </a>
-		                    <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-		                        <nav class="sb-sidenav-menu-nested nav">
-		                            <a class="nav-link" href="{% url 'selecione_profissional_para_agendamento' %}">Fazer Agendamento</a>
-		                            <a class="nav-link" href="{% url 'listar_agendamentos' %}">Meus Agendamentos</a>
-		                            <a class="nav-link" href="#">Histórico</a>
-		                        </nav>
-		                    </div>
-		                    <div class="sb-sidenav-menu-heading">Administração</div>
-		                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-		                        <div class="sb-nav-link-icon"><i class="fa-solid fa-user-tie"></i></div>
-		                        Administrativo
-		                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-		                    </a>
-		                    <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-		                        <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-		                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-		                                Gerenciamentos
-		                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-		                            </a>
-		                            <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-		                                <nav class="sb-sidenav-menu-nested nav">
-		                                    <a class="nav-link" href="{% url 'listar_e_cadastrar_usuarios' %}">Usuários</a>
-		                                    <a class="nav-link" href="{% url 'add_disponibilidade' %}">Disponibilidade</a>
-			                                <a class="nav-link" href="{% url 'listar_horarios' %}">Horários</a>
-		                                    <a class="nav-link" href="{% url 'add_parametro' %}">Parametros</a>
-		                                    <a class="nav-link" href="{% url 'add_servico' %}">Serviços</a>
-		                                    <a class="nav-link" href="password.html">Fidelidade</a>
-		                                </nav>
-		                            </div>
+    <div class="container-scroller">
+      <!-- partial:partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
+          <a class="sidebar-brand brand-logo" href="{% url 'home' %}"><img src="{% static 'assets/images/logo.svg' %}" alt="logo" /></a>
+          <a class="sidebar-brand brand-logo-mini" href="{% url 'home' %}"><img src="{% static 'assets/images/logo-mini.svg' %}" alt="logo" /></a>
+        </div>
+        <ul class="nav">
+          <li class="nav-item profile">
+            <div class="profile-desc">
+              <div class="profile-pic">
+                <div class="count-indicator">
+                  <img class="img-xs rounded-circle " src="{% static 'assets/images/faces/face15.jpg' %}" alt="">
+                  <span class="count bg-success"></span>
+                </div>
+                <div class="profile-name">
+	                {% if user.is_authenticated %}
+		                <h5 class="mb-0 font-weight-normal">{{ user.username }}</h5>
+	                {% else %}
+		                <p class="text-white">Visitante</p>
+	                {% endif %}
+                </div>
+              </div>
+              <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
+              <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list" aria-labelledby="profile-dropdown">
+                <a href="{% url 'minha_conta' %}" class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <div class="preview-icon bg-dark rounded-circle">
+                      <i class="mdi mdi-settings text-primary"></i>
+                    </div>
+                  </div>
+                  <div class="preview-item-content">
+                    <p class="preview-subject ellipsis mb-1 text-small">Configurações</p>
+                  </div>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="{% url 'password_reset' %}" class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <div class="preview-icon bg-dark rounded-circle">
+                      <i class="mdi mdi-onepassword  text-info"></i>
+                    </div>
+                  </div>
+                  <div class="preview-item-content">
+                    <p class="preview-subject ellipsis mb-1 text-small">Mudar Senha</p>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item nav-category">
+            <span class="nav-link">Navegação</span>
+          </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="{% url 'home' %}">
+			<span class="material-symbols-outlined">
+			home
+			</span>
+              <span class="menu-title">Home</span>
+            </a>
+          </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+			<span class="material-symbols-outlined">
+			calendar_add_on
+			</span>
+              <span class="menu-title">Agendamento</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{% url 'selecione_profissional_para_agendamento' %}">Fazer agendamento</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'listar_agendamentos_cliente' %}">Meus Agendamentos</a></li>
+              </ul>
+            </div>
+          </li>
 
-		                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-		                                Agendamento
-		                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-		                            </a>
-		                            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-		                                <nav class="sb-sidenav-menu-nested nav">
-		                                    <a class="nav-link" href="{% url 'fazer_agendamento_pelo_profissional' %}">Fazer Agendamento</a>
-		                                    <a class="nav-link" href="{% url 'listar_agendamentos' %}">Agendamentos</a>
-		                                </nav>
-		                            </div>
+          <li class="nav-item menu-items">
+            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+			<span class="material-symbols-outlined">
+			admin_panel_settings
+			</span>
+              <span class="menu-title">Administrativo</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="auth">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{% url 'listar_e_cadastrar_usuarios' %}">Usuários</a>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'add_disponibilidade' %}">Disponibilidade</a>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'listar_horarios' %}">Horários</a>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'add_parametro' %}">Parametros</a>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'add_servico' %}">Serviços</a>
+	            <li class="nav-item"> <a class="nav-link" href="{% url 'add_imagem_servico' %}">Imagens de Serviços</a>
+	            <li class="nav-item"> <a class="nav-link" href="password.html">Fidelidade</a>
+              </ul>
+            </div>
+          </li>
+	        <li class="nav-item menu-items">
+	            <a class="nav-link" data-toggle="collapse" href="#ui-basico" aria-expanded="false" aria-controls="ui-basico">
+				<span class="material-symbols-outlined">
+				calendar_add_on
+				</span>
+	              <span class="menu-title">Agendamento</span>
+	              <i class="menu-arrow"></i>
+	            </a>
+	            <div class="collapse" id="ui-basico">
+	              <ul class="nav flex-column sub-menu">
+	                <li class="nav-item"> <a class="nav-link" href="{% url 'fazer_agendamento_pelo_profissional' %}">Fazer agendamento</a></li>
+	                <li class="nav-item"> <a class="nav-link" href="{% url 'listar_agendamentos' %}">Agendamentos</a></li>
+	              </ul>
+	            </div>
+          </li>
+	      <li class="nav-item menu-items">
+            <a class="nav-link" href="http://www.bootstrapdash.com/demo/corona-free/jquery/documentation/documentation.html">
+			<span class="material-symbols-outlined">
+			card_membership
+			</span>
+              <span class="menu-title">Fidelidade</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- partial -->
+	<div class="main-panel">
+		<div class="row justify-content-center">
+		    <div class="col-md-8 py-5">
+		        <div class="card o-hidden border-0 shadow-lg">
+		            <div class="card-body p-0">
+			            <h3 class="text-center py-3">Gerar horários para os profissionais</h3>
+		                {% if profissionais %}
+				            <div class="mb-4 px-4">
+			                    {% for profissional in profissionais %}
+			                        <div class="card mb-3 bg-card-test">
+			                            <div class="card-body">
+			                                <h5 class="card-title">{{ profissional.first_name }} {{ profissional.last_name }}</h5>
+			                                <a href="{% url 'gerar_horarios_disponiveis' profissional.id %}" class="btn btn-secondary btn-sm">Gerar Horários</a>
+				                            <a href="{% url 'apagar_horarios_disponiveis' profissional.id %}" class="btn btn-danger btn-sm">Apagar Horários</a>
 
-		                        </nav>
-		                    </div>
-
-		                    <div class="sb-sidenav-menu-heading">Programas e Promoções</div>
-		                    <a class="nav-link" href="#">
-		                        <div class="sb-nav-link-icon"><i class="fa-solid fa-money-check-dollar"></i></div>
-		                        Fidelidade
-		                    </a>
-		                </div>
+			                            </div>
+			                        </div>
+			                    {% endfor %}
+			                </div>
+			            {% else %}
+			                <li class="list-group-item profissionais">
+				                <p>Não há nenhum profissional no sistema para gerar horários.</p>
+                            </li>
+			            {% endif %}
+		            <div class="container">
+					{% if messages %}
+					    <ul class="messages">
+					        {% for message in messages %}
+					            {% if message.tags %}
+					                {% if 'success' in message.tags %}
+					                    <p class="message success">{{ message }}</p>
+					                {% elif 'error' in message.tags %}
+					                    <p class="message error">{{ message }}</p>
+						            {% elif 'warning' in message.tags %}
+						                <p class="message warning">{{ message }}</p>
+					                {% else %}
+					                    <p class="message">{{ message }}</p>
+					                {% endif %}
+					            {% endif %}
+					        {% endfor %}
+					    </ul>
+					{% endif %}
 		            </div>
-		            <div class="sb-sidenav-footer">
-		                <div class="small">Logado como:</div>
-		                {{ user.username }}
+
+		                <h3 class="text-center py-3">Lista de Horários Disponíveis</h3>
+						{% if horarios %}
+			                <div class="d-flex justify-content-between align-items-center px-3 py-2">
+			                    <div class="input-group mb-3">
+							      <div class="col-md-8 offset-md-2">
+							        <form class="d-flex my-2" method="GET">
+							          <input class="form-control form-control-lg mr-sm-2 flex-grow-1 busca" type="search" name="search" placeholder="Pesquise por profissional" aria-label="Search">
+							          <button class="btn btn-primary" type="submit">Buscar</button>
+							        </form>
+							      </div>
+			                    </div>
+			                </div>
+
+			                <div class="table-responsive mt-3">
+			                    <table class="table text-white">
+			                        <thead>
+			                            <tr>
+			                                <th scope="col">ID</th>
+			                                <th scope="col">Profissional</th>
+			                                <th scope="col">Dia</th>
+			                                <th scope="col">Horário Disponível</th>
+			                            </tr>
+			                        </thead>
+			                        <tbody>
+			                            {% for horario in horarios %}
+			                                <tr>
+			                                    <td>{{ horario.id }}</td>
+			                                    <td>{{ horario.disponibilidade.profissional }}</td>
+			                                    <td>{{ horario.disponibilidade.dia }}</td>
+			                                    <td>{{ horario.horario_disponivel }}</td>
+			                                </tr>
+			                            {% endfor %}
+			                        </tbody>
+			                    </table>
+			                </div>
+			            {% else %}
+							<li class="list-group-item horarios">
+					            <p>Nenhum horário gerado.</p>
+	                        </li>
+			            {% endif %}
 		            </div>
-		        </nav>
-			</div>
-			<div id="layoutSidenav_content">
-				<div class="row justify-content-center">
-				    <div class="col-md-8 py-4">
-				        <div class="card o-hidden border-0 shadow-lg">
-				            <div class="card-body p-0">
-					            <h3 class="text-center py-3">Gerar horários para os profissionais</h3>
-
-					            <div class="mb-4 px-4">
-				                    {% for profissional in profissionais %}
-				                        <div class="card mb-3">
-				                            <div class="card-body">
-				                                <h5 class="card-title">{{ profissional.first_name }} {{ profissional.last_name }}</h5>
-				                                <a href="{% url 'gerar_horarios_disponiveis' profissional.id %}" class="btn btn-secondary btn-sm">Gerar Horários</a>
-					                            <a href="{% url 'apagar_horarios_disponiveis' profissional.id %}" class="btn btn-danger btn-sm">Apagar Horários</a>
-
-				                            </div>
-				                        </div>
-				                    {% endfor %}
-				                </div>
-
-				                <h3 class="text-center py-3">Lista de Horários Disponíveis</h3>
-
-				                <div class="d-flex justify-content-between align-items-center px-3 py-2">
-				                    <div class="input-group mb-3">
-								      <div class="col-md-8 offset-md-2">
-								        <form class="d-flex my-2" method="GET">
-								          <input class="form-control form-control-lg mr-sm-2 flex-grow-1 busca" type="search" name="search" placeholder="Pesquise por profissional" aria-label="Search">
-								          <button class="btn btn-primary" type="submit">Buscar</button>
-								        </form>
-								      </div>
-				                    </div>
-				                </div>
-							{% if horarios %}
-				                <div class="table-responsive mt-3">
-				                    <table class="table text-dark">
-				                        <thead>
-				                            <tr>
-				                                <th scope="col">ID</th>
-				                                <th scope="col">Profissional</th>
-				                                <th scope="col">Dia</th>
-				                                <th scope="col">Horário Disponível</th>
-				                            </tr>
-				                        </thead>
-				                        <tbody>
-				                            {% for horario in horarios %}
-				                                <tr>
-				                                    <td>{{ horario.id }}</td>
-				                                    <td>{{ horario.disponibilidade.profissional }}</td>
-				                                    <td>{{ horario.disponibilidade.dia }}</td>
-				                                    <td>{{ horario.horario_disponivel }}</td>
-				                                </tr>
-				                            {% endfor %}
-				                        </tbody>
-				                    </table>
-				                </div>
-				            {% endif %}
-				            </div>
-				        </div>
-				    </div>
-				</div>
-			</div>
+		        </div>
+		    </div>
 		</div>
-	</body>
+	</div>
+</div>
+<style>
+		/* Estilo para mensagens de sucesso */
+	.message.success {
+	    background-color: #99cc33; /* Cor de fundo verde */
+	    color: black; /* Cor do texto verde */
+	    border: 1px solid #d0e9c6; /* Cor da borda verde */
+	    padding: 10px; /* Espaçamento interno */
+	    margin-bottom: 10px; /* Espaçamento inferior */
+		text-align: center;
+		border-radius: 7px;
+	}
+
+	/* Estilo para mensagens de erro */
+	.message.error {
+	    background-color: #cc3300; /* Cor de fundo vermelha */
+	    color: white; /* Cor do texto vermelho */
+	    border: 1px solid #ebccd1; /* Cor da borda vermelha */
+	    padding: 10px; /* Espaçamento interno */
+	    margin-bottom: 10px; /* Espaçamento inferior */
+		text-align: center;
+		border-radius: 7px;
+	}
+			/* Estilo para mensagens de erro */
+	.message.warning {
+	    background-color: #ffcc00; /* Cor de fundo vermelha */
+	    color: black; /* Cor do texto vermelho */
+	    border: 1px solid #ebccd1; /* Cor da borda vermelha */
+	    padding: 10px; /* Espaçamento interno */
+	    margin-bottom: 10px; /* Espaçamento inferior */
+		text-align: center;
+		border-radius: 7px;
+	}
+	.horarios{
+		background: #dad7cd;
+		text-align: center;
+		color: black;
+		font-size: 16px;
+	}
+	.profissionais{
+		background: #dad7cd;
+		text-align: center;
+		color: black;
+		font-size: 16px;
+	}
+	.bg-card-test{
+		background: #36486b;
+	}
+
+</style>
 {% endblock %}
