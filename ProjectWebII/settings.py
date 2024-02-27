@@ -30,10 +30,7 @@ INSTALLED_APPS = [
     'agenda.apps.AgendaConfig',
     'horario.apps.HorarioConfig',
     'bootstrap4',
-<<<<<<< HEAD
     'bot',
-=======
->>>>>>> origin/savio
 ]
 
 MIDDLEWARE = [

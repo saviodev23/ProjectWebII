@@ -2,11 +2,7 @@ from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from ProjectWebII.utils import group_required
-<<<<<<< HEAD
-from agenda.forms import FormAddServico
-=======
 from agenda.forms import FormAddServico, ImagemServicoForm
->>>>>>> origin/savio
 from agenda.models import Servico, ImagemServico
 
 

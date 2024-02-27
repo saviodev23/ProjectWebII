@@ -1,9 +1,5 @@
 from django.contrib.auth.models import Group
-<<<<<<< HEAD
-from django.db.models import Q
-=======
 from django.contrib import messages
->>>>>>> origin/savio
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from ProjectWebII.utils import group_required
@@ -132,22 +128,11 @@ def confirmar_remocao_parametro(request, parametro_id):
 
 def gerar_horarios_disponiveis(request, profissional_id):
     disponibilidades = Disponibilidade.objects.filter(profissional=profissional_id)
-<<<<<<< HEAD
-    # Inicializa a lista fora do loop
-    horarios_disponiveis = []
-=======
->>>>>>> origin/savio
 
     for disponibilidade in disponibilidades:
         # Calcula os horários disponíveis para cada disponibilidade
         horarios_disponiveis_disponibilidade = calcular_horarios_disponiveis(disponibilidade)
 
-<<<<<<< HEAD
-        # Adiciona os horários calculados à lista global
-        horarios_disponiveis += horarios_disponiveis_disponibilidade
-
-=======
->>>>>>> origin/savio
         for horario_disponivel in horarios_disponiveis_disponibilidade:
             # Verifica se já existe um registro para essa combinação
             if not Horarios.objects.filter(disponibilidade=disponibilidade,
@@ -158,10 +143,6 @@ def gerar_horarios_disponiveis(request, profissional_id):
                     horario_disponivel=horario_disponivel
                 )
                 horarios.save()
-<<<<<<< HEAD
-    return redirect('listar_horarios')
-
-=======
 
     messages.success(request, f'Horários de {disponibilidade.profissional} gerados com sucesso!')
     return redirect('listar_horarios')
@@ -184,7 +165,6 @@ def calcular_horarios_disponiveis(disponibilidade):
 
     return horarios_disponiveis
 
->>>>>>> origin/savio
 
 def listar_horarios(request):
     horarios = Horarios.objects.all()
@@ -216,30 +196,6 @@ def apagar_horarios_disponiveis(request, profissional_id):
     return render(request, 'assets/static/horarios/remove.html', context)
 
 def confirmar_remocao_horarios(request, profissional_id):
-<<<<<<< HEAD
-    horarios = Horarios.objects.filter(disponibilidade__profissional=profissional_id)
-    horarios.delete()
-    return redirect('listar_horarios')
-
-
-def calcular_horarios_disponiveis(disponibilidade):
-    horario_inicio = datetime.combine(datetime.today(), disponibilidade.horario_inicio)
-    horario_fim = datetime.combine(datetime.today(), disponibilidade.horario_fim)
-    ciclo_servico = Parametro.objects.get(criado_por=disponibilidade.profissional).valor
-
-    horarios_disponiveis = []
-
-    horario_atual = horario_inicio
-    while horario_atual <= horario_fim:
-        # Exclui horários entre 12:00 e 14:00
-        if horario_atual.time() <= datetime.strptime("12:00", "%H:%M").time() \
-                or horario_atual.time() >= datetime.strptime("14:00", "%H:%M").time():
-            horarios_disponiveis.append(horario_atual.strftime("%H:%M"))
-
-        horario_atual += timedelta(minutes=ciclo_servico)
-
-    return horarios_disponiveis
-=======
     profissional = Usuario.objects.get(id=profissional_id)
     horarios = Horarios.objects.filter(disponibilidade__profissional=profissional_id)
     if horarios.exists():
@@ -251,4 +207,3 @@ def calcular_horarios_disponiveis(disponibilidade):
 
 
 
->>>>>>> origin/savio

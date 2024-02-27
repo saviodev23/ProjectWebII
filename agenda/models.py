@@ -15,15 +15,12 @@ from django.db import models
 #         raise ValidationError('Escolha um dia útil da semana.')
 
 class Servico(models.Model):
-<<<<<<< HEAD
-=======
     TIPO_SERVICO = (
         ('Corte', 'Corte'),
         ('Barba', 'Barba'),
         ('Sombrancelhas', 'Sombrancelhas'),
         ('Completo', 'Completo')
     )
->>>>>>> origin/savio
     nome = models.CharField(max_length=50, verbose_name='Nome do Serviço')
     descricao = models.CharField(max_length=200, verbose_name='Descrição')
     tipo = models.CharField(max_length=30, choices=TIPO_SERVICO, default='Corte', verbose_name='Tipo de Serviço')
@@ -31,11 +28,7 @@ class Servico(models.Model):
     janela_tempo = models.TimeField(verbose_name='Duração do Serviço, ex: 00:30:00 min')
 
     def __str__(self):
-<<<<<<< HEAD
-        servico = f"Nome Serviço: {self.nome} Preço:{self.preco} Duração: {self.janela_tempo} min"
-=======
         servico = f"{self.nome} R$:{self.preco} Duração: {self.janela_tempo} min"
->>>>>>> origin/savio
         return servico
 
 class ImagemServico(models.Model):

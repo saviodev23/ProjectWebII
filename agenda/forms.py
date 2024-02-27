@@ -13,11 +13,7 @@ class ImagemServicoForm(forms.ModelForm):
     }
     class Meta:
         model = ImagemServico
-<<<<<<< HEAD
-        fields = ['imagem']
-=======
         fields = ['servico', 'imagem']
->>>>>>> origin/savio
 class FormAgendamentoCliente(forms.ModelForm):
     # dia = forms.DateField(label='Dia de Agendamento')
     # horario = forms.TimeField(label='Horário de Agendamento')
@@ -41,11 +37,8 @@ class FormAgendamentoProfissional(forms.ModelForm):
         model = Agendamento
         fields = ['dia', 'horario', 'servico', 'criado_por', 'cliente', 'profissional']
 
-<<<<<<< HEAD
-=======
 class FormEditarAgendamento(forms.ModelForm):
     class Meta:
         model = Agendamento
 
         fields = ['status_agendamento']
->>>>>>> origin/savio

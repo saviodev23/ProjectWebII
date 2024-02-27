@@ -8,11 +8,7 @@ class UserRegistrationForm(forms.ModelForm):
 
     class Meta:
         model = Usuario
-<<<<<<< HEAD
-        fields = ['username', 'email', 'first_name', 'last_name', 'telefone']
-=======
         fields = ['username', 'email', 'first_name', 'telefone']
->>>>>>> origin/savio
 
     def clean_confirm_password(self):
         password = self.cleaned_data['password']

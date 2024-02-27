@@ -44,11 +44,7 @@ def alterar_dados(request):
         form = FormEditarUser(instance=usuario)
 
     context = {
-<<<<<<< HEAD
-        "usuario": user_id,
-=======
         "usuario": usuario,
->>>>>>> origin/savio
         "form": form
 
     }

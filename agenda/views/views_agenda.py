@@ -3,21 +3,12 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from ProjectWebII.utils import group_required
 from accounts.models import Usuario
-<<<<<<< HEAD
-from agenda.forms import FormAgendamentoProfissional
-from agenda.models import Agendamento, Servico
-from horario.models import Disponibilidade, Horarios
-from django.http import JsonResponse
-from datetime import datetime, timedelta
-from agenda.forms import FormAgendamentoCliente
-=======
 from agenda.forms import FormAgendamentoProfissional, FormEditarAgendamento
 from agenda.models import Agendamento, Servico
 from horario.models import Disponibilidade, Horarios, Parametro
 from datetime import datetime, timedelta
 from django.contrib import messages
 from decimal import Decimal
->>>>>>> origin/savio
 def etapa_de_agendamento(request, servico_id):
     servicos = get_object_or_404(Servico, pk=servico_id)
     return render(request, 'assets/static/crud_agenda/agendamento.html', {'servicos': servicos})
@@ -136,11 +127,7 @@ def selecione_profissional_para_agendamento(request):
     return render(request, 'assets/static/crud_agenda/agedamento_cliente/profissional.html', {'profissionais': profissionais})
 
 @group_required(['Cliente', 'Administrador'], "/accounts/login/")
-<<<<<<< HEAD
-def fazendo_agendamento_pelo_cliente(request):
-=======
 def fazer_agendamento_pelo_cliente(request):
->>>>>>> origin/savio
     profissional_id = request.GET.get('profissional_id')
     cliente_id = request.user.id
     disponibilidades = Disponibilidade.objects.filter(profissional=profissional_id)
@@ -156,15 +143,6 @@ def fazer_agendamento_pelo_cliente(request):
         servico_selecionado = Servico.objects.get(pk=servico_id)
 
         dia_selecionado = Disponibilidade.objects.get(profissional=profissional_id_post, dia=dia)
-<<<<<<< HEAD
-        duracao = servico_selecionado.janela_tempo
-
-        horario_selecionado = Horarios.objects.get(disponibilidade=dia_selecionado, horario_disponivel=horario)
-        if horario_selecionado:
-            novo_horario_disponivel = alterar_horario_atendimento(duracao_servico=duracao, horario_atendimento=horario_selecionado)
-            horario_selecionado.horario_disponivel = novo_horario_disponivel
-            horario_selecionado.save()
-=======
         duracao_servico = servico_selecionado.janela_tempo
 
         horario_selecionado_para_agenda = Horarios.objects.get(disponibilidade=dia_selecionado, horario_disponivel=horario)
@@ -195,7 +173,6 @@ def fazer_agendamento_pelo_cliente(request):
         else:
             messages.warning(request, f'Horário ou dia incompátiveis, tente novamente.')
             return redirect('home')
->>>>>>> origin/savio
 
         agendamento = Agendamento.objects.create(
             profissional=profissional,
@@ -207,11 +184,8 @@ def fazer_agendamento_pelo_cliente(request):
         )
 
         agendamento.save()
-<<<<<<< HEAD
-=======
         messages.success(request, f'Agendamento de horário realizado com sucesso!')
 
->>>>>>> origin/savio
         return redirect('home')
 
     else:
@@ -240,8 +214,6 @@ def alterar_horario_atendimento(duracao_servico, horario_atendimento):
 
     return novo_horario_disponivel
 
-<<<<<<< HEAD
-=======
 
 def alterar_horario_atendimento_e_adicionar_intervalo(duracao_servico, horario_selecionado, horario_atendimento):
     # Converte horario_disponivel para datetime.datetime
@@ -268,7 +240,6 @@ def cancelar_agendamento(request, agenda_id):
         agendamento.save()
 
 
->>>>>>> origin/savio
 # def get_horarios_disponiveis(request):
 #     if request.is_ajax() and request.method == 'GET':
 #         dia_id = request.GET.get('dia_id')
@@ -277,11 +248,4 @@ def cancelar_agendamento(request, agenda_id):
 #
 #         return JsonResponse({'horarios': horarios_disponiveis}, safe=False)
 #     else:
-<<<<<<< HEAD
 #         return JsonResponse({'error': 'Invalid request'})
-
-
-
-=======
-#         return JsonResponse({'error': 'Invalid request'})
->>>>>>> origin/savio
