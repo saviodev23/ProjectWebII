@@ -1,6 +1,7 @@
 {% extends 'assets/static/base.html' %}
 {% load static %}
 {% block content %}
+<<<<<<< HEAD
     <body class="sb-nav-fixed">
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
@@ -134,5 +135,285 @@
 		.bg-color-service{
 			background: #001F3F;
 		}
+=======
+
+    <div class="container-scroller">
+      <!-- partial:partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
+	    <a class="navbar-brand ps-3 text-white" href="{% url 'home' %}"> BarberShop
+	        <img src="{% static 'images/LOGO_CANVA.png' %}" alt="BarberShop Logo" width="auto" height="40" class="d-inline-block align-top">
+		</a>
+        </div>
+        <ul class="nav">
+          <li class="nav-item profile">
+            <div class="profile-desc">
+              <div class="profile-pic">
+                <div class="count-indicator">
+                  <img class="img-xs rounded-circle " src="{% static 'assets/images/faces/face15.jpg' %}" alt="">
+                  <span class="count bg-success"></span>
+                </div>
+                <div class="profile-name">
+	                {% if user.is_authenticated %}
+		                <h5 class="mb-0 font-weight-normal">{{ user.username }}</h5>
+	                {% else %}
+		                <p class="text-white">Visitante</p>
+	                {% endif %}
+                </div>
+              </div>
+              <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
+              <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list" aria-labelledby="profile-dropdown">
+                <a href="{% url 'minha_conta' %}" class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <div class="preview-icon bg-dark rounded-circle">
+                      <i class="mdi mdi-settings text-primary"></i>
+                    </div>
+                  </div>
+                  <div class="preview-item-content">
+                    <p class="preview-subject ellipsis mb-1 text-small">Configurações</p>
+                  </div>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="{% url 'password_reset' %}" class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <div class="preview-icon bg-dark rounded-circle">
+                      <i class="mdi mdi-onepassword  text-info"></i>
+                    </div>
+                  </div>
+                  <div class="preview-item-content">
+                    <p class="preview-subject ellipsis mb-1 text-small">Mudar Senha</p>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item nav-category">
+            <span class="nav-link">Navegação</span>
+          </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="{% url 'home' %}">
+			<span class="material-symbols-outlined">
+			home
+			</span>
+              <span class="menu-title">Home</span>
+            </a>
+          </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+			<span class="material-symbols-outlined">
+			calendar_add_on
+			</span>
+              <span class="menu-title">Agendamento</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{% url 'selecione_profissional_para_agendamento' %}">Fazer agendamento</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'listar_agendamentos_cliente' %}">Meus Agendamentos</a></li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="nav-item menu-items">
+            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+			<span class="material-symbols-outlined">
+			admin_panel_settings
+			</span>
+              <span class="menu-title">Administrativo</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="auth">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{% url 'listar_e_cadastrar_usuarios' %}">Usuários</a>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'add_disponibilidade' %}">Disponibilidade</a>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'listar_horarios' %}">Horários</a>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'add_parametro' %}">Parametros</a>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'add_servico' %}">Serviços</a>
+	            <li class="nav-item"> <a class="nav-link" href="{% url 'add_imagem_servico' %}">Imagens de Serviços</a>
+	            <li class="nav-item"> <a class="nav-link" href="password.html">Fidelidade</a>
+              </ul>
+            </div>
+          </li>
+	        <li class="nav-item menu-items">
+	            <a class="nav-link" data-toggle="collapse" href="#ui-basico" aria-expanded="false" aria-controls="ui-basico">
+				<span class="material-symbols-outlined">
+				calendar_add_on
+				</span>
+	              <span class="menu-title">Agendamento</span>
+	              <i class="menu-arrow"></i>
+	            </a>
+	            <div class="collapse" id="ui-basico">
+	              <ul class="nav flex-column sub-menu">
+	                <li class="nav-item"> <a class="nav-link" href="{% url 'fazer_agendamento_pelo_profissional' %}">Fazer agendamento</a></li>
+	                <li class="nav-item"> <a class="nav-link" href="{% url 'listar_agendamentos' %}">Agendamentos</a></li>
+	              </ul>
+	            </div>
+          </li>
+	      <li class="nav-item menu-items">
+            <a class="nav-link" href="http://www.bootstrapdash.com/demo/corona-free/jquery/documentation/documentation.html">
+			<span class="material-symbols-outlined">
+			card_membership
+			</span>
+              <span class="menu-title">Fidelidade</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="row">
+              <div class="col-12 grid-margin stretch-card">
+                <div class="card corona-gradient-card">
+                  <div class="card-body py-0 px-0 px-sm-3">
+                    <div class="row align-items-center">
+                      <div class="col-4 col-sm-3 col-xl-2">
+                        <img src="{% static 'assets/images/dashboard/Group126@2x.png' %}" class="gradient-corona-img img-fluid" alt="">
+                      </div>
+                      <div class="col-5 col-sm-7 col-xl-8 p-0">
+                        <h4 class="mb-1 mb-sm-0">Fique ligado nos nossos planos de fidelidade.</h4>
+                      </div>
+                      <div class="col-3 col-sm-2 col-xl-2 pl-0 text-center">
+                        <span>
+                          <a href="" target="_blank" class="btn btn-outline-light btn-rounded get-started-btn">Acesse os planos</a>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+	          {% if messages %}
+			    <ul class="messages">
+			        {% for message in messages %}
+			            {% if message.tags %}
+			                {% if 'success' in message.tags %}
+			                    <p class="message success">{{ message }}</p>
+			                {% elif 'error' in message.tags %}
+			                    <p class="message error">{{ message }}</p>
+				            {% elif 'warning' in message.tags %}
+				                <p class="message warning">{{ message }}</p>
+			                {% else %}
+			                    <p class="message">{{ message }}</p>
+			                {% endif %}
+			            {% endif %}
+			        {% endfor %}
+			    </ul>
+	          {% endif %}
+	          <h3>Nossos serviços</h3>
+            <div class="row">
+	            {% for servico in servicos %}
+		            <div class=" col-xl-3 grid-margin stretch-card">
+		                <div class="card">
+		                  <div class="card-body">
+		                    <div class="row">
+			                      <div class="col-9">
+				                      <h3>{{ servico.nome }}</h3>
+			                        <div class="d-flex align-items-center align-self-start">
+			                          <h4 class="mb-0">R$ {{ servico.preco }}</h4>
+			                          <p class="text-success ml-2 mb-0 font-weight-medium">{{ servico.janela_tempo }} min</p>
+			                        </div>
+			                      </div>
+			                      <div class="col-3">
+			                        <div class="icon icon-box-success ">
+			                          <a href="{% url 'detalhes_servico' servico.id %}" class="mdi mdi-arrow-top-right icon-item"></a>
+			                        </div>
+			                      </div>
+		                    </div>
+		                  </div>
+		                </div>
+                    </div>
+	            {% endfor %}
+            </div>
+
+            <div class="row ">
+              <div class="col-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Serviços agendados</h4>
+	                  {% if user.is_authenticated %}
+                        {% if agendamentos %}
+	                        <div class="table-responsive">
+		                      <table class="table text-white">
+			                        <thead>
+			                          <tr>
+			                            <th class="text-white"> <strong>Serviço</strong></th>
+			                            <th class="text-white"> <strong>Profissional</strong></th>
+			                            <th class="text-white"> <strong>Dia</strong> </th>
+			                            <th class="text-white"> <strong>Horário</strong></th>
+			                            <th class="text-white"> <strong>Duração</strong></th>
+			                          </tr>
+			                        </thead>
+			                        <tbody>
+			                        {% for agendamento in agendamentos %}
+			                          <tr>
+			                            <td> {{ agendamento.servico.nome}} </td>
+			                            <td> {{ agendamento.profissional.username }} </td>
+			                            <td> {{ agendamento.dia }} </td>
+				                        <td> {{ agendamento.horario|time:"H:i" }} </td>
+				                        <td> {{ agendamento.servico.janela_tempo }} </td>
+			                          </tr>
+			                        </tbody>
+			                      {% endfor %}
+		                      </table>
+		                    </div>
+			            {% else %}
+                            <li class="list-group-item text-dark agendamentos">
+				                <p>Nenhum agendamento recente.</p>
+                            </li>
+			            {% endif %}
+	                  {% endif %}
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+	<style>
+			/* Estilo para mensagens de sucesso */
+		.message.success {
+		    background-color: #99cc33; /* Cor de fundo verde */
+		    color: black; /* Cor do texto verde */
+		    border: 1px solid #d0e9c6; /* Cor da borda verde */
+		    padding: 10px; /* Espaçamento interno */
+		    margin-bottom: 10px; /* Espaçamento inferior */
+			text-align: center;
+			border-radius: 7px;
+		}
+
+		/* Estilo para mensagens de erro */
+		.message.error {
+		    background-color: #cc3300; /* Cor de fundo vermelha */
+		    color: white; /* Cor do texto vermelho */
+		    border: 1px solid #ebccd1; /* Cor da borda vermelha */
+		    padding: 10px; /* Espaçamento interno */
+		    margin-bottom: 10px; /* Espaçamento inferior */
+			text-align: center;
+			border-radius: 7px;
+		}
+				/* Estilo para mensagens de erro */
+		.message.warning {
+		    background-color: #ffcc00; /* Cor de fundo vermelha */
+		    color: black; /* Cor do texto vermelho */
+		    border: 1px solid #ebccd1; /* Cor da borda vermelha */
+		    padding: 10px; /* Espaçamento interno */
+		    margin-bottom: 10px; /* Espaçamento inferior */
+			text-align: center;
+			border-radius: 7px;
+		}
+
+		.agendamentos{
+			background: #dad7cd;
+		}
+
+>>>>>>> origin/savio
 	</style>
 {% endblock %}

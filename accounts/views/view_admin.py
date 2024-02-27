@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+from django.contrib import messages
+>>>>>>> origin/savio
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from ProjectWebII.utils import group_required
@@ -28,8 +32,13 @@ def listar_e_cadastrar_usuarios(request):
                 user.groups.add(group)
             else:
                 return HttpResponse('grupo inválido!')
+<<<<<<< HEAD
 
             return redirect('home')
+=======
+            messages.success(request, f'Usuário cadastrado com sucesso!')
+            return redirect('listar_e_cadastrar_usuarios')
+>>>>>>> origin/savio
     else:
         form = UserProfRegistrationForm()
 
@@ -64,10 +73,17 @@ def remover_usuario(request, user_id):
     context = {
         "usuario": usuario
     }
+
     return render(request, "registration/usuarios/remover_usuario.html", context)
 
 
 def confirmar_remocao_usuario(request, user_id):
+<<<<<<< HEAD
     Usuario.objects.get(pk=user_id).delete()
 
+=======
+    usuario = Usuario.objects.get(pk=user_id)
+    usuario.delete()
+    messages.error(request, f'Usuário {usuario.username} deletado com sucesso!')
+>>>>>>> origin/savio
     return redirect('listar_e_cadastrar_usuarios')

@@ -8,18 +8,12 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12">
+<<<<<<< HEAD
           <form class="bg-color-login rounded shadow-5-strong p-5 text-dark" method="POST">
+=======
+          <form class="bg-color-login rounded shadow-5-strong p-5 text-white" method="POST">
+>>>>>>> origin/savio
             <h4 class="text-center mb-4">Login</h4>
-
-            {% if messages %}
-              <div class="alert alert-dismissible fade show {% if messages.tags %} {{ messages.tags }}{% endif %}" role="alert">
-                <ul class="messages text-black list-unstyled">
-                  {% for message in messages %}
-                    <li>{{ message }}</li>
-                  {% endfor %}
-                </ul>
-              </div>
-            {% endif %}
 
             {% csrf_token %}
             {% bootstrap_form form %}
@@ -44,6 +38,7 @@
 
 <style>
 	.bg-color-login{
+<<<<<<< HEAD
 		background: #ffffff;
 	}
   .bg-image {
@@ -52,5 +47,16 @@
     background-size: cover;
     background-position: center;
   }
+=======
+		background: transparent;
+	}
+  .bg-image {
+    height: 100vh; /* Definir a altura da imagem como 100% da altura da tela */
+	background-image: url({% static 'images/big_image_1.jpg' %});
+    background-size: cover;
+    background-position: center;
+  }
+
+>>>>>>> origin/savio
 </style>
 {% endblock %}

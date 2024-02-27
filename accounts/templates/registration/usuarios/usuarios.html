@@ -1,7 +1,8 @@
 {% extends 'assets/static/base.html' %}
 {% load bootstrap4 %}
-
+{% load static %}
 {% block content %}
+<<<<<<< HEAD
 	<body class="sb-nav-fixed">
 		<div id="layoutSidenav">
 			<div id="layoutSidenav_nav">
@@ -163,9 +164,269 @@
 			</div>
 		</div>
 	</body>
+=======
+    <div class="container-scroller">
+      <!-- partial:partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
+          <a class="sidebar-brand brand-logo" href="{% url 'home' %}"><img src="{% static 'assets/images/logo.svg' %}" alt="logo" /></a>
+          <a class="sidebar-brand brand-logo-mini" href="{% url 'home' %}"><img src="{% static 'assets/images/logo-mini.svg' %}" alt="logo" /></a>
+        </div>
+        <ul class="nav">
+          <li class="nav-item profile">
+            <div class="profile-desc">
+              <div class="profile-pic">
+                <div class="count-indicator">
+                  <img class="img-xs rounded-circle " src="{% static 'assets/images/faces/face15.jpg' %}" alt="">
+                  <span class="count bg-success"></span>
+                </div>
+                <div class="profile-name">
+	                {% if user.is_authenticated %}
+		                <h5 class="mb-0 font-weight-normal">{{ user.username }}</h5>
+	                {% else %}
+		                <p class="text-white">Visitante</p>
+	                {% endif %}
+                </div>
+              </div>
+              <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
+              <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list" aria-labelledby="profile-dropdown">
+                <a href="{% url 'minha_conta' %}" class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <div class="preview-icon bg-dark rounded-circle">
+                      <i class="mdi mdi-settings text-primary"></i>
+                    </div>
+                  </div>
+                  <div class="preview-item-content">
+                    <p class="preview-subject ellipsis mb-1 text-small">Configurações</p>
+                  </div>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="{% url 'password_reset' %}" class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <div class="preview-icon bg-dark rounded-circle">
+                      <i class="mdi mdi-onepassword  text-info"></i>
+                    </div>
+                  </div>
+                  <div class="preview-item-content">
+                    <p class="preview-subject ellipsis mb-1 text-small">Mudar Senha</p>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item nav-category">
+            <span class="nav-link">Navegação</span>
+          </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="{% url 'home' %}">
+			<span class="material-symbols-outlined">
+			home
+			</span>
+              <span class="menu-title">Home</span>
+            </a>
+          </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+			<span class="material-symbols-outlined">
+			calendar_add_on
+			</span>
+              <span class="menu-title">Agendamento</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{% url 'selecione_profissional_para_agendamento' %}">Fazer agendamento</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'listar_agendamentos_cliente' %}">Meus Agendamentos</a></li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="nav-item menu-items">
+            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+			<span class="material-symbols-outlined">
+			admin_panel_settings
+			</span>
+              <span class="menu-title">Administrativo</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="auth">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{% url 'listar_e_cadastrar_usuarios' %}">Usuários</a>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'add_disponibilidade' %}">Disponibilidade</a>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'listar_horarios' %}">Horários</a>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'add_parametro' %}">Parametros</a>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'add_servico' %}">Serviços</a>
+	            <li class="nav-item"> <a class="nav-link" href="{% url 'add_imagem_servico' %}">Imagens de Serviços</a>
+	            <li class="nav-item"> <a class="nav-link" href="password.html">Fidelidade</a>
+              </ul>
+            </div>
+          </li>
+	        <li class="nav-item menu-items">
+	            <a class="nav-link" data-toggle="collapse" href="#ui-basico" aria-expanded="false" aria-controls="ui-basico">
+				<span class="material-symbols-outlined">
+				calendar_add_on
+				</span>
+	              <span class="menu-title">Agendamento</span>
+	              <i class="menu-arrow"></i>
+	            </a>
+	            <div class="collapse" id="ui-basico">
+	              <ul class="nav flex-column sub-menu">
+	                <li class="nav-item"> <a class="nav-link" href="{% url 'fazer_agendamento_pelo_profissional' %}">Fazer agendamento</a></li>
+	                <li class="nav-item"> <a class="nav-link" href="{% url 'listar_agendamentos' %}">Agendamentos</a></li>
+	              </ul>
+	            </div>
+          </li>
+	      <li class="nav-item menu-items">
+            <a class="nav-link" href="http://www.bootstrapdash.com/demo/corona-free/jquery/documentation/documentation.html">
+			<span class="material-symbols-outlined">
+			card_membership
+			</span>
+              <span class="menu-title">Fidelidade</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- partial -->
+
+	<div class="main-panel">
+		<div class="container py-5">
+		    <h2 class="text-white">Gerenciar Usuários</h2>
+				{% if messages %}
+				    <ul class="messages">
+				        {% for message in messages %}
+				            {% if message.tags %}
+				                {% if 'success' in message.tags %}
+				                    <p class="message success">{{ message }}</p>
+				                {% elif 'error' in message.tags %}
+				                    <p class="message error">{{ message }}</p>
+					            {% elif 'warning' in message.tags %}
+					                <p class="message warning">{{ message }}</p>
+				                {% else %}
+				                    <p class="message">{{ message }}</p>
+				                {% endif %}
+				            {% endif %}
+				        {% endfor %}
+				    </ul>
+				{% endif %}
+
+		    <div class="tab-content mt-4">
+		        <!-- Adicionar Usuário -->
+		        <div class="tab-pane fade show active" id="add-usuario">
+		            <div class="row justify-content-center">
+		                <div class="col-md-6">
+		                    <div class="card o-hidden border-0 shadow-lg text-white">
+		                        <div class="card-body p-5">
+		                            <div class="text-center">
+		                                <h1 class="h4 text-gray-900 mb-4">Cadastrar Novo Usuário</h1>
+		                            </div>
+		                            <form method="POST">
+		                                {% csrf_token %}
+		                                {% bootstrap_form form %}
+		                                <button class="btn btn-primary btn-user btn-block mt-3" type="submit">Cadastrar</button>
+		                            </form>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+
+			    <div>
+		            <div class="row justify-content-center mt-4">
+		                <div class="col-md-8 py-5">
+		                    <div class="card o-hidden border-0 shadow-lg">
+		                        <div class="card-body p-0">
+		                            <div class="table-responsive">
+		                                {% if usuarios %}
+		                                <h3 class="p-4">Lista de Usuários</h3>
+		                                <table class="table text-white">
+		                                    <thead>
+		                                        <tr>
+		                                            <th scope="col" class="text-white">Nome</th>
+			                                        <th scope="col" class="text-white">Sobrenome</th>
+		                                            <th scope="col" class="text-white">E-mail</th>
+			                                        <th scope="col" class="text-white">Tipo</th>
+			                                        <th scope="col" class="text-white">Ações</th>
+		                                        </tr>
+		                                    </thead>
+		                                    <tbody>
+		                                        {% for usuario in usuarios %}
+		                                        <tr>
+		                                            <td>{{ usuario.first_name }}</td>
+		                                            <td>{{ usuario.last_name }}</td>
+			                                        <td>{{ usuario.email }}</td>
+			                                        {% for group in usuario.groups.all %}
+			                                            <td>{{ group.name }}</td>
+			                                        {% endfor %}
+		                                            <td>
+			                                            <a href="{% url 'editar_usuario' usuario.id %}" class="btn btn-success btn-sm">Editar</a>
+			                                            <a href="{% url 'remover_usuario' usuario.id %}" class="btn btn-danger btn-sm">Remover</a>
+		                                            </td>
+		                                        </tr>
+		                                        {% endfor %}
+		                                    </tbody>
+		                                </table>
+		                            {% else %}
+		                                <li class="list-group-item usuarios">
+				                            <p>Nenhum usuário cadastrado.</p>
+	                                    </li>
+		                            {% endif %}
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+
+		    </div>
+
+		    <div class="row justify-content-center mt-4">
+		        <div class="col-md-6">
+		            <a class="btn btn-secondary" href="{% url 'home' %}">Voltar</a>
+		        </div>
+		    </div>
+		</div>
+	</div>
+</div>
+>>>>>>> origin/savio
 	<style>
 		body{
 			background: #212520;
 		}
+			/* Estilo para mensagens de sucesso */
+		.message.success {
+		    background-color: #99cc33; /* Cor de fundo verde */
+		    color: black; /* Cor do texto verde */
+		    border: 1px solid #d0e9c6; /* Cor da borda verde */
+		    padding: 10px; /* Espaçamento interno */
+		    margin-bottom: 10px; /* Espaçamento inferior */
+			text-align: center;
+			border-radius: 7px;
+		}
+
+		/* Estilo para mensagens de erro */
+		.message.error {
+		    background-color: #cc3300; /* Cor de fundo vermelha */
+		    color: white; /* Cor do texto vermelho */
+		    border: 1px solid #ebccd1; /* Cor da borda vermelha */
+		    padding: 10px; /* Espaçamento interno */
+		    margin-bottom: 10px; /* Espaçamento inferior */
+			text-align: center;
+			border-radius: 7px;
+		}
+				/* Estilo para mensagens de erro */
+		.message.warning {
+		    background-color: #ffcc00; /* Cor de fundo vermelha */
+		    color: black; /* Cor do texto vermelho */
+		    border: 1px solid #ebccd1; /* Cor da borda vermelha */
+		    padding: 10px; /* Espaçamento interno */
+		    margin-bottom: 10px; /* Espaçamento inferior */
+			text-align: center;
+			border-radius: 7px;
+		}
+
+		.usuarios{
+			background: #dad7cd;
+		}
+
 	</style>
 {% endblock %}

@@ -14,7 +14,9 @@ class AddDisponibilidade(forms.ModelForm):
         fields = ['profissional', 'dia', 'horario_inicio', 'horario_fim',]
 
 
+
 class AddParametro(forms.ModelForm):
+
     class Meta:
         model = Parametro
         fields = ['nome', 'valor', 'criado_por']

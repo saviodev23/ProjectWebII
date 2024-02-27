@@ -1,0 +1,45 @@
+{% extends 'assets/static/base.html' %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <h2 class="mb-4">Meus Agendamentos</h2>
+
+    {% if agendamentos %}
+    <p>Quantidade de Agendamentos: {{ quantidade }}</p>
+    <p>Quantidade de cupons: {{ cupon }}</p>
+    {% if cupon >= 1 and desconto == 0  %}
+        <a href="{% url 'resgatar_cupon' user.id%}" class="btn btn-success btn-sm">resgatar</a>
+    {%else%}
+        <p>Voce ja possui um desconto resgatado</p>
+    {% endif %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Serviço</th>
+                    <th scope="col">Data</th>
+                    <th scope="col">Horário</th>
+	                <th scope="col">Profissional</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for agendamento in agendamentos %}
+                    <tr>
+                        <td>{{ agendamento.cliente.username }}</td>
+                        <td>{{ agendamento.servico.nome_servico }}</td>
+                        <td>{{ agendamento.dia|date:"D, d M Y" }}</td>
+                        <td>{{ agendamento.horario|time:"H:i" }}</td>
+	                    <td>{{ agendamento.profissional.username }}</td>
+                        <td>{{ agendamento.get_status_agendamento_display }}</td>
+                        <td>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Nenhum agendamento encontrado.</p>
+    {% endif %}
+</div>
+{% endblock %}

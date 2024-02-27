@@ -1,6 +1,7 @@
 {% extends 'assets/static/base.html' %}
 {% load static %}
 {% block content %}
+<<<<<<< HEAD
 	<body class="sb-nav-fixed">
 		<div id="layoutSidenav">
 			<div id="layoutSidenav_nav">
@@ -118,4 +119,187 @@
 		}
 
     </script>
+=======
+<div class="container-scroller">
+	<nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
+      <a class="sidebar-brand brand-logo" href="{% url 'home' %}"><img src="{% static 'assets/images/logo.svg' %}" alt="logo" /></a>
+      <a class="sidebar-brand brand-logo-mini" href="{% url 'home' %}"><img src="{% static 'assets/images/logo-mini.svg' %}" alt="logo" /></a>
+    </div>
+    <ul class="nav">
+      <li class="nav-item profile">
+        <div class="profile-desc">
+          <div class="profile-pic">
+            <div class="count-indicator">
+              <img class="img-xs rounded-circle " src="{% static 'assets/images/faces/face15.jpg' %}" alt="">
+              <span class="count bg-success"></span>
+            </div>
+            <div class="profile-name">
+                {% if user.is_authenticated %}
+	                <h5 class="mb-0 font-weight-normal">{{ user.username }}</h5>
+                {% else %}
+	                <p class="text-white">Visitante</p>
+                {% endif %}
+            </div>
+          </div>
+          <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
+          <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list" aria-labelledby="profile-dropdown">
+            <a href="{% url 'minha_conta' %}" class="dropdown-item preview-item">
+              <div class="preview-thumbnail">
+                <div class="preview-icon bg-dark rounded-circle">
+                  <i class="mdi mdi-settings text-primary"></i>
+                </div>
+              </div>
+              <div class="preview-item-content">
+                <p class="preview-subject ellipsis mb-1 text-small">Configurações</p>
+              </div>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="{% url 'password_reset' %}" class="dropdown-item preview-item">
+              <div class="preview-thumbnail">
+                <div class="preview-icon bg-dark rounded-circle">
+                  <i class="mdi mdi-onepassword  text-info"></i>
+                </div>
+              </div>
+              <div class="preview-item-content">
+                <p class="preview-subject ellipsis mb-1 text-small">Mudar Senha</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item nav-category">
+        <span class="nav-link">Navegação</span>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="{% url 'home' %}">
+		<span class="material-symbols-outlined">
+		home
+		</span>
+          <span class="menu-title">Home</span>
+        </a>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+		<span class="material-symbols-outlined">
+		calendar_add_on
+		</span>
+          <span class="menu-title">Agendamento</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="ui-basic">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="{% url 'selecione_profissional_para_agendamento' %}">Fazer agendamento</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'listar_agendamentos_cliente' %}">Meus Agendamentos</a></li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="nav-item menu-items">
+        <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+		<span class="material-symbols-outlined">
+		admin_panel_settings
+		</span>
+          <span class="menu-title">Administrativo</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="auth">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="{% url 'listar_e_cadastrar_usuarios' %}">Usuários</a>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'add_disponibilidade' %}">Disponibilidade</a>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'listar_horarios' %}">Horários</a>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'add_parametro' %}">Parametros</a>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'add_servico' %}">Serviços</a>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'add_imagem_servico' %}">Imagens de Serviços</a>
+            <li class="nav-item"> <a class="nav-link" href="password.html">Fidelidade</a>
+            <li class="nav-item"> <a class="nav-link" href="password.html">Fidelidade</a>
+          </ul>
+        </div>
+      </li>
+        <li class="nav-item menu-items">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basico" aria-expanded="false" aria-controls="ui-basico">
+			<span class="material-symbols-outlined">
+			calendar_add_on
+			</span>
+              <span class="menu-title">Agendamento</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basico">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{% url 'fazer_agendamento_pelo_profissional' %}">Fazer agendamento</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'listar_agendamentos' %}">Agendamentos</a></li>
+              </ul>
+            </div>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="http://www.bootstrapdash.com/demo/corona-free/jquery/documentation/documentation.html">
+		<span class="material-symbols-outlined">
+		card_membership
+		</span>
+          <span class="menu-title">Fidelidade</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+	<div class="main-panel">
+	    <div class="container py-5">
+	        <h3 class="text-center py-5">Selecione o profissional que irá realizar o serviço</h3>
+	        {% if profissionais %}
+			    <div class="row justify-content-center">
+		            {% for profissional in profissionais %}
+		                <div class="col-sm-4">
+		                    <div class="card text-center bg-color-card ">
+		                        <div class="card-body">
+		                            {% if profissional.imagem %}
+		                                <img src="{{ profissional.imagem.url }}" class="card-img-top rounded-circle" alt="Foto do profissional" style="width: 200px; height: 200px;">
+		                            {% else %}
+		                                <img src="{% static 'images/team3.png' %}" class="card-img-top rounded-circle" alt="Foto do profissional" style="width: 200px; height: 210px;">
+		                            {% endif %}
+		                            <h5 class="card-title mt-3">{{ profissional.first_name }} {{ profissional.last_name }}</h5>
+		                            <button class="btn btn-primary btn-block" onclick="selecionarProfissional('{{ profissional.id }}')" data-url="{% url 'fazendo_agendamento_pelo_cliente' %}">Selecionar</button>
+		                        </div>
+		                    </div>
+		                </div>
+		            {% endfor %}
+		        </div>
+		    {% else %}
+			   <li class="list-group-item agendamentos">
+				   <p>Nenhum profissional cadastrado no sistema.</p>
+			   </li>
+		    {% endif %}
+	    </div>
+	</div>
+</div>
+
+
+<script>
+	function selecionarProfissional(profissionalId) {
+	    // Verifique se profissionalId não é nulo ou indefinido
+	    if (profissionalId) {
+	        // Obter a URL da data attribute
+	        var url = document.querySelector('[data-url]').getAttribute('data-url');
+
+	        // Adicione um parâmetro de consulta ao URL
+	        url += "?profissional_id=" + encodeURIComponent(profissionalId);
+
+	        // Redireciona para a página de agendamento com o profissionalId
+	        window.location.href = url;
+	    } else {
+	        console.error("ID do profissional não especificado.");
+	    }
+	}
+
+</script>
+<style>
+	.bg-color-card{
+		background: #001F3F;
+		border-radius: 30px;
+		color: white;
+		margin: 10px;
+	}
+	.agendamentos{
+		background: #dad7cd;
+	}
+</style>
+>>>>>>> origin/savio
 {% endblock %}

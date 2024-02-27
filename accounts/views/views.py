@@ -23,25 +23,32 @@ def register(request):
 @login_required
 def minha_conta(request):
     user = request.user
+    usuario = Usuario.objects.get(id=user.id)
     context = {
-        'user':user
+        # 'user':user,
+        'usuario':usuario
     }
 
     return render(request, 'registration/minha_conta.html', context)
 
 @login_required
 def alterar_dados(request):
-    user_id = request.user
+    user_id = request.user.id
+    usuario = Usuario.objects.get(id=user_id)
     if request.method == 'POST':
-        form = FormEditarUser(request.POST, instance=user_id)
+        form = FormEditarUser(request.POST, instance=usuario)
         if form.is_valid():
             form.save()
             return redirect('minha_conta')
     else:
-        form = FormEditarUser(instance=user_id)
+        form = FormEditarUser(instance=usuario)
 
     context = {
+<<<<<<< HEAD
         "usuario": user_id,
+=======
+        "usuario": usuario,
+>>>>>>> origin/savio
         "form": form
 
     }
