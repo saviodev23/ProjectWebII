@@ -72,7 +72,7 @@ def detalhes_servico(request, servico_id):
         'servico': servico,
         'imagens_servico': imagens_servico
     }
-    return render(request, 'assets/static/crud_servico/servico.html', context)
+    return render(request, 'assets/static/crud_servico/detalhe_servico.html', context)
 
 #CRUD Imagem Servico
 def add_imagem_servico(request):

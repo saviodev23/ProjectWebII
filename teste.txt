@@ -201,3 +201,44 @@ body{
                 </div>
               </div>
             </div>
+
+# ////////////////////////////////////////
+
+		<div class="d-flex align-items-center">
+		    <main class="container-fluid px-4">
+		        <h2 class="mt-4 text-center">Detalhes do Serviço</h2>
+		        <ol class="breadcrumb mb-4"></ol>
+		        <div class="row justify-content-center">
+		            <div class="col-lg-7 col-md-10">
+		                {% if imagens_servico %}
+		                    <div id="carouselExample" class="carousel slide mb-4" data-bs-ride="carousel">
+		                        <div class="carousel-inner">
+		                            {% for imagem in imagens_servico %}
+		                                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+		                                    <img src="{{ imagem.imagem.url }}" class="d-block w-100 img-fluid" alt="{{ imagem.servico.nome }}" style="max-height: 300px; object-fit: cover; margin: auto;">
+		                                </div>
+		                            {% endfor %}
+		                        </div>
+		                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+		                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		                            <span class="visually-hidden">Anterior</span>
+		                        </button>
+		                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+		                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+		                            <span class="visually-hidden">Próximo</span>
+		                        </button>
+		                    </div>
+		                {% else %}
+		                    <div class="d-flex justify-content-center">
+		                        <img src="{% static 'images/detectedImage.jpg' %}" class="img-fluid" alt="Imagem Padrão" style="max-height: 300px; object-fit: cover;">
+		                    </div>
+		                {% endif %}
+		                <div class="card-body text-center">
+		                    <h5 class="card-title">{{ servico.nome }}</h5>
+		                    <p class="card-text">{{ servico.descricao }}</p>
+		                    <p class="card-text"><strong>R$ {{ servico.preco }}</strong></p>
+		                </div>
+		            </div>
+		        </div>
+		    </main>
+		</div>

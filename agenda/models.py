@@ -33,7 +33,7 @@ class Servico(models.Model):
 
 class ImagemServico(models.Model):
     servico = models.ForeignKey(Servico, related_name='imagens', on_delete=models.CASCADE)
-    imagem = models.ImageField(upload_to="images/%Y/%m/%d/", null=True, blank=True)
+    imagem = models.ImageField(upload_to="images/%Y/%m/%d/", null=True, blank=True, default=None)
 
     def __str__(self):
         return f'Imagem {self.pk} - {self.servico.nome}'
@@ -54,6 +54,7 @@ class Agendamento(models.Model):
     profissional = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profissional')
     cliente = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='cliente')
     servico = models.ForeignKey(Servico, on_delete=models.CASCADE)
+    preco_servico = models.DecimalField(max_digits=8, decimal_places=2, verbose_name='Preço do Serviço')
     dia = models.CharField(max_length=20, verbose_name="Insira uma data para agenda", choices=DIA_CHOICES)
     horario = models.TimeField()
     status_agendamento = models.CharField(max_length=2, choices=STATUS_CHOICES, default='AG')
@@ -64,12 +65,9 @@ class Agendamento(models.Model):
         return f'Agenda para {self.cliente} com {self.profissional}'
 
 class Fidelidade(models.Model):
-    STATUS_CHOICES = (
-        ('CA', 'Cancelado'),
-        ('CO', 'Concluido'),
-    )
-    agenda = models.ForeignKey(Agendamento, on_delete=models.CASCADE)
-    status = models.CharField(max_length=2, choices=STATUS_CHOICES)
-
+    nome = models.CharField(max_length=50, verbose_name='Nome da Fidelidade')
+    descricao = models.CharField(max_length=250, verbose_name='Descrição')
+    desconto = models.IntegerField(default=0, verbose_name='Desconto em porcentagem')
+    requisito = models.IntegerField(default=0)
     def __str__(self):
-        return self.status
+        return self.nome

@@ -1,0 +1,175 @@
+{% extends 'assets/static/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container-scroller">
+      <!-- partial:partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
+		    <a class="navbar-brand ps-3 text-white" href="{% url 'home' %}">
+			    <h3 class="sidebar-brand brand-logo text-white">BarberShop</h3>
+	{#		    <a class="sidebar-brand brand-logo" href="{% url 'home' %}"><img src="{% static 'images/barbershop-logo.png' %}" alt="logo" /></a>#}
+			    <a class="sidebar-brand brand-logo-mini" href="{% url 'home' %}"><img src="{% static 'images/logo-mini-b.png' %}" alt="logo" />
+			    </a>
+			</a>
+        </div>
+        <ul class="nav">
+          <li class="nav-item profile">
+            <div class="profile-desc">
+              <div class="profile-pic">
+                <div class="count-indicator">
+                  <img class="img-xs rounded-circle " src="{% static 'assets/images/faces/face15.jpg' %}" alt="">
+                  <span class="count bg-success"></span>
+                </div>
+                <div class="profile-name">
+	                {% if user.is_authenticated %}
+		                <h5 class="mb-0 font-weight-normal">{{ user.username }}</h5>
+	                {% else %}
+		                <p class="text-white">Visitante</p>
+	                {% endif %}
+                </div>
+              </div>
+              <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
+              <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list" aria-labelledby="profile-dropdown">
+                <a href="{% url 'minha_conta' %}" class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <div class="preview-icon bg-dark rounded-circle">
+                      <i class="mdi mdi-settings text-primary"></i>
+                    </div>
+                  </div>
+                  <div class="preview-item-content">
+                    <p class="preview-subject ellipsis mb-1 text-small">Configurações</p>
+                  </div>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="{% url 'password_reset' %}" class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <div class="preview-icon bg-dark rounded-circle">
+                      <i class="mdi mdi-onepassword  text-info"></i>
+                    </div>
+                  </div>
+                  <div class="preview-item-content">
+                    <p class="preview-subject ellipsis mb-1 text-small">Mudar Senha</p>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item nav-category">
+            <span class="nav-link">Navegação</span>
+          </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="{% url 'home' %}">
+			<span class="material-symbols-outlined">
+			home
+			</span>
+              <span class="menu-title">Home</span>
+            </a>
+          </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+			<span class="material-symbols-outlined">
+			calendar_add_on
+			</span>
+              <span class="menu-title">Agendamento</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{% url 'selecione_profissional_para_agendamento' %}">Fazer agendamento</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'listar_agendamentos_cliente' %}">Meus Agendamentos</a></li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="nav-item menu-items">
+            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+			<span class="material-symbols-outlined">
+			admin_panel_settings
+			</span>
+              <span class="menu-title">Administrativo</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="auth">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{% url 'listar_e_cadastrar_usuarios' %}">Usuários</a>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'add_disponibilidade' %}">Disponibilidade</a>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'listar_horarios' %}">Horários</a>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'add_parametro' %}">Parametros</a>
+                <li class="nav-item"> <a class="nav-link" href="{% url 'add_servico' %}">Serviços</a>
+	            <li class="nav-item"> <a class="nav-link" href="{% url 'add_imagem_servico' %}">Imagens de Serviços</a>
+	            <li class="nav-item"> <a class="nav-link" href="{% url 'adicionar_fidelidade' %}">Fidelidade</a>
+              </ul>
+            </div>
+          </li>
+	        <li class="nav-item menu-items">
+	            <a class="nav-link" data-toggle="collapse" href="#ui-basico" aria-expanded="false" aria-controls="ui-basico">
+				<span class="material-symbols-outlined">
+				calendar_add_on
+				</span>
+	              <span class="menu-title">Agendamento</span>
+	              <i class="menu-arrow"></i>
+	            </a>
+	            <div class="collapse" id="ui-basico">
+	              <ul class="nav flex-column sub-menu">
+	                <li class="nav-item"> <a class="nav-link" href="{% url 'fazer_agendamento_pelo_profissional' %}">Fazer agendamento</a></li>
+	                <li class="nav-item"> <a class="nav-link" href="{% url 'listar_agendamentos' %}">Agendamentos</a></li>
+	              </ul>
+	            </div>
+          </li>
+	      <li class="nav-item menu-items">
+		        {% if user.is_authenticated %}
+                    <a class="nav-link" href="{% url 'mostrar_pontos' user.id %}">
+				{% else %}
+			        <a class="nav-link" href="">
+	            {% endif %}
+			<span class="material-symbols-outlined">
+			card_membership
+			</span>
+              <span class="menu-title">Fidelidade</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- partial -->
+
+	<div class="main-panel">
+		<main class="container-fluid px-4">
+			<h2 class="mt-4 text-center py-3">Detalhes do Serviço</h2>
+			<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+			  {% if imagens_servico %}
+			    <ol class="carousel-indicators">
+			      {% for imagem in imagens_servico %}
+			        <li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %} class="active" {% endif %}></li>
+			      {% endfor %}
+			    </ol>
+			    <div class="carousel-inner">
+			      {% for imagem in imagens_servico %}
+			        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+			          <img class="d-block w-100" src="{{ imagem.imagem.url }}" alt="{{ imagem.servico.nome }}" style="max-height: 500px; object-fit: contain;">
+			        </div>
+			      {% endfor %}
+			    </div>
+			    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+			      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			      <span class="sr-only">Previous</span>
+			    </a>
+			    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+			      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+			      <span class="sr-only">Next</span>
+			    </a>
+			  {% else %}
+			    <div class="d-flex justify-content-center">
+			      <img src="{% static 'images/detectedImage.jpg' %}" class="img-fluid" alt="Imagem Padrão" style="max-height: 300px; object-fit: cover;">
+			    </div>
+			  {% endif %}
+			</div>
+			<div class="card-body text-center card" style="margin: 20px">
+				<h5 class="card-title">{{ servico.nome }}</h5>
+				<p class="card-text">{{ servico.descricao }}</p>
+				<p class="card-text"><strong>R$ {{ servico.preco }}</strong></p>
+			</div>
+		</main>
+	</div>
+
+
+{% endblock %}

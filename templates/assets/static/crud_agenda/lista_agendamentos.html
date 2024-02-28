@@ -4,8 +4,12 @@
 <div class="container-scroller">
 	<nav class="sidebar sidebar-offcanvas" id="sidebar">
     <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-      <a class="sidebar-brand brand-logo" href="{% url 'home' %}"><img src="{% static 'assets/images/logo.svg' %}" alt="logo" /></a>
-      <a class="sidebar-brand brand-logo-mini" href="{% url 'home' %}"><img src="{% static 'assets/images/logo-mini.svg' %}" alt="logo" /></a>
+	    <a class="navbar-brand ps-3 text-white" href="{% url 'home' %}">
+		    <h class="sidebar-brand brand-logo text-white">BarberShop</h>
+{#		    <a class="sidebar-brand brand-logo" href="{% url 'home' %}"><img src="{% static 'images/barbershop-logo.png' %}" alt="logo" /></a>#}
+		    <a class="sidebar-brand brand-logo-mini" href="{% url 'home' %}"><img src="{% static 'images/logo-mini-b.png' %}" alt="logo" />
+		    </a>
+		</a>
     </div>
     <ul class="nav">
       <li class="nav-item profile">
@@ -92,8 +96,7 @@
             <li class="nav-item"> <a class="nav-link" href="{% url 'add_parametro' %}">Parametros</a>
             <li class="nav-item"> <a class="nav-link" href="{% url 'add_servico' %}">Serviços</a>
             <li class="nav-item"> <a class="nav-link" href="{% url 'add_imagem_servico' %}">Imagens de Serviços</a>
-            <li class="nav-item"> <a class="nav-link" href="password.html">Fidelidade</a>
-            <li class="nav-item"> <a class="nav-link" href="password.html">Fidelidade</a>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'listar_planos_fidelidade' %}">Fidelidade</a>
           </ul>
         </div>
       </li>
@@ -113,7 +116,7 @@
             </div>
       </li>
       <li class="nav-item menu-items">
-        <a class="nav-link" href="http://www.bootstrapdash.com/demo/corona-free/jquery/documentation/documentation.html">
+        <a class="nav-link" href="{% url 'mostrar_pontos' user.id %}">
 		<span class="material-symbols-outlined">
 		card_membership
 		</span>
@@ -124,47 +127,54 @@
   </nav>
 
 	<div class="main-panel">
-		<div class="container py-5">
-		    <h2 class="mb-4 py-5">Lista de Agendamentos</h2>
+	    <div class="container py-5">
+	        <h2 class="py-5">Meus Agendamentos</h2>
 
-		    {% if agendamentos %}
-		        <table class="table text-white">
-		            <thead>
-		                <tr>
-			                <th scope="col" class="text-white"><strong>Criado por</strong></th>
-			                <th scope="col" class="text-white"><strong>Cliente</strong></th>
-			                <th scope="col" class="text-white"><strong>Profissional</strong></th>
-		                    <th scope="col" class="text-white"><strong>Serviço</strong></th>
-			                <th scope="col" class="text-white"><strong>Data</strong></th>
-			                <th scope="col" class="text-white"><strong>Horário</strong></th>
-			                <th scope="col" class="text-white"><strong>Status</strong></th>
-			                <th scope="col" class="text-white"><strong>Ações</strong></th>
-		                </tr>
-		            </thead>
-		            <tbody>
-		                {% for agendamento in agendamentos %}
-		                    <tr>
-		                        <td>{{ agendamento.criado_por.username }}</td>
-		                        <td>{{ agendamento.cliente.username }}</td>
-			                    <td>{{ agendamento.profissional.username }}</td>
-		                        <td>{{ agendamento.servico.nome }}</td>
-		                        <td>{{ agendamento.dia }}</td>
-		                        <td>{{ agendamento.horario|time:"H:i" }}</td>
-		                        <td>{{ agendamento.get_status_agendamento_display }}</td>
-		                        <td>
-		                            <a href="" class="btn btn-sm btn-success">Editar</a>
-			                        <a href="" class="btn btn-sm btn-danger">Cancelar</a>
-		                        </td>
-		                    </tr>
-		                {% endfor %}
-		            </tbody>
-		        </table>
-		    {% else %}
-			    <li class="list-group-item agendamentos">
-				    <p>Nenhum agendamento encontrado.</p>
-			    </li>
-		    {% endif %}
-		</div>
+	        <div class="table-responsive">
+	            {% if agendamentos %}
+	                <table class="table text-white">
+	                    <thead>
+			                <tr>
+				                <th scope="col" class="text-white"><strong>Criado por</strong></th>
+				                <th scope="col" class="text-white"><strong>Cliente</strong></th>
+				                <th scope="col" class="text-white"><strong>Profissional</strong></th>
+			                    <th scope="col" class="text-white"><strong>Serviço</strong></th>
+				                <th scope="col" class="text-white"><strong>Preço</strong></th>
+				                <th scope="col" class="text-white"><strong>Data</strong></th>
+				                <th scope="col" class="text-white"><strong>Horário</strong></th>
+				                <th scope="col" class="text-white"><strong>Status</strong></th>
+				                <th scope="col" class="text-white"><strong>Ações</strong></th>
+			                </tr>
+	                    </thead>
+	                    <tbody>
+	                        {% for agendamento in agendamentos %}
+			                    <tr>
+			                        <td>{{ agendamento.criado_por.username }}</td>
+			                        <td>{{ agendamento.cliente.username }}</td>
+				                    <td>{{ agendamento.profissional.username }}</td>
+			                        <td>{{ agendamento.servico.nome }}</td>
+				                    <td>{{ agendamento.preco_servico }}</td>
+			                        <td>{{ agendamento.dia }}</td>
+			                        <td>{{ agendamento.horario|time:"H:i" }}</td>
+			                        <td>{{ agendamento.get_status_agendamento_display }}</td>
+			                        <td>
+			                            <a href="" class="btn btn-sm btn-success">Editar</a>
+			                        {% if agendamento.status_agendamento == 'AG' %}
+	                                    <a href="{% url 'concluir_agendamento' agendamento.id %}" class="btn btn-sm btn-success">concluir</a>
+				                        <a href="" class="btn btn-sm btn-danger">Cancelar</a>
+			                        {% endif %}
+			                        </td>
+			                    </tr>
+	                        {% endfor %}
+	                    </tbody>
+	                </table>
+	            {% else %}
+		            <li class="list-group-item agendamentos">
+			            <p>Nenhum agendamento encontrado.</p>
+			        </li>
+	            {% endif %}
+	        </div>
+	    </div>
 	</div>
 
 </div>
@@ -175,7 +185,6 @@
 	text-align: center;
 	 color: black;
 	 font-size: 16px;
-
  }
 </style>
 {% endblock %}

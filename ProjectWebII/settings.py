@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'agenda.apps.AgendaConfig',
     'horario.apps.HorarioConfig',
     'bootstrap4',
+    'bootstrap5'
 ]
 
 MIDDLEWARE = [

@@ -1,5 +1,7 @@
 from django import forms
-from .models import Servico, Agendamento, ImagemServico
+from .models import Servico, Agendamento, ImagemServico, Fidelidade
+
+
 class FormAddServico(forms.ModelForm):
 
     class Meta:
@@ -42,3 +44,12 @@ class FormEditarAgendamento(forms.ModelForm):
         model = Agendamento
 
         fields = ['status_agendamento']
+
+
+class FormFidelidade(forms.ModelForm):
+    class Meta:
+        model = Fidelidade
+        fields = ['nome', 'descricao', 'desconto', 'requisito']
+        labels = {
+            'requisito': 'Quantidade de cortes para receber o desconto',
+        }

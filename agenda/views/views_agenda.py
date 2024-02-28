@@ -8,13 +8,8 @@ from horario.models import Disponibilidade, Horarios, Parametro
 from datetime import datetime, timedelta
 from django.contrib import messages
 from decimal import Decimal
-def etapa_de_agendamento(request, servico_id):
-    servicos = get_object_or_404(Servico, pk=servico_id)
-    return render(request, 'assets/static/crud_agenda/agendamento.html', {'servicos': servicos})
 
-
-#AgendamentoFeitoPeloProfissional
-@group_required(['Profissional', 'Administrador'], "/accounts/login/")
+@group_required(['Profissional', 'Administrador', 'Secretaria'], "/accounts/login/")
 def fazer_agendamento_pelo_profissional(request):
     # Agendamento simples feito, falta fazer a regra de negócio
     if request.user.is_authenticated:
@@ -32,29 +27,32 @@ def fazer_agendamento_pelo_profissional(request):
                 horario = form.cleaned_data['horario']
                 criado_por = form.cleaned_data['criado_por']
                 servico = form.cleaned_data['servico']
-                criado_em = form.cleaned_data['criado_em']
                 cliente = form.cleaned_data['cliente']
 
                 preco = servico.preco
                 usuario = cliente
 
-                if usuario.desconto >= 1:
-                    preco = Decimal(float(preco) * 0.5)
-                    usuario.desconto -= 1
+                fidelidade = usuario.fidelidade
 
-                agendamento = Agendamento.objects.create(
+                if usuario.fidelidade is not None:
+                    if usuario.desconto > 0:
+                        desconto = preco * (fidelidade.desconto / Decimal('100'))
+                        preco = preco - desconto
+                        usuario.desconto = 0
 
-                    profissional=profissional,
-                    cliente=cliente,
-                    dia=dia,
-                    horario=horario,
-                    servico=servico,
-                    preco_servico=preco,
-                    criado_por=criado_por,
-                    criado_em=criado_em
-                )
-                agendamento.save()
-                return redirect('home')
+            agendamento = Agendamento.objects.create(
+                profissional=profissional,
+                cliente=cliente,
+                dia=dia,
+                horario=horario,
+                servico=servico,
+                preco_servico=preco,
+                criado_por=criado_por,
+            )
+            agendamento.save()
+            usuario.save()
+            messages.success(request, f'Agendamento de horário realizado com sucesso!')
+            return redirect('home')
         else:
             form = FormAgendamentoProfissional()
 
@@ -63,6 +61,7 @@ def fazer_agendamento_pelo_profissional(request):
             'profissionais': profissionais,
         }
         return render(request, 'assets/static/crud_agenda/agendamento.html', context)
+
 @group_required(['Administrador', 'Profissional', 'Secretaria'], "/accounts/login/")
 def editar_agendamento(request, agendamento_id):
     agendamento = get_object_or_404(Agendamento, pk=agendamento_id)
@@ -86,15 +85,16 @@ def concluir_agendamento(request, agendamento_id):
 
     if agendamento.status_agendamento == 'AG':
         agendamento.status_agendamento = 'CO'
-        usuario.agendamentos_concluidos += 1
-
         agendamento.save()
         usuario.save()
 
-        if usuario.agendamentos_concluidos % 5 == 0:
-            usuario.cupon += 1
+        agendamentos_cliente = Agendamento.objects.filter(cliente=agendamento.cliente, status_agendamento='CO')
+        quantidade = agendamentos_cliente.count()
+        if usuario.fidelidade is not None:
+            if quantidade % usuario.fidelidade.requisito == 0:
+                usuario.desconto = usuario.fidelidade.desconto
 
-            usuario.save()
+                usuario.save()
 
     context = {
         'agendamento': agendamento,
@@ -102,7 +102,6 @@ def concluir_agendamento(request, agendamento_id):
     }
 
     return render(request, "assets/static/crud_agenda/lista_agendamentos.html", context)
-
 @group_required(['Cliente', 'Administrador'], "/accounts/login/")
 def listar_agendamentos_cliente(request):
     agendamentos = Agendamento.objects.filter(cliente=request.user).order_by('-dia', 'horario')
@@ -172,16 +171,29 @@ def fazer_agendamento_pelo_cliente(request):
             messages.warning(request, f'Horário ou dia incompátiveis, tente novamente.')
             return redirect('home')
 
+        preco = servico_selecionado.preco
+        usuario = cliente
+
+        fidelidade = usuario.fidelidade
+
+        if usuario.fidelidade is not None:
+            if usuario.desconto > 0:
+                desconto = preco * (fidelidade.desconto / Decimal('100'))
+                preco = preco - desconto
+                usuario.desconto = 0
+
         agendamento = Agendamento.objects.create(
             profissional=profissional,
             horario=horario,
             cliente=cliente,
             dia=dia,
             servico=servico_selecionado,
+            preco_servico=preco,
             criado_por=cliente,
         )
 
         agendamento.save()
+        usuario.save()
         messages.success(request, f'Agendamento de horário realizado com sucesso!')
 
         return redirect('home')
