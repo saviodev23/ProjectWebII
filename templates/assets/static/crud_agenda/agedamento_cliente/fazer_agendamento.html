@@ -16,8 +16,18 @@
         <div class="profile-desc">
           <div class="profile-pic">
             <div class="count-indicator">
-              <img class="img-xs rounded-circle " src="{% static 'assets/images/faces/face15.jpg' %}" alt="">
-              <span class="count bg-success"></span>
+                {% if user.is_authenticated %}
+	                {% if user.imagem %}
+                        <img class="img-xs rounded-circle " src="{{ user.imagem.url }}" alt="imagem de perfil">
+		                <span class="count bg-success"></span>
+	                {% else %}
+		                <img class="img-xs rounded-circle " src="{% static 'images/detectedImage.jpg' %}" alt="imagem de perfil">
+                        <span class="count bg-success"></span>
+					{% endif %}
+                {% else %}
+		            <img class="img-xs rounded-circle " src="{% static 'images/detectedImage.jpg' %}" alt="imagem de perfil">
+                    <span class="count bg-success"></span>
+                {% endif %}
             </div>
             <div class="profile-name">
                 {% if user.is_authenticated %}
@@ -129,7 +139,7 @@
 <div class="main-panel">
 	<div class="container py-5 mb-5">
 	    <div class="row">
-	        <div class="col-md-6 mt-3 mt-md-0">
+	        <div class="col-md-6 mt-3 mt-md-0 py-3">
 	            <div class="table-responsive">
 	                <table class="table-bordered background text-white">
 	                    <thead>

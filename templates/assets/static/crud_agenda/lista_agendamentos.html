@@ -16,8 +16,18 @@
         <div class="profile-desc">
           <div class="profile-pic">
             <div class="count-indicator">
-              <img class="img-xs rounded-circle " src="{% static 'assets/images/faces/face15.jpg' %}" alt="">
-              <span class="count bg-success"></span>
+                {% if user.is_authenticated %}
+	                {% if user.imagem %}
+                        <img class="img-xs rounded-circle " src="{{ user.imagem.url }}" alt="imagem de perfil">
+		                <span class="count bg-success"></span>
+	                {% else %}
+		                <img class="img-xs rounded-circle " src="{% static 'images/detectedImage.jpg' %}" alt="imagem de perfil">
+                        <span class="count bg-success"></span>
+					{% endif %}
+                {% else %}
+		            <img class="img-xs rounded-circle " src="{% static 'images/detectedImage.jpg' %}" alt="imagem de perfil">
+                    <span class="count bg-success"></span>
+                {% endif %}
             </div>
             <div class="profile-name">
                 {% if user.is_authenticated %}
@@ -57,7 +67,7 @@
         <span class="nav-link">Navegação</span>
       </li>
       <li class="nav-item menu-items">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="{% url 'home' %}">
 		<span class="material-symbols-outlined">
 		home
 		</span>
@@ -128,9 +138,34 @@
 
 	<div class="main-panel">
 	    <div class="container py-5">
-	        <h2 class="py-5">Meus Agendamentos</h2>
+		    <form method="GET" action="{% url 'buscar_agendamentos' %}" class="mb-3">
+		        <div class="input-group">
+		            <input type="text" name="q" class="form-control mr-sm-2" placeholder="Pesquisar por cliente ou profissional">
+		            <div class="input-group-append">
+		                <button type="submit" class="btn btn-primary">Buscar</button>
+		            </div>
+		        </div>
+		    </form>
+		    {% if messages %}
+			    <ul class="messages">
+			        {% for message in messages %}
+			            {% if message.tags %}
+			                {% if 'success' in message.tags %}
+			                    <p class="message success">{{ message }}</p>
+			                {% elif 'error' in message.tags %}
+			                    <p class="message error">{{ message }}</p>
+				            {% elif 'warning' in message.tags %}
+				                <p class="message warning">{{ message }}</p>
+			                {% else %}
+			                    <p class="message">{{ message }}</p>
+			                {% endif %}
+			            {% endif %}
+			        {% endfor %}
+			    </ul>
+		    {% endif %}
+		    <h2 class="py-3">Lista de Agendamentos</h2>
 
-	        <div class="table-responsive">
+	        <div class="card table-responsive">
 	            {% if agendamentos %}
 	                <table class="table text-white">
 	                    <thead>
@@ -144,6 +179,7 @@
 				                <th scope="col" class="text-white"><strong>Horário</strong></th>
 				                <th scope="col" class="text-white"><strong>Status</strong></th>
 				                <th scope="col" class="text-white"><strong>Ações</strong></th>
+
 			                </tr>
 	                    </thead>
 	                    <tbody>
@@ -158,10 +194,10 @@
 			                        <td>{{ agendamento.horario|time:"H:i" }}</td>
 			                        <td>{{ agendamento.get_status_agendamento_display }}</td>
 			                        <td>
-			                            <a href="" class="btn btn-sm btn-success">Editar</a>
 			                        {% if agendamento.status_agendamento == 'AG' %}
-	                                    <a href="{% url 'concluir_agendamento' agendamento.id %}" class="btn btn-sm btn-success">concluir</a>
-				                        <a href="" class="btn btn-sm btn-danger">Cancelar</a>
+				                        <a href="{% url 'editar_agendamento' agendamento.id %}" class="btn btn-sm btn-success">Editar</a>
+				                        <a href="{% url 'concluir_agendamento' agendamento.id %}" class="btn btn-sm btn-success">concluir</a>
+				                        <a href="{% url 'cancelar_agendamento' agendamento.id %}" class="btn btn-sm btn-danger">Cancelar</a>
 			                        {% endif %}
 			                        </td>
 			                    </tr>
@@ -180,11 +216,42 @@
 </div>
 
 <style>
- .agendamentos{
-	background: #dad7cd;
-	text-align: center;
-	 color: black;
-	 font-size: 16px;
- }
+		/* Estilo para mensagens de sucesso */
+	.message.success {
+	    background-color: #99cc33; /* Cor de fundo verde */
+	    color: black; /* Cor do texto verde */
+	    border: 1px solid #d0e9c6; /* Cor da borda verde */
+	    padding: 10px; /* Espaçamento interno */
+	    margin-bottom: 10px; /* Espaçamento inferior */
+		text-align: center;
+		border-radius: 7px;
+	}
+
+	/* Estilo para mensagens de erro */
+	.message.error {
+	    background-color: #cc3300; /* Cor de fundo vermelha */
+	    color: white; /* Cor do texto vermelho */
+	    border: 1px solid #ebccd1; /* Cor da borda vermelha */
+	    padding: 10px; /* Espaçamento interno */
+	    margin-bottom: 10px; /* Espaçamento inferior */
+		text-align: center;
+		border-radius: 7px;
+	}
+			/* Estilo para mensagens de erro */
+	.message.warning {
+	    background-color: #ffcc00; /* Cor de fundo vermelha */
+	    color: black; /* Cor do texto vermelho */
+	    border: 1px solid #ebccd1; /* Cor da borda vermelha */
+	    padding: 10px; /* Espaçamento interno */
+	    margin-bottom: 10px; /* Espaçamento inferior */
+		text-align: center;
+		border-radius: 7px;
+	}
+	.agendamentos{
+		background: #dad7cd;
+		text-align: center;
+		color: black;
+		font-size: 16px;
+	}
 </style>
 {% endblock %}

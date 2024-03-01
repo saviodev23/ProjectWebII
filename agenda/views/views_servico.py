@@ -74,6 +74,12 @@ def detalhes_servico(request, servico_id):
     }
     return render(request, 'assets/static/crud_servico/detalhe_servico.html', context)
 
+def buscar_servicos(request):
+    query = request.GET.get('q')
+    servicos = Servico.objects.filter(nome__icontains=query)
+    return render(request, 'assets/static/index.html', {'servicos': servicos})
+
+
 #CRUD Imagem Servico
 def add_imagem_servico(request):
     if request.user.is_authenticated:

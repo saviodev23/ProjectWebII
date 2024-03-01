@@ -6,8 +6,8 @@
     <div class="col-md-6">
       <div class="card">
         <div class="card-body">
-          <h2 class="card-title text-center mb-4 text-dark">Editar Status</h2>
-          <form method="post">
+          <h2 class="card-title text-center mb-4 text-white">Editar Status</h2>
+          <form method="post" class="text-white">
             {% csrf_token %}
             {% bootstrap_form form %}
             <div class="d-grid gap-2 mt-4">
@@ -21,7 +21,6 @@
   </div>
 </div>
 	<style>
-
 		.card{
 			margin-top: 100px;
 			margin-bottom: 50px;

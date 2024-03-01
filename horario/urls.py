@@ -1,5 +1,8 @@
-from.views import add_disponibilidade, remover_disponibilidade, editar_disponibilidade, confirmar_remocao_disponibilidade, add_parametro, editar_parametro, remover_parametro, confirmar_remocao_parametro, listar_horarios, gerar_horarios_disponiveis, apagar_horarios_disponiveis, confirmar_remocao_horarios
 from django.urls import path
+from .views.views_parametros import add_parametro, editar_parametro, remover_parametro, confirmar_remocao_parametro
+from .views.views_horarios import listar_horarios, gerar_horarios_disponiveis, apagar_horarios_disponiveis, confirmar_remocao_horarios, buscar_horarios
+from .views.views_disponibilidade import add_disponibilidade, remover_disponibilidade, editar_disponibilidade, confirmar_remocao_disponibilidade
+
 urlpatterns = [
     # crud_disponibilidade
     path('add/disponibilidade/', add_disponibilidade, name="add_disponibilidade"),
@@ -18,5 +21,6 @@ urlpatterns = [
     path('apagar/horarios/<int:profissional_id>', apagar_horarios_disponiveis, name="apagar_horarios_disponiveis"),
     path('confirmar/remocao/horarios/<int:profissional_id>', confirmar_remocao_horarios,
          name="confirmar_remocao_horarios"),
+    path('buscar/horarios/', buscar_horarios, name="buscar_horarios")
 
 ]

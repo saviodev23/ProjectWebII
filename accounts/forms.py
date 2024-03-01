@@ -58,8 +58,11 @@ class UserProfRegistrationForm(forms.ModelForm):
 
 
 class FormEditarUser(ModelForm):
+    widgets = {
+        'imagem': forms.FileInput(attrs={'id': 'upload', 'accept': "image/*", 'required': True})
+    }
     class Meta:
         model = Usuario
-        fields = ['username', 'first_name', 'last_name', 'email', 'telefone']
+        fields = ['username', 'first_name', 'last_name', 'email', 'telefone', 'imagem']
 
 

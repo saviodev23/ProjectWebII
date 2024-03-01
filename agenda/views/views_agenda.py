@@ -71,6 +71,7 @@ def editar_agendamento(request, agendamento_id):
 
         if form.is_valid():
             form.save()
+            messages.success(request, f'Agendamento editado com sucesso!')
             return redirect('listar_agendamentos')
     else:
         form = FormEditarAgendamento(instance=agendamento)
@@ -78,44 +79,27 @@ def editar_agendamento(request, agendamento_id):
     return render(request, "assets/static/crud_agenda/editar_agendamento.html", {"ID": agendamento, "form": form})
 
 
-def concluir_agendamento(request, agendamento_id):
-    agendamentos = Agendamento.objects.all()
-    agendamento = get_object_or_404(Agendamento, pk=agendamento_id)
-    usuario = agendamento.cliente
-
-    if agendamento.status_agendamento == 'AG':
-        agendamento.status_agendamento = 'CO'
-        agendamento.save()
-        usuario.save()
-
-        agendamentos_cliente = Agendamento.objects.filter(cliente=agendamento.cliente, status_agendamento='CO')
-        quantidade = agendamentos_cliente.count()
-        if usuario.fidelidade is not None:
-            if quantidade % usuario.fidelidade.requisito == 0:
-                usuario.desconto = usuario.fidelidade.desconto
-
-                usuario.save()
-
-    context = {
-        'agendamento': agendamento,
-        'agendamentos': agendamentos
-    }
-
-    return render(request, "assets/static/crud_agenda/lista_agendamentos.html", context)
 @group_required(['Cliente', 'Administrador'], "/accounts/login/")
 def listar_agendamentos_cliente(request):
-    agendamentos = Agendamento.objects.filter(cliente=request.user).order_by('-dia', 'horario')
+    agendamentos = Agendamento.objects.filter(cliente=request.user).order_by('status_agendamento')
     context = {
         'agendamentos': agendamentos
     }
     return render(request, 'assets/static/crud_agenda/agedamento_cliente/lista_agendamentos_cliente.html', context)
 
 
-@group_required(['Profissional', 'Administrador'], "/accounts/login/")
+@group_required(['Profissional', 'Administrador', 'Secretaria'], "/accounts/login/")
 def listar_agendamentos(request):
-    agendamentos = Agendamento.objects.all()
-    return render(request, 'assets/static/crud_agenda/lista_agendamentos.html', {'agendamentos': agendamentos})
+    agendamentos = Agendamento.objects.all().order_by('status_agendamento')
+    context = {
+        'agendamentos': agendamentos
+    }
+    return render(request, 'assets/static/crud_agenda/lista_agendamentos.html', context)
 
+def buscar_agendamentos(request):
+    query = request.GET.get('q')
+    agendamentos = Agendamento.objects.filter(cliente__username__icontains=query) | Agendamento.objects.filter(profissional__username__icontains=query)
+    return render(request, 'assets/static/crud_agenda/lista_agendamentos.html', {'agendamentos': agendamentos})
 
 @group_required(['Cliente', 'Administrador'], "/accounts/login/")
 def selecione_profissional_para_agendamento(request):
@@ -246,9 +230,38 @@ def cancelar_agendamento(request, agenda_id):
     agendamento = Agendamento.objects.get(id=agenda_id)
     if agendamento.status_agendamento == 'AG':
         agendamento.status_agendamento = 'CA'
-        # agendamento.horario =
         agendamento.save()
+        if agendamento.status_agendamento == 'CA':
+            messages.error(request, f'Agendamento cancelado com sucesso')
+            return redirect('listar_agendamentos_cliente')
 
+def concluir_agendamento(request, agendamento_id):
+    agendamentos = Agendamento.objects.all()
+    agendamento = get_object_or_404(Agendamento, pk=agendamento_id)
+    usuario = agendamento.cliente
+
+    if agendamento.status_agendamento == 'AG':
+        agendamento.status_agendamento = 'CO'
+        agendamento.save()
+        usuario.save()
+
+        agendamentos_cliente = Agendamento.objects.filter(cliente=agendamento.cliente, status_agendamento='CO')
+        quantidade = agendamentos_cliente.count()
+        if usuario.fidelidade is not None:
+            if quantidade % usuario.fidelidade.requisito == 0:
+                usuario.desconto = usuario.fidelidade.desconto
+
+                usuario.save()
+
+    if agendamento.status_agendamento == 'CO':
+        messages.success(request, f'Agendamento concluido concluido com sucesso!')
+        redirect('listar_agendamentos')
+
+    context = {
+        'agendamentos': agendamentos
+    }
+
+    return render(request, "assets/static/crud_agenda/lista_agendamentos.html", context)
 
 # def get_horarios_disponiveis(request):
 #     if request.is_ajax() and request.method == 'GET':

@@ -136,7 +136,7 @@
             <h3 class="mb-0 text-white">Meu Perfil</h3>
           </div>
           <div class="card-body text-white">
-            <form class="form" role="form" autocomplete="off" enctype="multipart/form-data">
+            <form class="form" role="form" autocomplete="off">
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label form-control-label">Nome</label>
                 <div class="col-lg-9">
@@ -173,22 +173,25 @@
                   <input class="form-control text-dark" type="text" value="{% if usuario.groups.all %}{{ usuario.groups.all.0.name }}{% endif %}" readonly>
                 </div>
               </div>
+
 			 <div class="form-group row">
 		        <label class="col-lg-3 col-form-label form-control-label">Foto de Perfil</label>
 		        <div class="col-lg-9">
-		            {% if usuario.imagem %}
+		            {% if user.imagem %}
 		                <!-- Mostra a foto atual -->
-		                <img src="{{ usuario.imagem.url }}" alt="Foto de Perfil" style="max-width: 100px; max-height: 100px;">
-		            {% endif %}
-		            <input class="form-control text-dark" type="file" name="photo" readonly>
-		            <small class="form-text text-muted">Escolha uma foto para atualizar ou adicionar.</small>
+		                <img src="{{ user.imagem.url }}" alt="Foto de Perfil" style="max-width: 100px; max-height: 100px;">
+
+                    {% else %}
+		                <p>voce nao ainda nao possui nenhuma foto de perfil</p>
+                    {% endif %}
 		        </div>
 			 </div>
             </form>
           </div>
         </div>
+        <div class="d-flex justify-content-center">
 	      <a href="{% url 'alterar_dados' %}" class="button btn btn-success">Editar Perfil</a>
-          <a href="{% url 'home' %}" class="button btn btn-secondary">Voltar</a>
+	    </div>
       </div>
     </div>
   </div>

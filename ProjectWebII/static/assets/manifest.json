@@ -1,0 +1,18 @@
+{
+  "name": "BarberShop",
+  "short_name": "BarberShop",
+  "description": "Um aplicativo de agendamento de horário",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#007bff",
+  "orientation": "any",
+  "lang": "pt",
+  "icons": [
+    {
+      "src": "/static/images/barbershop-logo.png",
+      "sizes": "160x160",
+      "type": "image/png"
+    }
+  ]
+}

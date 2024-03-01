@@ -43,7 +43,7 @@ class FormEditarAgendamento(forms.ModelForm):
     class Meta:
         model = Agendamento
 
-        fields = ['status_agendamento']
+        fields = '__all__'
 
 
 class FormFidelidade(forms.ModelForm):

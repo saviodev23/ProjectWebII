@@ -18,8 +18,18 @@
             <div class="profile-desc">
               <div class="profile-pic">
                 <div class="count-indicator">
-                  <img class="img-xs rounded-circle " src="{% static 'assets/images/faces/face15.jpg' %}" alt="">
-                  <span class="count bg-success"></span>
+	                {% if user.is_authenticated %}
+		                {% if user.imagem %}
+                            <img class="img-xs rounded-circle " src="{{ user.imagem.url }}" alt="imagem de perfil">
+			                <span class="count bg-success"></span>
+		                {% else %}
+			                <img class="img-xs rounded-circle " src="{% static 'images/detectedImage.jpg' %}" alt="imagem de perfil">
+                            <span class="count bg-success"></span>
+						{% endif %}
+	                {% else %}
+			            <img class="img-xs rounded-circle " src="{% static 'images/detectedImage.jpg' %}" alt="imagem de perfil">
+                        <span class="count bg-success"></span>
+	                {% endif %}
                 </div>
                 <div class="profile-name">
 	                {% if user.is_authenticated %}
@@ -135,56 +145,15 @@
 		      <div class="card text-white">
 		        <div class="card-body">
 		          <h2 class="card-title text-center mb-4">Editar Perfil</h2>
-		          <form method="post">
+		          <form method="post" enctype="multipart/form-data">
 		            {% csrf_token %}
-			          <form class="form" role="form" autocomplete="off" enctype="multipart/form-data">
-		              <div class="form-group row">
-		                <label class="col-lg-3 col-form-label form-control-label">Nome</label>
-		                <div class="col-lg-9">
-		                  <input class="form-control" type="text" value="{{ usuario.first_name }}">
-		                </div>
-		              </div>
-		              <div class="form-group row">
-		                <label class="col-lg-3 col-form-label form-control-label">Sobrenome</label>
-		                <div class="col-lg-9">
-		                  <input class="form-control" type="text" value="{{ usuario.last_name }}">
-		                </div>
-		              </div>
-		              <div class="form-group row">
-		                <label class="col-lg-3 col-form-label form-control-label">Usuário</label>
-		                <div class="col-lg-9">
-		                  <input class="form-control" type="text" value="{{ usuario.username }}">
-		                </div>
-		              </div>
-		              <div class="form-group row">
-		                <label class="col-lg-3 col-form-label form-control-label">E-mail</label>
-		                <div class="col-lg-9">
-		                  <input class="form-control" type="email" value="{{ usuario.email }}">
-		                </div>
-		              </div>
-			            <div class="form-group row">
-		                <label class="col-lg-3 col-form-label form-control-label">Telefone</label>
-		                <div class="col-lg-9">
-		                  <input class="form-control" type="tel" value="{{ usuario.telefone }}">
-		                </div>
-		              </div>
-					 <div class="form-group row">
-				        <label class="col-lg-3 col-form-label form-control-label">Foto de Perfil</label>
-				        <div class="col-lg-9">
-				            {% if usuario.imagem %}
-				                <!-- Mostra a foto atual -->
-				                <img src="{{ usuario.imagem.url }}" alt="Foto de Perfil" style="max-width: 100px; max-height: 100px;">
-				            {% endif %}
-				            <input class="form-control" type="file" name="photo">
-				            <small class="form-text text-muted">Escolha uma foto para atualizar ou adicionar.</small>
-				        </div>
-					 </div>
+			          {% bootstrap_form form %}
+					<div class="col-md d-flex justify-content-center text-center">
+					    <button type="submit" class="btn btn-primary mr-2">Salvar</button>
+					    <a href="{% url 'minha_conta' %}" class="btn btn-secondary mr-2">Cancelar</a>
+					    <a href="{% url 'remover_conta' usuario.id %}" class="btn btn-danger">Apagar conta</a>
+					</div>
 
-		            <div class="d-grid gap-5 mt-4">
-		              <button type="submit" class="btn btn-primary">Salvar</button>
-		              <a href="{% url 'minha_conta' %}" class="btn btn-secondary">Cancelar</a>
-			          <a href="{% url 'remover_conta' usuario.id %}" class="btn btn-danger">Apagar conta</a>
-		            </div>
 		          </form>
 		        </div>
 		      </div>

@@ -30,7 +30,8 @@ INSTALLED_APPS = [
     'agenda.apps.AgendaConfig',
     'horario.apps.HorarioConfig',
     'bootstrap4',
-    'bootstrap5'
+    'bootstrap5',
+    'pwa'
 ]
 
 MIDDLEWARE = [
@@ -132,3 +133,5 @@ CRISPY_TEMPLATE_PACK = 'Bootstrap4'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.Usuario'
+
+PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'ProjectWebII/static/assets/', 'sw.js')

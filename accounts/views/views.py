@@ -33,22 +33,21 @@ def minha_conta(request):
 
 @login_required
 def alterar_dados(request):
-    user_id = request.user.id
-    usuario = Usuario.objects.get(id=user_id)
+    user_id = request.user
+    # usuario = Usuario.objects.get(id=user_id)
     if request.method == 'POST':
-        form = FormEditarUser(request.POST, instance=usuario)
+        form = FormEditarUser(request.POST, request.FILES, instance=user_id)
         if form.is_valid():
             form.save()
             return redirect('minha_conta')
     else:
-        form = FormEditarUser(instance=usuario)
+        form = FormEditarUser(instance=user_id)
 
     context = {
-        "usuario": usuario,
+        "usuario": user_id,
         "form": form
 
     }
-
     return render(request, "registration/alterar_dados.html", context)
 
 

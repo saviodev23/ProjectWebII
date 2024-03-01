@@ -17,19 +17,29 @@
         <ul class="nav">
           <li class="nav-item profile">
             <div class="profile-desc">
-              <div class="profile-pic">
-                <div class="count-indicator">
-                  <img class="img-xs rounded-circle " src="{% static 'assets/images/faces/face15.jpg' %}" alt="">
-                  <span class="count bg-success"></span>
-                </div>
-                <div class="profile-name">
+	          <div class="profile-pic">
+	            <div class="count-indicator">
+	                {% if user.is_authenticated %}
+		                {% if user.imagem %}
+	                        <img class="img-xs rounded-circle " src="{{ user.imagem.url }}" alt="imagem de perfil">
+			                <span class="count bg-success"></span>
+		                {% else %}
+			                <img class="img-xs rounded-circle " src="{% static 'images/detectedImage.jpg' %}" alt="imagem de perfil">
+	                        <span class="count bg-success"></span>
+						{% endif %}
+	                {% else %}
+			            <img class="img-xs rounded-circle " src="{% static 'images/detectedImage.jpg' %}" alt="imagem de perfil">
+	                    <span class="count bg-success"></span>
+	                {% endif %}
+	            </div>
+	            <div class="profile-name">
 	                {% if user.is_authenticated %}
 		                <h5 class="mb-0 font-weight-normal">{{ user.username }}</h5>
 	                {% else %}
 		                <p class="text-white">Visitante</p>
 	                {% endif %}
-                </div>
-              </div>
+	            </div>
+	          </div>
               <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
               <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list" aria-labelledby="profile-dropdown">
                 <a href="{% url 'minha_conta' %}" class="dropdown-item preview-item">

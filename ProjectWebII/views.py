@@ -6,11 +6,17 @@ from agenda.models import Servico, Agendamento, Fidelidade
 
 def home(request):
     create_groups()
+
+    administrador = False
+    if request.user.is_authenticated:
+        administrador = request.user.groups.filter(name='Administrador').exists()
+
     servicos = Servico.objects.all()
     agendamentos = Agendamento.objects.filter(cliente=request.user.id).order_by('-dia', 'horario')
     context = {
         'servicos': servicos,
         'agendamentos': agendamentos,
+        'administrador': administrador
     }
     return render(request, 'assets/static/index.html', context)
 
