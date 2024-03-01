@@ -12,7 +12,7 @@ urlpatterns = [
     #AlterarDadosUsuario
     path('minha/conta/', minha_conta, name="minha_conta"),
     path('alterar/dados/', alterar_dados, name='alterar_dados'),
-    path('remover/conta/<int:user_id>', remover_conta, name="remover_conta"),
+    path('remover/conta/', remover_conta, name="remover_conta"),
     # path('confirmar/remocao/conta/<int:user_id>', confirmar_remocao_conta, name="confirmar_remocao_conta"),
 
     #CadastroDentroDoSistema__Administrador
@@ -26,4 +26,6 @@ urlpatterns = [
     path('reset-password/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
     path('reset-password/confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reset-password/complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+
+    
 ]

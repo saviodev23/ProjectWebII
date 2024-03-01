@@ -42,12 +42,13 @@
 			 <div class="form-group row">
 			        <label class="col-lg-3 col-form-label form-control-label">Foto de Perfil</label>
 			        <div class="col-lg-9">
-			            {% if usuario.imagem %}
+			            {% if user.imagem %}
 			                <!-- Mostra a foto atual -->
-			                <img src="{{ usuario.imagem.url }}" alt="Foto de Perfil" style="max-width: 100px; max-height: 100px;">
-			            {% endif %}
-			            <input class="form-control" type="file" name="photo">
-			            <small class="form-text text-muted">Escolha uma foto para atualizar ou adicionar.</small>
+			                <img src="{{ user.imagem.url }}" alt="Foto de Perfil" style="max-width: 100px; max-height: 100px;">
+                                       
+                  {% else %}
+			                <p>voce nao ainda nao possui nenhuma foto de perfil</p>
+                  {% endif %}
 			        </div>
 			    </div>
             </form>

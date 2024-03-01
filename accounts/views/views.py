@@ -1,3 +1,5 @@
+from django.contrib import messages
+from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from ProjectWebII.utils import group_required
@@ -36,22 +38,25 @@ def minha_conta(request):
 
 @login_required
 def alterar_dados(request):
-    user_id = request.user
+    user = request.user
     if request.method == 'POST':
-        form = FormEditarUser(request.POST, instance=user_id)
+        form = FormEditarUser(request.POST, request.FILES, instance=user)
         if form.is_valid():
             form.save()
             return redirect('minha_conta')
     else:
-        form = FormEditarUser(instance=user_id)
+        form = FormEditarUser(instance=user)
 
-    return render(request, "registration/alterar_dados.html", {"ID": user_id, "form": form})
+    return render(request, "registration/alterar_dados.html", {"user": user, "form": form})
 
 
 @group_required(['Cliente', 'Profissional'], "/accounts/login/")
-def remover_conta(request, user_id):
-    usuario = get_object_or_404(Usuario, pk=user_id)
+def remover_conta(request):
+    usuario = get_object_or_404(Usuario, pk=request.user)
     context = {
         "usuario": usuario
     }
     return render(request, "registration/usuarios/remover_usuario.html", context)
+
+
+
